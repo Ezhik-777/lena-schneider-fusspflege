@@ -1,5 +1,7 @@
 'use client';
 
+import { Calendar, Mail, Home, Sparkles, Lightbulb } from 'lucide-react';
+
 export default function HowItWorks() {
   const steps = [
     {
@@ -7,35 +9,35 @@ export default function HowItWorks() {
       title: 'Termin vereinbaren',
       description:
         'Buchen Sie online über unser Formular oder rufen Sie uns direkt an. Wir finden gemeinsam einen passenden Termin.',
-      icon: '📅',
+      icon: Calendar,
     },
     {
       number: '02',
       title: 'Bestätigung erhalten',
       description:
         'Sie erhalten eine Terminbestätigung per E-Mail oder SMS mit allen wichtigen Informationen und der Salonadresse.',
-      icon: '✉️',
+      icon: Mail,
     },
     {
       number: '03',
       title: 'Zum Salon kommen',
       description:
         'Besuchen Sie uns zu Ihrem vereinbarten Termin in unserem gemütlichen Salon in Sachsenheim.',
-      icon: '🏠',
+      icon: Home,
     },
     {
       number: '04',
       title: 'Behandlung genießen',
       description:
         'Entspannen Sie sich in angenehmer Atmosphäre, während ich die vereinbarte Behandlung professionell durchführe.',
-      icon: '✨',
+      icon: Sparkles,
     },
     {
       number: '05',
       title: 'Beratung & Pflege',
       description:
         'Nach der Behandlung erhalten Sie individuelle Pflegetipps und Empfehlungen für zu Hause.',
-      icon: '💡',
+      icon: Lightbulb,
     },
   ];
 
@@ -76,7 +78,9 @@ export default function HowItWorks() {
                   </div>
 
                   {/* Icon */}
-                  <div className="text-4xl mb-3">{step.icon}</div>
+                  <div className="w-14 h-14 mx-auto mb-3 bg-gradient-to-br from-primary-50 to-accent-50 rounded-full flex items-center justify-center">
+                    <step.icon className="text-primary-600" size={28} />
+                  </div>
 
                   {/* Content */}
                   <h3 className="text-lg font-bold text-gray-900 mb-2">

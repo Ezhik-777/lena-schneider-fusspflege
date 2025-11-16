@@ -1,10 +1,10 @@
 'use client';
 
-import { Clock, Euro } from 'lucide-react';
+import { Clock, Euro, Sparkles, Footprints, Leaf, Waves, Droplet, Scissors, WandSparkles, Flame } from 'lucide-react';
 
 // Type definitions for services
 interface ServiceBase {
-  icon: string;
+  icon: any;
   title: string;
   description: string;
   duration: string;
@@ -30,7 +30,7 @@ type Service = SimpleService | PriceOptionsService;
 export default function Services() {
   const services: Service[] = [
     {
-      icon: '🌿',
+      icon: Leaf,
       title: 'Präventive Kosmetische Fußpflege',
       description: 'Sanfte, kosmetische Behandlung zur Verbesserung des Haut- und Nagelbildes. Unterstützt die natürliche Regeneration und sorgt für hygienisch gepflegte Füße.',
       duration: '20 Min.',
@@ -43,7 +43,7 @@ export default function Services() {
       ],
     },
     {
-      icon: '✨',
+      icon: Sparkles,
       title: 'Smart Pediküre',
       description: 'Moderne Form der Fußpflege: Hornhaut wird sanft entfernt, die Nägel werden geformt und die Haut mit Pflegeöl gepflegt. Das sorgt für glatte, gepflegte Füße und ein langanhaltendes Frischegefühl.',
       duration: '50 Min.',
@@ -56,7 +56,7 @@ export default function Services() {
       ],
     },
     {
-      icon: '🦶',
+      icon: Footprints,
       title: 'Klassische Fachfußpflege mit Peeling',
       description: 'Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.',
       duration: '45 Min.',
@@ -70,7 +70,7 @@ export default function Services() {
       ],
     },
     {
-      icon: '💆',
+      icon: Waves,
       title: 'Fußreflexzonenmassage',
       description: 'Entspannende Massage für Stressabbau.',
       duration: '30 Min.',
@@ -80,7 +80,7 @@ export default function Services() {
       ],
     },
     {
-      icon: '🔧',
+      icon: Scissors,
       title: 'Kosmetische Nagelkorrektur',
       description: 'Sanfte kosmetische Methode zur Nagelkorrektur.',
       duration: '10 Min.',
@@ -93,7 +93,7 @@ export default function Services() {
       ],
     },
     {
-      icon: '🧴',
+      icon: Droplet,
       title: 'Shellac nur entfernen',
       description: 'Professionelle und schonende Entfernung von Shellac-Lack.',
       duration: '15-20 Min.',
@@ -105,7 +105,7 @@ export default function Services() {
       ],
     },
     {
-      icon: '💅',
+      icon: WandSparkles,
       title: 'Nagelmodellage mit Gel',
       description: 'Professionelle Gel-Nagelmodellage für gepflegte und schöne Hände.',
       duration: '60 Min.',
@@ -118,7 +118,7 @@ export default function Services() {
       ],
     },
     {
-      icon: '💅',
+      icon: Flame,
       title: 'Kosmetische Paraffinbehandlung',
       description: 'Wohltuende Wärmebehandlung für gepflegte, geschmeidige Haut. Das Paraffinbad spendet intensive Feuchtigkeit und macht Hände oder Füße wunderbar weich. Ideal bei trockener oder beanspruchter Haut – für ein spürbar zartes Hautgefühl.',
       duration: '20 Min.',
@@ -131,9 +131,9 @@ export default function Services() {
         'Ideal bei trockener Haut',
       ],
       priceOptions: [
-        { label: '👐 Hände', price: '19 €' },
-        { label: '🦶 Füße', price: '19 €' },
-        { label: '✨ Kombi', price: '35 €' },
+        { label: 'Hände', price: '19 €' },
+        { label: 'Füße', price: '19 €' },
+        { label: 'Kombi', price: '35 €' },
       ],
     },
   ];
@@ -166,7 +166,9 @@ export default function Services() {
             >
               {/* Card Header */}
               <div className="bg-gradient-to-br from-primary-50 to-accent-50 p-5 sm:p-5 md:p-6 text-center">
-                <div className="text-5xl sm:text-5xl mb-3 sm:mb-3">{service.icon}</div>
+                <div className="w-16 h-16 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-3 bg-white rounded-full flex items-center justify-center shadow-md">
+                  <service.icon className="text-primary-600" size={32} />
+                </div>
                 <h3 className="text-[1.1875rem] sm:text-xl font-bold text-gray-900 mb-2 leading-tight">
                   {service.title}
                 </h3>

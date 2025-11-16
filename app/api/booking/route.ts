@@ -194,6 +194,13 @@ export async function POST(request: NextRequest) {
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
+    // DEBUG: Log token format (only in development)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Token length:', TELEGRAM_BOT_TOKEN?.length);
+      console.log('Chat ID:', TELEGRAM_CHAT_ID);
+      console.log('Token starts with:', TELEGRAM_BOT_TOKEN?.substring(0, 15));
+    }
+
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
       console.error('Telegram credentials are not configured');
       // Don't log user data for privacy

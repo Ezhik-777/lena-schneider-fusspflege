@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://fusspflege-lena-schneider.de/</loc>
+    <lastmod>2025-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://fusspflege-lena-schneider.de/1.webp</image:loc>
+      <image:title>Fußpflege Lena Schneider</image:title>
+      <image:caption>Professionelle Fußpflegerin in Sachsenheim</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://fusspflege-lena-schneider.de/2.webp</image:loc>
+      <image:title>Fußpflege Salon Sachsenheim</image:title>
+      <image:caption>Kosmetische Fußpflege in entspannter Atmosphäre</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Impressum -->
+  <url>
+    <loc>https://fusspflege-lena-schneider.de/impressum</loc>
+    <lastmod>2025-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Datenschutz -->
+  <url>
+    <loc>https://fusspflege-lena-schneider.de/datenschutz</loc>
+    <lastmod>2025-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

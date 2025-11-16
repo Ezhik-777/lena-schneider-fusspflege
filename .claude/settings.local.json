@@ -60,7 +60,8 @@
       "Bash(git commit --allow-empty -m \"Test auto-deploy with correct Git email\")",
       "Bash(echo \"\n✅ Push выполнен! \nТеперь Vercel должен автоматически подхватывать изменения.\nПроверь через 1-2 минуты на https://vercel.com/dashboard - там должен появиться новый деплой!\")",
       "Read(//Users/evgenij/Desktop/dev/WEB/lena-astro/**)",
-      "Bash(cat ASTRO_MIGRATION_COMPLETE.md)"
+      "Bash(cat ASTRO_MIGRATION_COMPLETE.md)",
+      "mcp__brave-search__brave_web_search"
     ],
     "deny": [],
     "ask": []

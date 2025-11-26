@@ -70,12 +70,21 @@ export default function BookingForm() {
   const loadAvailableSlots = async (date: string, service: string) => {
     setIsLoadingSlots(true);
     try {
-      // Get service duration to pass to API
-      const duration = getServiceDuration(service);
-      const response = await fetch(`/api/available-slots?date=${date}&duration=${duration}`);
+      const response = await fetch(`/api/available-slots?date=${date}&service=${encodeURIComponent(service)}`);
       if (response.ok) {
         const data = await response.json();
-        setAvailableSlots(data.slots || []);
+        // API returns array of strings like ["09:00 - 10:00", "10:00 - 11:00"]
+        // Convert to TimeSlot format
+        const slots: TimeSlot[] = (data.availableSlots || []).map((slotStr: string) => {
+          const [startTime] = slotStr.split(' - ');
+          const duration = getServiceDuration(service) === 2 ? 120 : 60;
+          return {
+            time: startTime,
+            available: true,
+            duration: duration,
+          };
+        });
+        setAvailableSlots(slots);
       } else {
         console.error('Failed to load available slots');
         setAvailableSlots([]);

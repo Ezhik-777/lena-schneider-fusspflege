@@ -30,8 +30,8 @@ export const BUSINESS_INFO = {
   },
 
   hours: {
-    weekdays: "Mo - Fr: 09:00 - 18:00 Uhr",
-    saturday: "Sa: 09:00 - 14:00 Uhr",
+    weekdays: "Mo - Fr: 09:00 - 16:00 Uhr",
+    saturday: "Sa: Nach Vereinbarung",
     sunday: "So: Geschlossen",
     note: "Termine nach Vereinbarung auch außerhalb der Öffnungszeiten möglich",
   },
@@ -131,11 +131,11 @@ export const SERVICES = [
 export const OPENING_HOURS = [
   {
     days: "Montag - Freitag",
-    hours: "09:00 - 18:00 Uhr",
+    hours: "09:00 - 16:00 Uhr",
   },
   {
     days: "Samstag",
-    hours: "09:00 - 14:00 Uhr",
+    hours: "Nach Vereinbarung",
   },
   {
     days: "Sonntag",

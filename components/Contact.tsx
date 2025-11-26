@@ -41,7 +41,7 @@ export default function Contact() {
                     >
                       +49 176 34237368
                     </a>
-                    <p className="text-sm text-gray-500 mt-1">Mo - Fr: 9:00 - 18:00 Uhr</p>
+                    <p className="text-sm text-gray-500 mt-1">Mo - Fr: 9:00 - 16:00 Uhr</p>
                   </div>
                 </div>
 
@@ -84,7 +84,7 @@ export default function Contact() {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Öffnungszeiten</h4>
                     <div className="text-gray-600 space-y-1">
-                      <p>Montag - Freitag: 9:00 - 18:00 Uhr</p>
+                      <p>Montag - Freitag: 9:00 - 16:00 Uhr</p>
                       <p>Samstag: Nach Vereinbarung</p>
                       <p>Sonntag: Geschlossen</p>
                     </div>

@@ -163,12 +163,15 @@ export async function getAvailableSlots(date: string, duration: 1 | 2 = 1): Prom
   let allSlots: string[];
 
   if (duration === 2) {
-    // For manicure (2 hours): 9-11, 11-13, 13-15
+    // For 2-hour services (e.g. Nagelmodellage): slots with 1-hour step
+    // 9-11, 10-12, 11-13, 12-14, 13-15, 14-16
     allSlots = [
       '09:00 - 11:00',
+      '10:00 - 12:00',
       '11:00 - 13:00',
+      '12:00 - 14:00',
       '13:00 - 15:00',
-      '14:00 - 16:00', // Добавочный слот
+      '14:00 - 16:00',
     ];
   } else {
     // For other services (1 hour): 9-10, 10-11, ..., 15-16
@@ -191,8 +194,28 @@ export async function getAvailableSlots(date: string, duration: 1 | 2 = 1): Prom
 
   // Get confirmed bookings for this date
   const confirmedBookings = await getConfirmedBookingsByDate(date);
-  const bookedSlots = confirmedBookings.map(b => b.wunschuhrzeit);
 
-  // Return slots that are not booked
-  return allSlots.filter(slot => !bookedSlots.includes(slot));
+  // Helper function to parse time slot string to start/end minutes
+  const parseSlot = (slot: string): { start: number; end: number } => {
+    const [startStr, endStr] = slot.split(' - ');
+    const [startHour, startMin] = startStr.split(':').map(Number);
+    const [endHour, endMin] = endStr.split(':').map(Number);
+    return {
+      start: startHour * 60 + startMin,
+      end: endHour * 60 + endMin,
+    };
+  };
+
+  // Helper function to check if two slots overlap
+  const slotsOverlap = (slot1: string, slot2: string): boolean => {
+    const s1 = parseSlot(slot1);
+    const s2 = parseSlot(slot2);
+    // Two slots overlap if one starts before the other ends
+    return s1.start < s2.end && s2.start < s1.end;
+  };
+
+  // Filter out slots that overlap with any booked slot
+  return allSlots.filter(slot => {
+    return !confirmedBookings.some(booking => slotsOverlap(slot, booking.wunschuhrzeit));
+  });
 }

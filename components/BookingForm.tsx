@@ -162,7 +162,7 @@ export default function BookingForm() {
               Vereinbaren Sie jetzt Ihren <span className="text-primary-600">Wunschtermin</span>
             </h2>
             <p className="text-[1.0625rem] sm:text-lg text-gray-700 px-2 leading-relaxed font-medium">
-              Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.
+              Füllen Sie das Formular aus, um Ihren Wunschtermin anzufragen.
             </p>
           </div>
 

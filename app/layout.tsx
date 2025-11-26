@@ -3,6 +3,7 @@ import "./globals.css";
 import StructuredData from "@/components/StructuredData";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fusspflege-lena-schneider.de'),
@@ -109,9 +110,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="de">
       <head>
+        {/* Google Analytics */}
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');
+              `}
+            </Script>
+          </>
+        )}
+
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
 
@@ -154,13 +175,27 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body className="font-sans">
-        {/* Skip to main content link for accessibility */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:shadow-lg"
-        >
-          Zum Hauptinhalt springen
-        </a>
+        {/* Skip navigation links for accessibility - BFSG compliant */}
+        <div className="sr-only focus-within:not-sr-only focus-within:absolute focus-within:top-4 focus-within:left-4 focus-within:z-50 focus-within:flex focus-within:gap-2">
+          <a
+            href="#main-content"
+            className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600 font-semibold"
+          >
+            Zum Hauptinhalt springen
+          </a>
+          <a
+            href="#services"
+            className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600 font-semibold"
+          >
+            Zu Leistungen springen
+          </a>
+          <a
+            href="#booking"
+            className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600 font-semibold"
+          >
+            Zur Terminbuchung springen
+          </a>
+        </div>
         <ErrorBoundary>
           {children}
         </ErrorBoundary>

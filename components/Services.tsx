@@ -108,7 +108,7 @@ export default function Services() {
       icon: WandSparkles,
       title: 'Nagelmodellage mit Gel',
       description: 'Professionelle Gel-Nagelmodellage für gepflegte und schöne Hände.',
-      duration: '60 Min.',
+      duration: '120 Min.',
       price: '45 €',
       features: [
         'Professionelle Gel-Modellage',
@@ -139,7 +139,7 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="bg-gray-50">
+    <section id="services" className="bg-gray-50" aria-labelledby="services-heading">
       <div className="container px-5 sm:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
@@ -148,7 +148,7 @@ export default function Services() {
               Unsere Leistungen
             </span>
           </div>
-          <h2 className="text-[1.75rem] sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-4 px-2 leading-tight">
+          <h2 id="services-heading" className="text-[1.75rem] sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-4 px-2 leading-tight">
             Professionelle Fußpflegedienstleistungen
           </h2>
           <p className="text-[1.0625rem] sm:text-lg text-gray-700 px-2 leading-relaxed font-medium">
@@ -167,7 +167,7 @@ export default function Services() {
               {/* Card Header */}
               <div className="bg-gradient-to-br from-primary-50 to-accent-50 p-5 sm:p-5 md:p-6 text-center">
                 <div className="w-16 h-16 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-3 bg-white rounded-full flex items-center justify-center shadow-md">
-                  <service.icon className="text-primary-600" size={32} />
+                  <service.icon className="text-primary-600" size={32} aria-hidden="true" />
                 </div>
                 <h3 className="text-[1.1875rem] sm:text-xl font-bold text-gray-900 mb-2 leading-tight">
                   {service.title}
@@ -276,6 +276,7 @@ export default function Services() {
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
             className="bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white px-7 sm:px-8 py-4 sm:py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl active:scale-95 touch-manipulation text-[1.0625rem] sm:text-base min-h-[56px]"
+            aria-label="Zum Buchungsformular scrollen und Termin vereinbaren"
           >
             Jetzt Termin vereinbaren
           </button>

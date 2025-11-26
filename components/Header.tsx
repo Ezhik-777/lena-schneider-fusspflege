@@ -28,11 +28,13 @@ export default function Header() {
     { label: 'Über uns', id: 'about' },
     { label: 'Leistungen', id: 'services' },
     { label: 'Vorteile', id: 'benefits' },
-    { label: 'Kontakt', id: 'booking' },
+    { label: 'Kontakt', id: 'contact' },
+    { label: 'Termin buchen', id: 'booking' },
   ];
 
   return (
     <header
+      role="banner"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-white shadow-md py-3.5 sm:py-4'
@@ -45,19 +47,21 @@ export default function Header() {
           <div className="flex items-center">
             <button
               onClick={() => scrollToSection('hero')}
-              className="text-[1.0625rem] sm:text-xl md:text-2xl font-bold text-primary-700 hover:text-primary-800 transition-colors leading-tight min-h-[44px] flex items-center"
+              aria-label="Zur Startseite - Fußpflege Lena Schneider"
+              className="text-[1.0625rem] sm:text-xl md:text-2xl font-bold text-primary-700 hover:text-primary-800 transition-colors leading-tight min-h-[44px] flex items-center focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg px-2"
             >
               Fußpflege Lena Schneider
             </button>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8" aria-label="Hauptnavigation">
             {menuItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                aria-label={`Navigieren zu ${item.label}`}
+                className="text-gray-700 hover:text-primary-600 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded px-2 py-1"
               >
                 {item.label}
               </button>
@@ -84,17 +88,19 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2.5 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-            aria-label="Toggle menu"
+            aria-label={isMobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+            className="lg:hidden p-2.5 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded"
           >
-            {isMobileMenuOpen ? <X size={28} className="sm:w-7 sm:h-7" /> : <Menu size={28} className="sm:w-7 sm:h-7" />}
+            {isMobileMenuOpen ? <X size={28} className="sm:w-7 sm:h-7" aria-hidden="true" /> : <Menu size={28} className="sm:w-7 sm:h-7" aria-hidden="true" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-5 sm:mt-6 pb-5 sm:pb-6 border-t border-gray-200 pt-5 sm:pt-6 animate-in slide-in-from-top duration-300">
-            <nav className="flex flex-col space-y-1 sm:space-y-4">
+          <div id="mobile-menu" className="lg:hidden mt-5 sm:mt-6 pb-5 sm:pb-6 border-t border-gray-200 pt-5 sm:pt-6 animate-in slide-in-from-top duration-300">
+            <nav aria-label="Mobile Navigation" className="flex flex-col space-y-1 sm:space-y-4">
               {menuItems.map((item) => (
                 <button
                   key={item.id}

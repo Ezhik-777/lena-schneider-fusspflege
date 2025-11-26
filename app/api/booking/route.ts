@@ -1,18 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validateEnv } from '@/lib/env';
+import { containsSQLInjection, containsXSS, isLikelySpam } from '@/lib/security';
+import { Resend } from 'resend';
+import { getBookingConfirmationEmail } from '@/lib/email-templates';
+import { createBooking } from '@/lib/db';
 
 // Rate limiting: Simple in-memory store (for production, use Redis or similar)
-// Updated: 2025-11-09 - Increased limit for testing
 const submissionTracker = new Map<string, { count: number; timestamp: number }>();
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
-const MAX_SUBMISSIONS_PER_HOUR = 20; // Temporarily increased for testing
+const MAX_SUBMISSIONS_PER_HOUR = 5; // Production: reasonable limit for booking requests
 
 // Helper function to sanitize string inputs (XSS prevention)
 // allowApostrophe: allow single quotes for names like O'Connor, D'Angelo
 function sanitizeString(input: string, allowApostrophe: boolean = false): string {
   const dangerousCharsRegex = allowApostrophe
-    ? /[<>\"` ]/g  // Allow single quotes for names
-    : /[<>\"'`]/g; // Remove all quote types
+    ? /[<>"`]/g  // Allow single quotes and SPACES for names
+    : /[<>"'`]/g; // Remove dangerous chars but KEEP SPACES
 
   return input
     .trim()
@@ -126,6 +129,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Additional security checks
+    const allTextFields = [
+      data.vorname,
+      data.nachname,
+      data.email,
+      data.leistung,
+      data.nachricht,
+    ].filter(Boolean).join(' ');
+
+    // Check for SQL injection attempts
+    if (containsSQLInjection(allTextFields)) {
+      console.warn('SQL injection attempt detected from IP:', ip);
+      return NextResponse.json(
+        { message: 'Ungültige Eingabe erkannt' },
+        { status: 400 }
+      );
+    }
+
+    // Check for XSS attempts
+    if (containsXSS(allTextFields)) {
+      console.warn('XSS attempt detected from IP:', ip);
+      return NextResponse.json(
+        { message: 'Ungültige Eingabe erkannt' },
+        { status: 400 }
+      );
+    }
+
+    // Check for spam in message field
+    if (data.nachricht && isLikelySpam(data.nachricht)) {
+      console.warn('Spam detected from IP:', ip);
+      return NextResponse.json(
+        { message: 'Verdächtige Nachricht erkannt' },
+        { status: 400 }
+      );
+    }
+
     // Validate and sanitize inputs
     const sanitizedData = {
       vorname: sanitizeString(data.vorname || '', true), // Allow apostrophes in names
@@ -190,27 +229,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Get Telegram credentials from environment
+    // Telegram bot configuration
+    const TELEGRAM_DISABLED = false; // Enabled for testing
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-    // DEBUG: Log token format (only in development)
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Token length:', TELEGRAM_BOT_TOKEN?.length);
-      console.log('Chat ID:', TELEGRAM_CHAT_ID);
-      console.log('Token starts with:', TELEGRAM_BOT_TOKEN?.substring(0, 15));
+    if (TELEGRAM_DISABLED) {
+      console.log('Telegram notifications disabled for testing');
+    } else if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+      console.warn('Telegram credentials not found - notifications will not be sent');
     }
 
-    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-      console.error('Telegram credentials are not configured');
-      // Don't log user data for privacy
-      return NextResponse.json(
-        { message: 'Anfrage empfangen (Benachrichtigungen noch nicht konfiguriert)' },
-        { status: 200 }
-      );
-    }
-
-    // Format date
+    // Format date helper
     const formatDate = (dateString: string) => {
       if (!dateString) return 'Nicht angegeben';
       try {
@@ -225,78 +255,128 @@ export async function POST(request: NextRequest) {
       }
     };
 
-    // Create formatted message for Telegram (sanitized data is already safe)
     const submittedAt = new Date();
-    const message = `
-🆕 <b>NEUE BUCHUNGSANFRAGE</b>
 
-👤 <b>Kunde:</b>
-   ${sanitizedData.vorname} ${sanitizedData.nachname}
+    // Send confirmation email to customer
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    if (RESEND_API_KEY && sanitizedData.email) {
+      try {
+        const resend = new Resend(RESEND_API_KEY);
+        const emailHtml = getBookingConfirmationEmail({
+          vorname: sanitizedData.vorname,
+          nachname: sanitizedData.nachname,
+          email: sanitizedData.email,
+          telefon: sanitizedData.telefon,
+          leistung: sanitizedData.leistung,
+          wunschtermin: sanitizedData.wunschtermin,
+          wunschuhrzeit: sanitizedData.wunschuhrzeit,
+          nachricht: sanitizedData.nachricht,
+        });
 
-📞 <b>Telefon:</b>
-   <code>${sanitizedData.telefon || 'Nicht angegeben'}</code>
+        const { data: emailData, error: emailError } = await resend.emails.send({
+          from: 'Lena Schneider Fußpflege <info@fusspflege-lena-schneider.de>',
+          to: [sanitizedData.email],
+          subject: 'Buchungsbestätigung - Ihre Terminanfrage',
+          html: emailHtml,
+        });
 
-📧 <b>Email:</b>
-   ${sanitizedData.email}
+        if (emailError) {
+          console.error('Error sending confirmation email:', emailError);
+        } else {
+          console.log('Confirmation email sent successfully. ID:', emailData?.id);
+        }
+      } catch (emailError) {
+        // Log email error but don't fail the request
+        console.error('Email send error (non-critical):', emailError instanceof Error ? emailError.message : 'Unknown error');
+      }
+    } else {
+      if (process.env.NODE_ENV === 'development') {
+        if (!RESEND_API_KEY) {
+          console.log('Resend API key not configured, skipping email');
+        } else if (!sanitizedData.email) {
+          console.log('No email provided by customer, skipping confirmation email');
+        }
+      }
+    }
 
-💅 <b>Gewünschte Leistung:</b>
-   ${sanitizedData.leistung || 'Nicht angegeben'}
+    // Save to Vercel Postgres database
+    let bookingId: number | null = null;
+    try {
+      const booking = await createBooking({
+        vorname: sanitizedData.vorname,
+        nachname: sanitizedData.nachname,
+        telefon: sanitizedData.telefon,
+        email: sanitizedData.email,
+        leistung: sanitizedData.leistung,
+        wunschtermin: sanitizedData.wunschtermin,
+        wunschuhrzeit: sanitizedData.wunschuhrzeit,
+        nachricht: sanitizedData.nachricht,
+        ip: ip.split(',')[0].trim(),
+      });
 
-📅 <b>Wunschtermin:</b>
-   ${formatDate(sanitizedData.wunschtermin)}
+      bookingId = booking.id;
+      console.log('✅ Booking saved to database with ID:', booking.id);
+    } catch (dbError) {
+      console.error('Database error:', dbError instanceof Error ? dbError.message : 'Unknown error');
+      // Don't fail the request if DB save fails - customer already got email
+    }
 
-🕐 <b>Wunschuhrzeit:</b>
-   ${sanitizedData.wunschuhrzeit || 'Nicht angegeben'}
+    // Send notification to Telegram bot (even if DB failed)
+    if (!TELEGRAM_DISABLED && TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
+      try {
+        const message = `
+🆕 <b>Neue Buchungsanfrage${bookingId ? ` #${bookingId}` : ''}</b>
+
+👤 <b>Kunde:</b> ${sanitizedData.vorname} ${sanitizedData.nachname}
+📞 <b>Telefon:</b> <code>${sanitizedData.telefon}</code>
+📧 <b>Email:</b> ${sanitizedData.email || 'Nicht angegeben'}
+
+💅 <b>Leistung:</b> ${sanitizedData.leistung}
+📅 <b>Termin:</b> ${formatDate(sanitizedData.wunschtermin)}
+🕐 <b>Uhrzeit:</b> ${sanitizedData.wunschuhrzeit}
 
 📝 <b>Nachricht:</b>
-   ${sanitizedData.nachricht || 'Keine Nachricht'}
+${sanitizedData.nachricht || 'Keine Nachricht'}
 
-⏰ <b>Eingegangen am:</b>
-   ${submittedAt.toLocaleString('de-DE')}
-
-🌐 <b>IP:</b> ${ip.split(',')[0].trim()}
-
-━━━━━━━━━━━━━━━━━━━━━━
-🌐 Quelle: Website
+⏰ <b>Eingegangen:</b> ${submittedAt.toLocaleString('de-DE')}
 `.trim();
 
-    // Send to Telegram with timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-
-    try {
-      const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-      const telegramResponse = await fetch(telegramUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        const requestBody: any = {
           chat_id: TELEGRAM_CHAT_ID,
           text: message,
           parse_mode: 'HTML',
-        }),
-        signal: controller.signal,
-      });
+        };
 
-      clearTimeout(timeoutId);
+        // Only add buttons if we have bookingId
+        if (bookingId) {
+          requestBody.reply_markup = {
+            inline_keyboard: [
+              [
+                { text: '✅ Bestätigen', callback_data: `confirm_${bookingId}` },
+                { text: '❌ Ablehnen', callback_data: `reject_${bookingId}` },
+              ],
+            ],
+          };
+        }
 
-      if (!telegramResponse.ok) {
-        const errorData = await telegramResponse.json();
-        console.error('Telegram API error:', JSON.stringify(errorData, null, 2));
-        console.error('Telegram response status:', telegramResponse.status);
-        throw new Error(`Failed to send notification to Telegram: ${JSON.stringify(errorData)}`);
+        const telegramResponse = await fetch(telegramUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (!telegramResponse.ok) {
+          const errorData = await telegramResponse.json();
+          console.error('Telegram notification error:', errorData);
+        } else {
+          console.log('✅ Telegram notification sent' + (bookingId ? ' with inline buttons' : ''));
+        }
+      } catch (telegramError) {
+        console.error('Telegram notification failed:', telegramError instanceof Error ? telegramError.message : 'Unknown error');
       }
-
-      const successData = await telegramResponse.json();
-      if (process.env.NODE_ENV === 'development') {
-        console.log('Telegram message sent successfully:', successData.result?.message_id);
-      }
-    } catch (error) {
-      clearTimeout(timeoutId);
-      // Log error but don't expose details to user
-      console.error('Telegram send error:', error instanceof Error ? error.message : 'Unknown error');
-      throw error;
     }
 
     // Success response with CORS headers

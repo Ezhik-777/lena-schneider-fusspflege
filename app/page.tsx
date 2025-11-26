@@ -3,8 +3,8 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Benefits from "@/components/Benefits";
-// import HowItWorks from "@/components/HowItWorks";
 import ServiceArea from "@/components/ServiceArea";
+import Contact from "@/components/Contact";
 import BookingForm from "@/components/BookingForm";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
@@ -18,8 +18,8 @@ export default function Home() {
         <About />
         <Services />
         <Benefits />
-        {/* <HowItWorks /> */}
         <ServiceArea />
+        <Contact />
         <BookingForm />
       </main>
       <Footer />

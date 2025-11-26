@@ -28,7 +28,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="bg-white">
+    <section id="about" className="bg-white" aria-labelledby="about-heading">
       <div className="container">
         <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
           {/* Owner Photo */}
@@ -68,7 +68,7 @@ export default function About() {
                   Über uns
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+              <h2 id="about-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
                 Willkommen bei <span className="text-primary-600">Fußpflege Sachsenheim</span>
               </h2>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed">

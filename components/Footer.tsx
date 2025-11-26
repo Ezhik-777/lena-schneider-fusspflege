@@ -24,7 +24,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer role="contentinfo" className="bg-gray-900 text-gray-300">
       {/* Main Footer */}
       <div className="container py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -74,6 +74,17 @@ export default function Footer() {
                   className="hover:text-primary-400 transition-colors text-sm"
                 >
                   Vorteile
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('contact');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="hover:text-primary-400 transition-colors text-sm"
+                >
+                  Kontakt
                 </button>
               </li>
               <li>
@@ -146,7 +157,7 @@ export default function Footer() {
               <li className="flex items-start space-x-3 text-sm">
                 <MapPin size={18} className="mt-0.5 flex-shrink-0" />
                 <span>
-                  Sachsenheim & Umgebung<br />
+                  Sachsenheim<br />
                   Baden-Württemberg, Deutschland
                 </span>
               </li>
@@ -172,15 +183,21 @@ export default function Footer() {
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <Link
                 href="/impressum"
-                className="hover:text-primary-400 transition-colors"
+                className="hover:text-primary-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2 py-1"
               >
                 Impressum
               </Link>
               <Link
                 href="/datenschutz"
-                className="hover:text-primary-400 transition-colors"
+                className="hover:text-primary-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2 py-1"
               >
                 Datenschutz
+              </Link>
+              <Link
+                href="/barrierefreiheit"
+                className="hover:text-primary-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2 py-1"
+              >
+                Barrierefreiheit
               </Link>
               <button
                 onClick={() => {
@@ -190,7 +207,7 @@ export default function Footer() {
                     window.location.reload();
                   }
                 }}
-                className="hover:text-primary-400 transition-colors"
+                className="hover:text-primary-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2 py-1"
               >
                 Cookie-Einstellungen
               </button>

@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { BUSINESS_INFO, SERVICES } from '@/lib/constants';
+import { getServiceDuration } from '@/lib/service-config';
 
 interface BookingFormData {
   vorname: string;
@@ -17,15 +18,26 @@ interface BookingFormData {
   datenschutz: boolean;
 }
 
+interface TimeSlot {
+  time: string;
+  available: boolean;
+  duration: number;
+}
+
 export default function BookingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState<string>('');
+  const [selectedService, setSelectedService] = useState<string>('');
+  const [availableSlots, setAvailableSlots] = useState<TimeSlot[]>([]);
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<BookingFormData>();
 
@@ -34,19 +46,56 @@ export default function BookingForm() {
     'Mehrere Leistungen',
   ];
 
-  const timeSlots = [
-    '08:00 - 09:00',
-    '09:00 - 10:00',
-    '10:00 - 11:00',
-    '11:00 - 12:00',
-    '12:00 - 13:00',
-    '13:00 - 14:00',
-    '14:00 - 15:00',
-    '15:00 - 16:00',
-    '16:00 - 17:00',
-    '17:00 - 18:00',
-    '18:00 - 19:00',
-  ];
+  // Watch the date and service fields
+  const watchedDate = watch('wunschtermin');
+  const watchedService = watch('leistung');
+
+  // Load available slots when date or service changes
+  useEffect(() => {
+    const shouldReload =
+      watchedDate &&
+      (watchedDate !== selectedDate || watchedService !== selectedService);
+
+    if (shouldReload) {
+      setSelectedDate(watchedDate);
+      setSelectedService(watchedService || '');
+
+      // Only load slots if we have a service selected (to calculate duration)
+      if (watchedService) {
+        loadAvailableSlots(watchedDate, watchedService);
+      }
+    }
+  }, [watchedDate, watchedService]);
+
+  const loadAvailableSlots = async (date: string, service: string) => {
+    setIsLoadingSlots(true);
+    try {
+      // Get service duration to pass to API
+      const duration = getServiceDuration(service);
+      const response = await fetch(`/api/available-slots?date=${date}&duration=${duration}`);
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableSlots(data.slots || []);
+      } else {
+        console.error('Failed to load available slots');
+        setAvailableSlots([]);
+      }
+    } catch (error) {
+      console.error('Error loading slots:', error);
+      setAvailableSlots([]);
+    } finally {
+      setIsLoadingSlots(false);
+    }
+  };
+
+  // Format slot for display
+  const formatTimeSlot = (slot: TimeSlot): string => {
+    const [hours, minutes] = slot.time.split(':').map(Number);
+    const endHours = hours + Math.floor(slot.duration / 60);
+    const endMinutes = minutes + (slot.duration % 60);
+    const endTime = `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`;
+    return `${slot.time} - ${endTime}`;
+  };
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
@@ -172,11 +221,12 @@ export default function BookingForm() {
                     {...register('vorname', { required: 'Vorname ist erforderlich' })}
                     type="text"
                     id="vorname"
+                    autoComplete="given-name"
                     disabled={isSubmitting}
                     aria-invalid={!!errors.vorname}
                     aria-describedby={errors.vorname ? 'vorname-error' : undefined}
                     className={`w-full px-4 sm:px-4 py-4 sm:py-3.5 text-[1rem] sm:text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    placeholder="Max"
+                    placeholder="Erika"
                   />
                   {errors.vorname && (
                     <p id="vorname-error" role="alert" className="mt-2 text-[0.875rem] sm:text-sm text-red-600 font-medium">{errors.vorname.message}</p>
@@ -191,9 +241,10 @@ export default function BookingForm() {
                     {...register('nachname')}
                     type="text"
                     id="nachname"
+                    autoComplete="family-name"
                     disabled={isSubmitting}
                     className={`w-full px-4 py-4 text-[1rem] sm:text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    placeholder="Mustermann"
+                    placeholder="Musterfrau"
                   />
                 </div>
               </div>
@@ -231,6 +282,8 @@ export default function BookingForm() {
                     })}
                     type="tel"
                     id="telefon"
+                    autoComplete="tel"
+                    inputMode="tel"
                     disabled={isSubmitting}
                     aria-invalid={!!errors.telefon}
                     aria-describedby={errors.telefon ? 'telefon-error' : 'telefon-help'}
@@ -266,11 +319,13 @@ export default function BookingForm() {
                     })}
                     type="email"
                     id="email"
+                    autoComplete="email"
+                    inputMode="email"
                     disabled={isSubmitting}
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'email-error' : 'email-help'}
                     className={`w-full px-4 py-4 text-[1rem] sm:text-base border-2 ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    placeholder="max@beispiel.de"
+                    placeholder="erika@beispiel.de"
                   />
                   {errors.email && (
                     <p id="email-error" role="alert" className="mt-2 text-[0.875rem] sm:text-sm text-red-600 font-medium flex items-start gap-1">
@@ -290,12 +345,15 @@ export default function BookingForm() {
 
               <div>
                 <label htmlFor="leistung" className="block text-[0.9375rem] sm:text-sm font-bold text-gray-900 mb-2">
-                  Gewünschte Leistung
+                  Gewünschte Leistung *
                 </label>
                 <select
-                  {...register('leistung')}
+                  {...register('leistung', { required: 'Bitte wählen Sie eine Leistung aus' })}
                   id="leistung"
-                  className="w-full px-4 py-4 text-[1rem] sm:text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px]"
+                  disabled={isSubmitting}
+                  aria-invalid={!!errors.leistung}
+                  aria-describedby={errors.leistung ? 'leistung-error' : undefined}
+                  className={`w-full px-4 py-4 text-[1rem] sm:text-base border-2 ${errors.leistung ? 'border-red-500' : 'border-gray-300'} rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   <option value="">Bitte wählen...</option>
                   {services.map((service) => (
@@ -304,17 +362,21 @@ export default function BookingForm() {
                     </option>
                   ))}
                 </select>
+                {errors.leistung && (
+                  <p id="leistung-error" role="alert" className="mt-2 text-[0.875rem] sm:text-sm text-red-600 font-medium">{errors.leistung.message}</p>
+                )}
               </div>
 
               <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
                 <div>
                   <label htmlFor="wunschtermin" className="block text-[0.9375rem] sm:text-sm font-bold text-gray-900 mb-2">
-                    Wunschtermin
+                    Wunschtermin *
                   </label>
                   <input
                     {...register('wunschtermin', {
+                      required: 'Bitte wählen Sie ein Datum aus',
                       validate: (value) => {
-                        if (!value) return true; // Optional field
+                        if (!value) return 'Bitte wählen Sie ein Datum aus';
                         const selectedDate = new Date(value);
                         const minDate = new Date('2025-11-17');
                         minDate.setHours(0, 0, 0, 0);
@@ -325,29 +387,56 @@ export default function BookingForm() {
                     id="wunschtermin"
                     min="2025-11-17"
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-4 text-[1rem] sm:text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    aria-invalid={!!errors.wunschtermin}
+                    aria-describedby={errors.wunschtermin ? 'wunschtermin-error' : undefined}
+                    className={`w-full px-4 py-4 text-[1rem] sm:text-base border-2 ${errors.wunschtermin ? 'border-red-500' : 'border-gray-300'} rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   />
                   {errors.wunschtermin && (
-                    <p className="mt-2 text-[0.875rem] sm:text-sm text-red-600 font-medium">{errors.wunschtermin.message}</p>
+                    <p id="wunschtermin-error" role="alert" className="mt-2 text-[0.875rem] sm:text-sm text-red-600 font-medium">{errors.wunschtermin.message}</p>
                   )}
                 </div>
 
                 <div>
                   <label htmlFor="wunschuhrzeit" className="block text-[0.9375rem] sm:text-sm font-bold text-gray-900 mb-2">
-                    Wunschuhrzeit
+                    Wunschuhrzeit *
                   </label>
                   <select
-                    {...register('wunschuhrzeit')}
+                    {...register('wunschuhrzeit', { required: 'Bitte wählen Sie eine Uhrzeit aus' })}
                     id="wunschuhrzeit"
-                    className="w-full px-4 py-4 text-[1rem] sm:text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px]"
+                    disabled={isSubmitting || !selectedDate || !selectedService || isLoadingSlots}
+                    aria-invalid={!!errors.wunschuhrzeit}
+                    aria-describedby={errors.wunschuhrzeit ? 'wunschuhrzeit-error' : undefined}
+                    className={`w-full px-4 py-4 text-[1rem] sm:text-base border-2 ${errors.wunschuhrzeit ? 'border-red-500' : 'border-gray-300'} rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all min-h-[52px] ${(!selectedDate || !selectedService || isLoadingSlots) ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
-                    <option value="">Bitte wählen...</option>
-                    {timeSlots.map((slot) => (
-                      <option key={slot} value={slot}>
-                        {slot}
-                      </option>
-                    ))}
+                    {!selectedService ? (
+                      <option value="">Bitte zuerst eine Leistung wählen...</option>
+                    ) : !selectedDate ? (
+                      <option value="">Bitte zuerst ein Datum wählen...</option>
+                    ) : isLoadingSlots ? (
+                      <option value="">Lade verfügbare Zeiten...</option>
+                    ) : availableSlots.length === 0 ? (
+                      <option value="">Keine verfügbaren Zeiten an diesem Tag</option>
+                    ) : (
+                      <>
+                        <option value="">Bitte wählen...</option>
+                        {availableSlots
+                          .filter(slot => slot.available)
+                          .map((slot) => (
+                            <option key={slot.time} value={formatTimeSlot(slot)}>
+                              {formatTimeSlot(slot)}
+                            </option>
+                          ))}
+                      </>
+                    )}
                   </select>
+                  {errors.wunschuhrzeit && (
+                    <p id="wunschuhrzeit-error" role="alert" className="mt-2 text-[0.875rem] sm:text-sm text-red-600 font-medium">{errors.wunschuhrzeit.message}</p>
+                  )}
+                  {selectedService && selectedDate && !isLoadingSlots && availableSlots.filter(s => s.available).length === 0 && (
+                    <p className="mt-2 text-[0.875rem] sm:text-sm text-amber-600 font-medium">
+                      An diesem Tag sind leider keine Termine verfügbar. Bitte wählen Sie ein anderes Datum.
+                    </p>
+                  )}
                 </div>
               </div>
 

@@ -28,8 +28,7 @@ export default function Header() {
     { label: 'Über uns', id: 'about' },
     { label: 'Leistungen', id: 'services' },
     { label: 'Vorteile', id: 'benefits' },
-    { label: 'Kontakt', id: 'contact' },
-    { label: 'Termin buchen', id: 'booking' },
+    { label: 'Kontakt & Anfahrt', id: 'contact' },
   ];
 
   return (

@@ -14,11 +14,10 @@ export default function Contact() {
             </span>
           </div>
           <h2 id="contact-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-4">
-            Schreiben Sie uns
+            Kontaktieren Sie uns
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Haben Sie Fragen oder möchten Sie mehr über unsere Leistungen erfahren?
-            Wir freuen uns auf Ihre Nachricht!
+            Füllen Sie das Formular aus oder rufen Sie uns an, um einen Termin zu vereinbaren.
           </p>
         </div>
 

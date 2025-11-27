@@ -531,6 +531,266 @@ export function getContactConfirmationEmail(data: ContactData): string {
   `;
 }
 
+export function getBookingStatusEmail(data: {
+  vorname: string;
+  nachname: string;
+  leistung: string;
+  wunschtermin: string;
+  wunschuhrzeit: string;
+  status: 'confirmed' | 'rejected';
+}): string {
+  const formattedDate = new Date(data.wunschtermin).toLocaleDateString('de-DE', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const isConfirmed = data.status === 'confirmed';
+
+  return `
+    <!DOCTYPE html>
+    <html lang="de">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${isConfirmed ? 'Termin bestätigt' : 'Terminanfrage abgelehnt'}</title>
+        <style>
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+          }
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+          }
+          .header {
+            background: ${isConfirmed ? 'linear-gradient(135deg, #059669 0%, #10b981 100%)' : 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)'};
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+          }
+          .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+          }
+          .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.95;
+            font-size: 16px;
+          }
+          .content {
+            padding: 40px 30px;
+          }
+          .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+          }
+          .status-box {
+            background: ${isConfirmed ? '#d1fae5' : '#fee2e2'};
+            border: 2px solid ${isConfirmed ? '#059669' : '#dc2626'};
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+          }
+          .status-box h2 {
+            margin: 0;
+            color: ${isConfirmed ? '#065f46' : '#991b1b'};
+            font-size: 24px;
+            font-weight: 700;
+          }
+          .booking-details {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid ${isConfirmed ? '#10b981' : '#ef4444'};
+          }
+          .detail-row {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+          }
+          .detail-row:last-child {
+            border-bottom: none;
+          }
+          .label {
+            font-weight: 600;
+            color: #374151;
+            display: block;
+            margin-bottom: 4px;
+          }
+          .value {
+            color: #1f2937;
+            font-size: 16px;
+          }
+          .footer {
+            background: #f9fafb;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+          }
+          .contact-info {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.8;
+          }
+          .contact-info a {
+            color: #2563eb;
+            text-decoration: none;
+          }
+          .signature {
+            margin: 30px 0 20px 0;
+            font-size: 16px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>${isConfirmed ? '✅ Termin bestätigt!' : '❌ Terminanfrage abgelehnt'}</h1>
+            <p>Lena Schneider Fußpflege</p>
+          </div>
+
+          <div class="content">
+            <div class="greeting">
+              Liebe/r ${data.vorname} ${data.nachname},
+            </div>
+
+            ${isConfirmed ? `
+              <p style="font-size: 16px; line-height: 1.6;">
+                Ihr Termin wurde erfolgreich bestätigt! Ich freue mich darauf, Sie bald zu sehen.
+              </p>
+
+              <div class="status-box">
+                <h2>✓ Ihr Termin ist bestätigt!</h2>
+              </div>
+
+              <div class="booking-details">
+                <h3 style="margin-top: 0; color: #059669;">📋 Termindetails</h3>
+
+                <div class="detail-row">
+                  <span class="label">💅 Leistung:</span>
+                  <span class="value">${data.leistung}</span>
+                </div>
+
+                <div class="detail-row">
+                  <span class="label">📅 Termin:</span>
+                  <span class="value">${formattedDate}</span>
+                </div>
+
+                <div class="detail-row">
+                  <span class="label">🕐 Uhrzeit:</span>
+                  <span class="value">${data.wunschuhrzeit}</span>
+                </div>
+              </div>
+
+              <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 16px; padding: 24px; margin: 30px 0;">
+                <h3 style="margin: 0 0 16px 0; color: #92400e; font-size: 19px; font-weight: 700; text-align: center;">
+                  ⚠️ WICHTIG - STORNIERUNGSBEDINGUNGEN
+                </h3>
+                <div style="background: white; border-radius: 10px; padding: 16px;">
+                  <p style="color: #78350f; margin: 0 0 12px 0; line-height: 1.6; font-size: 15px;">
+                    Bitte sagen Sie <strong style="color: #92400e;">mindestens 24 Stunden vorher</strong> ab:
+                  </p>
+                  <p style="margin: 8px 0; color: #92400e;">
+                    📞 <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
+                  </p>
+                  <p style="margin: 8px 0; color: #92400e;">
+                    📧 <a href="mailto:info@fusspflege-lena-schneider.de" style="color: #2563eb; text-decoration: none; font-weight: 600;">info@fusspflege-lena-schneider.de</a>
+                  </p>
+                  <p style="color: #78350f; margin: 12px 0 0 0; font-size: 14px;">
+                    Nicht rechtzeitig abgesagte Termine werden mit 25€ berechnet.
+                  </p>
+                </div>
+              </div>
+
+              <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #bae6fd; border-radius: 16px; padding: 24px; margin: 30px 0;">
+                <h3 style="margin: 0 0 18px 0; color: #0c4a6e; font-size: 19px; font-weight: 700; text-align: center;">
+                  📍 SO FINDEN SIE UNS
+                </h3>
+                <div style="background: white; border-radius: 10px; padding: 18px;">
+                  <p style="margin: 8px 0; color: #374151;">
+                    <strong style="color: #0c4a6e;">📍 Adresse:</strong><br>
+                    Brunnenstraße 25<br>74343 Sachsenheim
+                  </p>
+                  <p style="margin: 8px 0;">
+                    <strong style="color: #0c4a6e;">📞 Telefon:</strong><br>
+                    <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
+                  </p>
+                </div>
+              </div>
+            ` : `
+              <p style="font-size: 16px; line-height: 1.6;">
+                leider musste ich Ihre Terminanfrage ablehnen.
+              </p>
+
+              <div class="status-box">
+                <h2>Termin nicht verfügbar</h2>
+              </div>
+
+              <div class="booking-details">
+                <h3 style="margin-top: 0; color: #dc2626;">📋 Angefragte Details</h3>
+
+                <div class="detail-row">
+                  <span class="label">💅 Leistung:</span>
+                  <span class="value">${data.leistung}</span>
+                </div>
+
+                <div class="detail-row">
+                  <span class="label">📅 Termin:</span>
+                  <span class="value">${formattedDate}</span>
+                </div>
+
+                <div class="detail-row">
+                  <span class="label">🕐 Uhrzeit:</span>
+                  <span class="value">${data.wunschuhrzeit}</span>
+                </div>
+              </div>
+
+              <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 20px; margin: 25px 0;">
+                <h3 style="margin-top: 0; color: #1e40af; font-size: 18px;">📞 Alternativen finden</h3>
+                <p style="color: #1e3a8a; margin: 10px 0;">
+                  Bitte kontaktieren Sie mich, um einen alternativen Termin zu vereinbaren:
+                </p>
+                <p style="margin: 8px 0;">
+                  📞 <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
+                </p>
+                <p style="margin: 8px 0;">
+                  📧 <a href="mailto:info@fusspflege-lena-schneider.de" style="color: #2563eb; text-decoration: none; font-weight: 600;">info@fusspflege-lena-schneider.de</a>
+                </p>
+              </div>
+            `}
+
+            <div class="signature">
+              <p>
+                Mit freundlichen Grüßen,<br>
+                <strong>Lena Schneider</strong><br>
+                <span style="color: #6b7280;">Fußpflege Sachsenheim</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="contact-info">
+              📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
+              📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
+              🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
+              📍 Sachsenheim
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+}
+
 export function getContactNotificationEmail(data: ContactData & { ip?: string; submittedAt?: string }): string {
   return `
     <!DOCTYPE html>

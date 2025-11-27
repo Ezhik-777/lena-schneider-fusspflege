@@ -61,7 +61,9 @@
       "Bash(echo \"\n✅ Push выполнен! \nТеперь Vercel должен автоматически подхватывать изменения.\nПроверь через 1-2 минуты на https://vercel.com/dashboard - там должен появиться новый деплой!\")",
       "Read(//Users/evgenij/Desktop/dev/WEB/lena-astro/**)",
       "Bash(cat ASTRO_MIGRATION_COMPLETE.md)",
-      "mcp__brave-search__brave_web_search"
+      "mcp__brave-search__brave_web_search",
+      "Bash(git add components/BookingForm.tsx)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix available time slots loading in booking form\n\nProblem: Time slots were not displaying in the booking form\ndespite API returning data correctly.\n\nRoot Cause:\n- API returns { availableSlots: [\"09:00 - 10:00\", ...] }\n- Form expected { slots: [...] } format\n- Form expected TimeSlot objects with { time, available, duration }\n- API returned simple string array\n\nFix:\n- Changed API parameter from &duration to &service for proper duration calculation\n- Parse availableSlots array (not slots)\n- Convert string array to TimeSlot[] objects\n- Extract start time from \"09:00 - 10:00\" format\n- Set available: true and duration based on service\n\nNow users can see and select available time slots!\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []

@@ -49,7 +49,7 @@ export default function Contact() {
               <Mail className="text-primary-600" size={26} />
             </div>
             <h3 className="font-bold text-gray-900 mb-2 text-lg">E-Mail</h3>
-            <p className="text-primary-600 font-semibold text-sm break-all hover:underline">
+            <p className="text-primary-600 font-semibold text-xs break-words hover:underline leading-relaxed">
               {BUSINESS_INFO.contact.email}
             </p>
           </a>

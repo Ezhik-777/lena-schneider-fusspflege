@@ -177,16 +177,16 @@ export async function POST(request: NextRequest) {
       nachricht: sanitizeString(data.nachricht || '', true), // Allow apostrophes in messages
     };
 
-    // Validate required fields (only Vorname and Telefon are required)
-    if (!sanitizedData.vorname || !sanitizedData.telefon) {
+    // Validate required fields (Vorname, Telefon, and Email are required)
+    if (!sanitizedData.vorname || !sanitizedData.telefon || !sanitizedData.email) {
       return NextResponse.json(
-        { message: 'Pflichtfelder fehlen: Vorname und Telefonnummer sind erforderlich' },
+        { message: 'Pflichtfelder fehlen: Vorname, Telefonnummer und E-Mail-Adresse sind erforderlich' },
         { status: 400 }
       );
     }
 
-    // Validate email if provided
-    if (sanitizedData.email && !isValidEmail(sanitizedData.email)) {
+    // Validate email format (now required)
+    if (!isValidEmail(sanitizedData.email)) {
       return NextResponse.json(
         { message: 'Ungültige E-Mail-Adresse' },
         { status: 400 }

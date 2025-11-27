@@ -310,15 +310,13 @@ export default function BookingForm() {
 
                 <div>
                   <label htmlFor="email" className="block text-[0.9375rem] sm:text-sm font-bold text-gray-900 mb-2">
-                    E-Mail (optional)
+                    E-Mail *
                   </label>
                   <input
                     {...register('email', {
+                      required: 'Bitte geben Sie Ihre E-Mail-Adresse ein',
                       validate: (value) => {
-                        // If empty, it's valid (optional field)
-                        if (!value || value.trim() === '') return true;
-
-                        // If filled, validate format
+                        // Validate format
                         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
                         if (!emailRegex.test(value)) {
                           return 'Bitte geben Sie eine gültige E-Mail-Adresse ein (z.B. name@beispiel.de)';

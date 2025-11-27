@@ -134,10 +134,17 @@ ${booking.nachricht || 'Keine Nachricht'}
         }),
       });
 
-      // Send email to customer if they provided email
-      if (booking.email) {
+      // Send email to customer
+      console.log('📧 Attempting to send email to:', booking.email);
+
+      if (!booking.email) {
+        console.warn('⚠️ No email address found in booking #' + bookingId);
+      } else {
         const RESEND_API_KEY = process.env.RESEND_API_KEY;
-        if (RESEND_API_KEY) {
+
+        if (!RESEND_API_KEY) {
+          console.error('❌ RESEND_API_KEY not configured');
+        } else {
           try {
             const resend = new Resend(RESEND_API_KEY);
             const emailHtml = getBookingStatusEmail({
@@ -153,16 +160,22 @@ ${booking.nachricht || 'Keine Nachricht'}
               ? '✅ Ihr Termin wurde bestätigt - Lena Schneider Fußpflege'
               : '❌ Terminanfrage abgelehnt - Lena Schneider Fußpflege';
 
-            await resend.emails.send({
+            console.log('📤 Sending email to:', booking.email, 'Subject:', subject);
+
+            const { data, error } = await resend.emails.send({
               from: 'Lena Schneider Fußpflege <info@fusspflege-lena-schneider.de>',
               to: [booking.email],
               subject,
               html: emailHtml,
             });
 
-            console.log(`📧 ${newStatus === 'confirmed' ? 'Confirmation' : 'Rejection'} email sent to ${booking.email}`);
+            if (error) {
+              console.error('❌ Resend API error:', error);
+            } else {
+              console.log(`✅ ${newStatus === 'confirmed' ? 'Confirmation' : 'Rejection'} email sent to ${booking.email}. Email ID:`, data?.id);
+            }
           } catch (emailError) {
-            console.error('Error sending status email:', emailError);
+            console.error('❌ Exception sending status email:', emailError);
           }
         }
       }

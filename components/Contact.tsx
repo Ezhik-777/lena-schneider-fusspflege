@@ -1,92 +1,142 @@
 'use client';
 
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Navigation } from 'lucide-react';
+import { BUSINESS_INFO } from '@/lib/constants';
 
 export default function Contact() {
+  const googleMapsUrl = `https://maps.google.com/?q=${encodeURIComponent(BUSINESS_INFO.address.fullAddress)}`;
+
   return (
-    <section id="contact" className="bg-gradient-to-b from-white to-gray-50 py-16 sm:py-20" aria-labelledby="contact-heading">
+    <section id="contact" className="bg-gradient-to-b from-white via-gray-50 to-white py-16 sm:py-20 lg:py-24" aria-labelledby="contact-heading">
       <div className="container">
-        <div className="text-center mb-12">
-          <div className="inline-block">
-            <span className="text-primary-600 font-semibold text-xs sm:text-sm uppercase tracking-wider bg-primary-50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-block animate-fade-in">
+            <span className="text-primary-600 font-semibold text-xs sm:text-sm uppercase tracking-wider bg-primary-50 px-4 py-2 rounded-full shadow-sm">
               Kontakt & Anfahrt
             </span>
           </div>
-          <h2 id="contact-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-4">
+          <h2 id="contact-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mt-6 mb-4 animate-slide-up">
             Besuchen Sie uns in <span className="text-primary-600">Sachsenheim</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Rufen Sie uns an oder besuchen Sie unseren gemütlichen Salon in Sachsenheim.
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto animate-slide-up">
+            Wir freuen uns auf Ihren Besuch in unserem gemütlichen Salon!
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        {/* Contact Info Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-12">
           {/* Phone */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-              <Phone className="text-primary-600" size={24} />
+          <a
+            href={BUSINESS_INFO.contact.phoneHref}
+            className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <Phone className="text-primary-600" size={26} />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">Telefon</h3>
-            <a
-              href="tel:+4917634237368"
-              className="text-primary-600 hover:text-primary-700 transition-colors font-semibold block mb-2"
-            >
-              +49 176 34237368
-            </a>
-            <p className="text-sm text-gray-500">Mo - Fr: 9:00 - 16:00 Uhr</p>
-          </div>
+            <h3 className="font-bold text-gray-900 mb-2 text-lg">Telefon</h3>
+            <p className="text-primary-600 font-semibold text-lg mb-2">
+              {BUSINESS_INFO.contact.phoneFormatted}
+            </p>
+            <p className="text-sm text-gray-500">{BUSINESS_INFO.hours.weekdays}</p>
+          </a>
 
           {/* Email */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-              <Mail className="text-primary-600" size={24} />
+          <a
+            href={BUSINESS_INFO.contact.emailHref}
+            className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <Mail className="text-primary-600" size={26} />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">E-Mail</h3>
-            <a
-              href="mailto:info@fusspflege-lena-schneider.de"
-              className="text-primary-600 hover:text-primary-700 transition-colors text-sm break-all block"
-            >
-              info@fusspflege-lena-schneider.de
-            </a>
-          </div>
+            <h3 className="font-bold text-gray-900 mb-2 text-lg">E-Mail</h3>
+            <p className="text-primary-600 font-semibold text-sm break-all hover:underline">
+              {BUSINESS_INFO.contact.email}
+            </p>
+          </a>
 
           {/* Location */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-              <MapPin className="text-primary-600" size={24} />
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+          >
+            <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <MapPin className="text-primary-600" size={26} />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">Standort</h3>
-            <p className="text-gray-600">
-              Sachsenheim<br />
-              Baden-Württemberg<br />
-              Deutschland
+            <h3 className="font-bold text-gray-900 mb-2 text-lg">Adresse</h3>
+            <p className="text-gray-700 font-medium leading-relaxed">
+              {BUSINESS_INFO.address.street}<br />
+              {BUSINESS_INFO.address.postalCode} {BUSINESS_INFO.address.city}<br />
+              {BUSINESS_INFO.address.country}
             </p>
-          </div>
+            <p className="text-primary-600 text-sm mt-2 flex items-center group-hover:underline">
+              <Navigation size={14} className="mr-1" />
+              Route anzeigen
+            </p>
+          </a>
 
           {/* Opening Hours */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-              <Clock className="text-primary-600" size={24} />
+          <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+            <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center mb-4">
+              <Clock className="text-primary-600" size={26} />
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">Öffnungszeiten</h3>
-            <div className="text-gray-600 space-y-1 text-sm">
-              <p>Mo - Fr: 9:00 - 16:00</p>
-              <p>Sa: Nach Vereinbarung</p>
-              <p>So: Geschlossen</p>
+            <h3 className="font-bold text-gray-900 mb-3 text-lg">Öffnungszeiten</h3>
+            <div className="text-gray-700 space-y-2 text-sm font-medium">
+              <div className="flex justify-between">
+                <span>Mo - Fr:</span>
+                <span className="text-primary-600">9:00 - 16:00</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Sa:</span>
+                <span className="text-gray-500">Nach Vereinbarung</span>
+              </div>
+              <div className="flex justify-between">
+                <span>So:</span>
+                <span className="text-gray-400">Geschlossen</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Important Note */}
-        <div className="mt-8 max-w-4xl mx-auto">
-          <div className="bg-primary-50 p-6 rounded-xl border border-primary-100">
-            <h4 className="font-semibold text-primary-900 mb-2 flex items-center">
-              <Clock className="mr-2" size={20} />
-              Terminvereinbarung
+        {/* Google Maps Embed */}
+        <div className="max-w-6xl mx-auto mb-12">
+          <div className="bg-white p-4 rounded-2xl shadow-xl border border-gray-100">
+            <div className="aspect-video rounded-xl overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.5!2d9.0666!3d48.9667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4799c8b8b8b8b8b8%3A0x1234567890!2sBrunnenstra%C3%9Fe%2025%2C%2074343%20Sachsenheim!5e0!3m2!1sde!2sde!4v1234567890"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Standort: Brunnenstraße 25, 74343 Sachsenheim"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        {/* Important Notes */}
+        <div className="max-w-4xl mx-auto space-y-4">
+          <div className="bg-gradient-to-br from-primary-50 to-cyan-50 p-6 sm:p-8 rounded-2xl border-2 border-primary-100 shadow-lg">
+            <h4 className="font-bold text-primary-900 mb-3 flex items-center text-lg">
+              <Clock className="mr-2 flex-shrink-0" size={22} />
+              Terminvereinbarung erforderlich
             </h4>
-            <p className="text-sm text-primary-800">
-              Behandlungen finden ausschließlich nach vorheriger Terminabsprache statt.
-              Termine außerhalb der Öffnungszeiten sind nach Absprache möglich.
+            <p className="text-primary-800 leading-relaxed">
+              Alle Behandlungen finden <strong>ausschließlich nach vorheriger Terminabsprache</strong> statt.
+              Termine außerhalb der regulären Öffnungszeiten sind nach Absprache möglich.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 sm:p-8 rounded-2xl border-2 border-amber-200 shadow-lg">
+            <h4 className="font-bold text-amber-900 mb-3 text-lg">
+              Stornierungsbedingungen
+            </h4>
+            <p className="text-amber-800 leading-relaxed">
+              Bitte sagen Sie Termine <strong>mindestens 24 Stunden vorher</strong> ab.
+              Nicht rechtzeitig abgesagte Termine werden mit <strong className="text-amber-900">25€</strong> berechnet.
             </p>
           </div>
         </div>
@@ -99,9 +149,12 @@ export default function Contact() {
               e.preventDefault();
               document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="inline-block bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white px-8 py-4 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg active:scale-95 text-lg"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 active:from-primary-800 active:to-primary-900 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold transition-all shadow-xl hover:shadow-2xl active:scale-95 text-base sm:text-lg group"
           >
             Jetzt Termin vereinbaren
+            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </a>
         </div>
       </div>

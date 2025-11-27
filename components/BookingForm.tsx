@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { BUSINESS_INFO, SERVICES } from '@/lib/constants';
 import { getServiceDuration } from '@/lib/service-config';
+import { isNonWorkingDay, getHolidayName } from '@/lib/german-holidays';
 
 interface BookingFormData {
   vorname: string;
@@ -386,15 +387,36 @@ export default function BookingForm() {
                       required: 'Bitte wählen Sie ein Datum aus',
                       validate: (value) => {
                         if (!value) return 'Bitte wählen Sie ein Datum aus';
+
                         const selectedDate = new Date(value);
-                        const minDate = new Date('2025-11-17');
-                        minDate.setHours(0, 0, 0, 0);
-                        return selectedDate >= minDate || 'Buchungen sind ab dem 17.11.2025 möglich';
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+
+                        // Check if date is in the past
+                        if (selectedDate < today) {
+                          return 'Bitte wählen Sie ein Datum in der Zukunft';
+                        }
+
+                        // Check if it's Sunday
+                        if (selectedDate.getDay() === 0) {
+                          return 'Sonntags haben wir geschlossen';
+                        }
+
+                        // Check if it's a holiday
+                        if (isNonWorkingDay(value)) {
+                          const holidayName = getHolidayName(value);
+                          if (holidayName) {
+                            return `${holidayName}: An Feiertagen haben wir geschlossen`;
+                          }
+                          return 'An diesem Tag haben wir geschlossen';
+                        }
+
+                        return true;
                       }
                     })}
                     type="date"
                     id="wunschtermin"
-                    min="2025-11-17"
+                    min={new Date().toISOString().split('T')[0]}
                     disabled={isSubmitting}
                     aria-invalid={!!errors.wunschtermin}
                     aria-describedby={errors.wunschtermin ? 'wunschtermin-error' : undefined}

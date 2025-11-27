@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { BUSINESS_INFO } from '@/lib/constants';
 
 export default function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -138,27 +139,28 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+4917634237368"
+                  href={BUSINESS_INFO.contact.phoneHref}
                   className="flex items-start space-x-3 hover:text-primary-400 transition-colors text-sm"
                 >
                   <Phone size={18} className="mt-0.5 flex-shrink-0" />
-                  <span>+49 176 34237368</span>
+                  <span>{BUSINESS_INFO.contact.phoneFormatted}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@fusspflege-lena-schneider.de"
+                  href={BUSINESS_INFO.contact.emailHref}
                   className="flex items-start space-x-3 hover:text-primary-400 transition-colors text-sm"
                 >
                   <Mail size={18} className="mt-0.5 flex-shrink-0" />
-                  <span>info@fusspflege-lena-schneider.de</span>
+                  <span>{BUSINESS_INFO.contact.email}</span>
                 </a>
               </li>
               <li className="flex items-start space-x-3 text-sm">
                 <MapPin size={18} className="mt-0.5 flex-shrink-0" />
                 <span>
-                  Sachsenheim<br />
-                  Baden-Württemberg, Deutschland
+                  {BUSINESS_INFO.address.street}<br />
+                  {BUSINESS_INFO.address.postalCode} {BUSINESS_INFO.address.city}<br />
+                  {BUSINESS_INFO.address.country}
                 </span>
               </li>
             </ul>

@@ -101,7 +101,7 @@ export default function Hero() {
                   {/* Image container */}
                   <div className="w-full h-full rounded-[1.2rem] sm:rounded-[1.7rem] overflow-hidden relative shadow-lg">
                     <Image
-                      src="/2.webp"
+                      src="/hero-gemini.jpeg"
                       alt="Fußpflege Sachsenheim - Professionelle Behandlung"
                       fill
                       className="object-cover"

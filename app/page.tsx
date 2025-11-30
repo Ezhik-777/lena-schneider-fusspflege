@@ -24,12 +24,12 @@ export default function RelocationPage() {
         {/* Main message */}
         <div className="text-left space-y-4 mb-8 text-gray-700">
           <p>
-            wir haben aufregende Neuigkeiten! Unsere Fußpflegepraxis zieht um und wir freuen uns sehr,
+            wir haben aufregende Neuigkeiten! Unser Fußpflegesalon zieht um und wir freuen uns sehr,
             Sie bald in unseren neuen, modernen Räumlichkeiten begrüßen zu dürfen.
           </p>
 
           <p>
-            Während des Umzugs ist unsere Praxis vorübergehend geschlossen. Wir nutzen diese Zeit,
+            Während des Umzugs ist unser Salon vorübergehend geschlossen. Wir nutzen diese Zeit,
             um alles für Sie perfekt vorzubereiten.
           </p>
 

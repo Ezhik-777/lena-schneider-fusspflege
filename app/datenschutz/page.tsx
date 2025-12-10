@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Datenschutzerklärung - Fußpflege Sachsenheim',
+  title: 'Datenschutzerklärung - Fußpflege Erligheim bei Ella Schön',
   description: 'Datenschutzerklärung und Informationen zum Schutz Ihrer Daten',
   robots: {
     index: false,
@@ -20,7 +20,7 @@ export default function DatenschutzPage() {
             href="/"
             className="text-2xl font-bold text-primary-700 hover:text-primary-800 transition-colors"
           >
-            ← Fußpflege Sachsenheim
+            ← Fußpflege Lena Schneider
           </Link>
         </div>
       </header>

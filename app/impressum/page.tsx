@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Impressum - Fußpflege Sachsenheim',
-  description: 'Rechtliche Informationen und Impressum von Fußpflege Sachsenheim',
+  title: 'Impressum - Fußpflege Erligheim bei Ella Schön',
+  description: 'Rechtliche Informationen und Impressum von Fußpflege Lena Schneider in Erligheim',
   robots: {
     index: false,
     follow: false,
@@ -20,7 +20,7 @@ export default function ImpressumPage() {
             href="/"
             className="text-2xl font-bold text-primary-700 hover:text-primary-800 transition-colors"
           >
-            ← Fußpflege Sachsenheim
+            ← Fußpflege Lena Schneider
           </Link>
         </div>
       </header>
@@ -39,8 +39,8 @@ export default function ImpressumPage() {
               <div className="space-y-2 text-gray-700">
                 <p className="font-semibold">Fußpflege Lena Schneider</p>
                 <p>Inhaberin: Elena Schneider</p>
-                <p>Brunnenstraße 25</p>
-                <p>74343 Sachsenheim</p>
+                <p>Löchgauer str. 17</p>
+                <p>74391 Erligheim</p>
               </div>
             </section>
 

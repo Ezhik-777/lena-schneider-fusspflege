@@ -102,7 +102,7 @@ export const metadata: Metadata = {
     yandex: "yandex-verification-code", // Optional
   },
   other: {
-    'apple-mobile-web-app-title': 'Fußpflege Sachsenheim',
+    'apple-mobile-web-app-title': 'Fußpflege Erligheim',
   },
 };
 
@@ -139,12 +139,12 @@ export default function RootLayout({
 
         {/* Geo-Location Meta Tags for Local SEO */}
         <meta name="geo.region" content="DE-BW" />
-        <meta name="geo.placename" content="Sachsenheim" />
+        <meta name="geo.placename" content="Erligheim" />
         <meta name="geo.position" content="48.9615;9.0667" />
         <meta name="ICBM" content="48.9615, 9.0667" />
 
         {/* Additional Local Business Meta Tags */}
-        <meta name="city" content="Sachsenheim" />
+        <meta name="city" content="Erligheim" />
         <meta name="state" content="Baden-Württemberg" />
         <meta name="country" content="Germany" />
         <meta name="language" content="German" />
@@ -154,7 +154,7 @@ export default function RootLayout({
         {/* Contact & Business Info */}
         <meta name="contact" content="info@fusspflege-lena-schneider.de" />
         <meta name="telephone" content="+4917634237368" />
-        <meta name="address" content="Brunnenstraße 25, 74343 Sachsenheim" />
+        <meta name="address" content="Löchgauer str. 17, 74391 Erligheim" />
 
         {/* Additional SEO Meta Tags */}
         <meta name="format-detection" content="telephone=yes" />

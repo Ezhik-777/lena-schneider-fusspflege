@@ -5,8 +5,8 @@ export default function StructuredData() {
     "@type": "BeautySalon",
     "@id": "https://fusspflege-lena-schneider.de/#business",
     "name": "Fußpflege Lena Schneider",
-    "alternateName": "Fußpflege Sachsenheim",
-    "description": "Professionelle kosmetische Fußpflege und Pediküre in Sachsenheim. Präventive Kosmetische Fußpflege, B/S Spangentechnik, Smart Pediküre, Fußreflexzonenmassage. Termine nach Vereinbarung.",
+    "alternateName": "Fußpflege Erligheim bei Ella Schön",
+    "description": "Professionelle kosmetische Fußpflege und Pediküre in Erligheim bei Ella Schön. Smart Pediküre, Klassische Fachfußpflege, Fußreflexzonenmassage. Termine nach Vereinbarung.",
     "url": "https://fusspflege-lena-schneider.de",
     "telephone": "+4917634237368",
     "email": "info@fusspflege-lena-schneider.de",
@@ -15,9 +15,9 @@ export default function StructuredData() {
     "paymentAccepted": "Cash, Debit Card",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Brunnenstraße 25",
-      "addressLocality": "Sachsenheim",
-      "postalCode": "74343",
+      "streetAddress": "Löchgauer str. 17",
+      "addressLocality": "Erligheim",
+      "postalCode": "74391",
       "addressRegion": "Baden-Württemberg",
       "addressCountry": "DE"
     },
@@ -55,7 +55,7 @@ export default function StructuredData() {
     "areaServed": [
       {
         "@type": "City",
-        "name": "Sachsenheim"
+        "name": "Erligheim"
       },
       {
         "@type": "City",
@@ -72,6 +72,10 @@ export default function StructuredData() {
       {
         "@type": "City",
         "name": "Markgröningen"
+      },
+      {
+        "@type": "City",
+        "name": "Sachsenheim"
       }
     ],
     "hasOfferCatalog": {
@@ -183,9 +187,9 @@ export default function StructuredData() {
     },
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Brunnenstraße 25",
-      "addressLocality": "Sachsenheim",
-      "postalCode": "74343",
+      "streetAddress": "Löchgauer str. 17",
+      "addressLocality": "Erligheim",
+      "postalCode": "74391",
       "addressRegion": "Baden-Württemberg",
       "addressCountry": "DE"
     }
@@ -203,7 +207,7 @@ export default function StructuredData() {
     },
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Sachsenheim",
+      "addressLocality": "Erligheim",
       "addressRegion": "Baden-Württemberg",
       "addressCountry": "DE"
     },
@@ -218,7 +222,7 @@ export default function StructuredData() {
     "@id": "https://fusspflege-lena-schneider.de/#website",
     "url": "https://fusspflege-lena-schneider.de",
     "name": "Fußpflege Lena Schneider",
-    "description": "Professionelle kosmetische Fußpflege in Sachsenheim",
+    "description": "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön",
     "publisher": {
       "@id": "https://fusspflege-lena-schneider.de/#organization"
     },
@@ -240,18 +244,18 @@ export default function StructuredData() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Wo befindet sich die Fußpflege in Sachsenheim?",
+        "name": "Wo befindet sich die Fußpflege in Erligheim?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Unsere Fußpflege befindet sich in Sachsenheim, Brunnenstraße 25, 74343 Sachsenheim. Wir sind zentral gelegen und gut erreichbar für Kunden aus Sachsenheim, Ludwigsburg und Umgebung."
+          "text": "Unsere Fußpflege befindet sich in Erligheim bei Ella Schön, Löchgauer str. 17, 74391 Erligheim. Wir sind gut erreichbar für Kunden aus Erligheim, Ludwigsburg, Bietigheim-Bissingen und Umgebung."
         }
       },
       {
         "@type": "Question",
-        "name": "Was kostet eine Fußpflege in Sachsenheim?",
+        "name": "Was kostet eine Fußpflege in Erligheim?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Die Preise beginnen bei 29€ für B/S Spangentechnik. Eine klassische Fachfußpflege mit Peeling kostet 49€, Smart Pediküre 55€ und Präventive Kosmetische Fußpflege 60€. Fußreflexzonenmassage ist für 35€ verfügbar."
+          "text": "Die Preise beginnen bei 15€ für Fremdmodellage entfernen. Eine klassische Fachfußpflege mit Peeling kostet 49€, Smart Pediküre 55€, Kosmetische Nagelkorrektur 29€, Natürliche Maniküre 30€, Fußreflexzonenmassage 35€ und Paraffinbehandlung ab 19€."
         }
       },
       {
@@ -267,7 +271,7 @@ export default function StructuredData() {
         "name": "Welche Leistungen bieten Sie an?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Wir bieten klassische Fachfußpflege, Smart Pediküre, Präventive Kosmetische Fußpflege, B/S Spangentechnik für eingewachsene Nägel, Fußreflexzonenmassage und Shellac-Behandlungen. Alle Behandlungen werden professionell und mit sterilen Instrumenten durchgeführt."
+          "text": "Wir bieten klassische Fachfußpflege, Smart Pediküre, Kosmetische Nagelkorrektur, Fußreflexzonenmassage, Natürliche Maniküre und Paraffinbehandlung. Alle Behandlungen werden professionell und mit sterilen Instrumenten durchgeführt."
         }
       },
       {
@@ -275,7 +279,7 @@ export default function StructuredData() {
         "name": "Wie lange dauert eine Behandlung?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Eine klassische Fußpflege dauert ca. 45-60 Minuten, Smart Pediküre ca. 60 Minuten, Fußreflexzonenmassage ca. 30 Minuten. Präventive Kosmetische Fußpflege dauert ca. 20 Minuten."
+          "text": "Eine klassische Fußpflege dauert ca. 45 Minuten, Smart Pediküre ca. 50 Minuten, Fußreflexzonenmassage ca. 30 Minuten, Natürliche Maniküre ca. 40 Minuten und Paraffinbehandlung ca. 30 Minuten."
         }
       },
       {
@@ -283,7 +287,7 @@ export default function StructuredData() {
         "name": "Ist Parken in der Nähe möglich?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, in der Brunnenstraße in Sachsenheim stehen Parkmöglichkeiten zur Verfügung. Der Salon ist gut mit dem Auto erreichbar und zentral gelegen."
+          "text": "Ja, in Erligheim bei Ella Schön stehen Parkmöglichkeiten zur Verfügung. Der Salon ist gut mit dem Auto erreichbar und zentral gelegen."
         }
       }
     ]

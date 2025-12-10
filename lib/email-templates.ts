@@ -31,7 +31,7 @@ export function getBookingConfirmationEmail(data: BookingData): string {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Buchungsbestätigung</title>
+        <title>Terminanfrage erhalten</title>
         <style>
           body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -185,7 +185,7 @@ export function getBookingConfirmationEmail(data: BookingData): string {
       <body>
         <div class="container">
           <div class="header">
-            <h1>✨ Buchungsbestätigung</h1>
+            <h1>✨ Terminanfrage erhalten</h1>
             <p>Lena Schneider Fußpflege</p>
           </div>
 
@@ -195,12 +195,21 @@ export function getBookingConfirmationEmail(data: BookingData): string {
             </div>
 
             <p style="font-size: 16px; line-height: 1.6;">
-              vielen Dank für Ihre Terminbuchung bei Fußpflege Lena Schneider!
+              vielen Dank für Ihre Terminanfrage bei Fußpflege Lena Schneider!
             </p>
 
-            <div style="background: #d1fae5; border: 2px solid #059669; border-radius: 12px; padding: 16px; margin: 20px 0; text-align: center;">
-              <p style="margin: 0; color: #065f46; font-size: 18px; font-weight: 700;">
-                ✓ Ihr Termin ist bestätigt!
+            <div style="background: #dbeafe; border: 2px solid #2563eb; border-radius: 12px; padding: 16px; margin: 20px 0; text-align: center;">
+              <p style="margin: 0; color: #1e40af; font-size: 18px; font-weight: 700;">
+                ✓ Ihre Anfrage wurde erhalten!
+              </p>
+            </div>
+
+            <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 20px; margin: 20px 0;">
+              <p style="margin: 0; color: #0c4a6e; font-size: 15px; line-height: 1.6;">
+                <strong style="color: #1e40af;">📧 Wie geht es weiter?</strong><br><br>
+                Ich habe Ihre Terminanfrage erhalten und prüfe die Verfügbarkeit.
+                Sie erhalten in Kürze eine separate E-Mail mit der <strong>Bestätigung</strong> oder ggf.
+                einem alternativen Terminvorschlag.
               </p>
             </div>
 
@@ -246,7 +255,7 @@ export function getBookingConfirmationEmail(data: BookingData): string {
 
               <div class="detail-row">
                 <span class="label">Status:</span>
-                <span class="value"><span class="status-badge">✓ Anfrage erhalten</span></span>
+                <span class="value"><span class="status-badge" style="background: #dbeafe; color: #1e40af;">⏳ Warten auf Bestätigung</span></span>
               </div>
             </div>
 
@@ -298,7 +307,7 @@ export function getBookingConfirmationEmail(data: BookingData): string {
                     </td>
                     <td style="padding: 8px 0; color: #1f2937;">
                       <strong style="color: #0c4a6e;">Adresse:</strong><br>
-                      <span style="color: #374151;">Brunnenstraße 25<br>74343 Sachsenheim</span>
+                      <span style="color: #374151;">Löchgauer str. 17<br>74391 Erligheim</span>
                     </td>
                   </tr>
                   <tr>
@@ -327,7 +336,7 @@ export function getBookingConfirmationEmail(data: BookingData): string {
               <p>
                 Mit freundlichen Grüßen,<br>
                 <strong>Lena Schneider</strong><br>
-                <span style="color: #6b7280;">Fußpflege Sachsenheim</span>
+                <span style="color: #6b7280;">Fußpflege Erligheim</span>
               </p>
             </div>
           </div>
@@ -339,7 +348,7 @@ export function getBookingConfirmationEmail(data: BookingData): string {
               📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
               📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
               🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
-              📍 Sachsenheim
+              📍 Erligheim
             </div>
 
             <div class="disclaimer">
@@ -505,7 +514,7 @@ export function getContactConfirmationEmail(data: ContactData): string {
               <p>
                 Mit freundlichen Grüßen,<br>
                 <strong>Lena Schneider</strong><br>
-                <span style="color: #6b7280;">Fußpflege in Sachsenheim</span>
+                <span style="color: #6b7280;">Fußpflege in Erligheim</span>
               </p>
             </div>
           </div>
@@ -517,7 +526,7 @@ export function getContactConfirmationEmail(data: ContactData): string {
               📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
               📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
               🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
-              📍 Sachsenheim
+              📍 Erligheim
             </div>
 
             <div class="disclaimer">
@@ -718,7 +727,7 @@ export function getBookingStatusEmail(data: {
                 <div style="background: white; border-radius: 10px; padding: 18px;">
                   <p style="margin: 8px 0; color: #374151;">
                     <strong style="color: #0c4a6e;">📍 Adresse:</strong><br>
-                    Brunnenstraße 25<br>74343 Sachsenheim
+                    Löchgauer str. 17<br>74391 Erligheim
                   </p>
                   <p style="margin: 8px 0;">
                     <strong style="color: #0c4a6e;">📞 Telefon:</strong><br>
@@ -772,7 +781,7 @@ export function getBookingStatusEmail(data: {
               <p>
                 Mit freundlichen Grüßen,<br>
                 <strong>Lena Schneider</strong><br>
-                <span style="color: #6b7280;">Fußpflege Sachsenheim</span>
+                <span style="color: #6b7280;">Fußpflege Erligheim</span>
               </p>
             </div>
           </div>
@@ -782,7 +791,7 @@ export function getBookingStatusEmail(data: {
               📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
               📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
               🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
-              📍 Sachsenheim
+              📍 Erligheim
             </div>
           </div>
         </div>

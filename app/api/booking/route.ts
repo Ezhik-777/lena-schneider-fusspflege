@@ -276,7 +276,7 @@ export async function POST(request: NextRequest) {
         const { data: emailData, error: emailError } = await resend.emails.send({
           from: 'Lena Schneider Fußpflege <info@fusspflege-lena-schneider.de>',
           to: [sanitizedData.email],
-          subject: 'Buchungsbestätigung - Ihre Terminanfrage',
+          subject: 'Terminanfrage erhalten - Warten auf Bestätigung',
           html: emailHtml,
         });
 

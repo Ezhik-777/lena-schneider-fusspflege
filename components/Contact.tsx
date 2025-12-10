@@ -99,24 +99,6 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Google Maps Embed */}
-        <div className="max-w-6xl mx-auto mb-12">
-          <div className="bg-white p-4 rounded-2xl shadow-xl border border-gray-100">
-            <div className="aspect-video rounded-xl overflow-hidden">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.5!2d9.0667!3d48.9615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDU3JzQxLjQiTiA5wrAwNCcwMC4xIkU!5e0!3m2!1sde!2sde!4v1234567890"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Standort: Löchgauer str. 17, 74391 Erligheim"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-
         {/* Important Notes */}
         <div className="max-w-4xl mx-auto space-y-4">
           <div className="bg-gradient-to-br from-primary-50 to-cyan-50 p-6 sm:p-8 rounded-2xl border-2 border-primary-100 shadow-lg">

@@ -44,7 +44,7 @@ export default function About() {
                     <div className="w-full h-full rounded-[1.2rem] sm:rounded-[1.7rem] overflow-hidden relative shadow-lg">
                       <Image
                         src="/nails-work.jpg"
-                        alt="Lena Schneider - Professionelle Fußpflege und Nagelmodellage in Sachsenheim"
+                        alt="Lena Schneider - Professionelle Fußpflege und Nagelmodellage in Erligheim bei Ella Schön"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -69,10 +69,10 @@ export default function About() {
                 </span>
               </div>
               <h2 id="about-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                Willkommen bei <span className="text-primary-600">Fußpflege Sachsenheim</span>
+                Willkommen bei <span className="text-primary-600">Unser Salon bei Ella Schön in Erligheim</span>
               </h2>
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-                Herzlich willkommen in meinem Salon in Sachsenheim! Ich bin Lena und
+                Herzlich willkommen in Unser Beauty-Salon bei Ella Schön in Erligheim! Ich bin Lena und
                 mit mehreren professionellen Zertifizierungen biete ich Ihnen qualifizierte
                 Fußpflegedienstleistungen in entspannter Atmosphäre.
               </p>

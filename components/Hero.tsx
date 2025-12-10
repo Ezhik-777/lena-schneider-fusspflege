@@ -12,7 +12,7 @@ export default function Hero() {
   };
 
   const highlights = [
-    'Professionelle kosmetische Fußpflege',
+    'Professionelle Kosmetische Fußpflege',
     'Angenehme Salon-Atmosphäre',
     'Flexible Terminvereinbarung',
   ];
@@ -26,7 +26,7 @@ export default function Hero() {
             <div className="space-y-4 sm:space-y-4">
               <h1 className="text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.2]">
                 Professionelle Fußpflege{' '}
-                <span className="text-primary-600">in Sachsenheim</span>
+                <span className="text-primary-600">in Erligheim bei Ella Schön</span>
               </h1>
               <p className="text-[1.125rem] sm:text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
                 Kosmetische Fußpflege und Behandlung in angenehmem Ambiente.
@@ -102,7 +102,7 @@ export default function Hero() {
                   <div className="w-full h-full rounded-[1.2rem] sm:rounded-[1.7rem] overflow-hidden relative shadow-lg">
                     <Image
                       src="/hero-gemini.jpeg"
-                      alt="Fußpflege Sachsenheim - Professionelle Behandlung"
+                      alt="Fußpflege in Erligheim bei Ella Schön - Professionelle Behandlung"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"

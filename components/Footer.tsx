@@ -35,7 +35,7 @@ export default function Footer() {
               Fußpflege Lena Schneider
             </h3>
             <p className="text-sm leading-relaxed">
-              Professionelle kosmetische Fußpflege in Sachsenheim.
+              Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön.
               Für gesunde und gepflegte Füße in entspannter Salon-Atmosphäre.
             </p>
           </div>

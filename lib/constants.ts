@@ -4,7 +4,8 @@
  */
 
 export const BUSINESS_INFO = {
-  name: "Fußpflege Sachsenheim",
+  name: "Unser Salon bei Ella Schön",
+  location: "Erligheim",
   owner: "Elena Schneider",
 
   contact: {
@@ -16,12 +17,12 @@ export const BUSINESS_INFO = {
   },
 
   address: {
-    street: "Brunnenstraße 25",
-    postalCode: "74343",
-    city: "Sachsenheim",
+    street: "Löchgauer str. 17",
+    postalCode: "74391",
+    city: "Erligheim",
     region: "Baden-Württemberg",
     country: "Deutschland",
-    fullAddress: "Brunnenstraße 25, 74343 Sachsenheim",
+    fullAddress: "Löchgauer str. 17, 74391 Erligheim",
   },
 
   geo: {
@@ -44,8 +45,8 @@ export const BUSINESS_INFO = {
 
   seo: {
     domain: "https://fusspflege-lena-schneider.de",
-    title: "Fußpflege Lena Schneider | Kosmetische Fußpflege & Pediküre in Sachsenheim",
-    description: "Professionelle kosmetische Fußpflege in Sachsenheim ✓ Nagelpilzbehandlung ✓ B/S Spangentechnik ✓ Fußreflexzonenmassage ✓ Termine nach Vereinbarung",
+    title: "Fußpflege bei Ella Schön | Kosmetische Fußpflege & Pediküre in Erligheim",
+    description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fachfußpflege ✓ Fußreflexzonenmassage ✓ Termine nach Vereinbarung",
   },
 
   legal: {
@@ -59,71 +60,102 @@ export const BUSINESS_INFO = {
 // Service-Kategorien
 export const SERVICES = [
   {
-    id: "praventive-fusspflege",
-    title: "Präventive Kosmetische Fußpflege",
-    description: "Sanfte, kosmetische Behandlung zur Verbesserung des Haut- und Nagelbildes. Unterstützt die natürliche Regeneration und sorgt für hygienisch gepflegte Füße.",
-    price: "60 €",
-    duration: "ca. 20 Min.",
-    icon: "🌿",
-  },
-  {
     id: "smart-pediküre",
     title: "Smart Pediküre",
-    description: "Moderne Form der Fußpflege: Hornhaut wird sanft entfernt, die Nägel werden geformt und die Haut mit Pflegeöl gepflegt",
+    description: "Moderne Form der Fußpflege: Hornhaut wird sanft entfernt, die Nägel werden geformt und die Haut mit Pflegeöl gepflegt. Das sorgt für glatte, gepflegte Füße und ein langanhaltendes Frischegefühl.",
     price: "55 €",
-    duration: "ca. 50 Min.",
+    duration: "50 Min.",
     icon: "✨",
+    benefits: [
+      "Sanfte Hornhautentfernung",
+      "Nägel formen",
+      "Hautpflege mit Pflegeöl",
+      "Langanhaltendes Frischegefühl"
+    ],
   },
   {
     id: "klassische-fußpflege",
     title: "Klassische Fachfußpflege mit Peeling",
-    description: "Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße",
+    description: "Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.",
     price: "49 €",
-    duration: "ca. 45 Min.",
+    duration: "45 Min.",
     icon: "🦶",
-    note: "Aufpreis für Shellac: +9€",
+    note: "Aufpreis für Shellac: +11€",
+    benefits: [
+      "Nägel schneiden/kürzen",
+      "Nagelhautentfernung",
+      "Hornhautentfernung",
+      "Pflege der Nägel und Füße"
+    ],
   },
   {
     id: "massage",
     title: "Fußreflexzonenmassage",
-    description: "Entspannende Massage für Stressabbau",
+    description: "Entspannende Massage für Stressabbau.",
     price: "35 €",
-    duration: "ca. 30 Min.",
-    icon: "💆",
+    duration: "30 Min.",
+    icon: "🌊",
+    benefits: ["Stressabbau und Entspannung"],
   },
   {
     id: "nagelkorrektur",
     title: "Kosmetische Nagelkorrektur",
-    description: "Sanfte kosmetische Methode zur Nagelkorrektur",
+    description: "Sanfte kosmetische Methode zur Nagelkorrektur.",
     price: "29 €",
-    duration: "ca. 10 Min.",
-    icon: "🔧",
+    duration: "10 Min.",
+    icon: "✂️",
     note: "Ohne Fußpflege",
+    benefits: [
+      "Sanfte kosmetische Methode",
+      "Kaum sichtbar",
+      "Pro Nagel"
+    ],
   },
   {
-    id: "shellac-entfernen",
-    title: "Shellac nur entfernen",
-    description: "Professionelle und schonende Entfernung von Shellac-Lack",
+    id: "fremdmodellage-entfernen",
+    title: "Fremdmodellage entfernen",
+    description: "Professionelle und schonende Entfernung von Shellac-Lack.",
     price: "15 €",
-    duration: "ca. 15-20 Min.",
-    icon: "🧴",
+    duration: "10-15 Min.",
+    icon: "💧",
+    benefits: [
+      "Schonende Entfernung",
+      "Schnell und effektiv",
+      "Ohne Beschädigung der Nägel"
+    ],
   },
   {
-    id: "nagelmodellage",
-    title: "Nagelmodellage mit Gel",
-    description: "Professionelle Gel-Nagelmodellage für gepflegte und schöne Hände",
-    price: "45 €",
-    duration: "ca. 60 Min.",
+    id: "natuerliche-manikuere",
+    title: "Natürliche Maniküre ohne Verlängerung",
+    description: "Naturnagel-Maniküre für gepflegte und schöne Hände.",
+    price: "30 €",
+    duration: "40 Min.",
     icon: "💅",
+    note: "Aufpreis für Shellac 11 €",
+    benefits: [
+      "Nägel werden gekürzt, gefeilt und in Form gebracht",
+      "Nagelhaut wird sanft entfernt",
+      "Poliert und geölt"
+    ],
   },
   {
     id: "paraffinbehandlung",
     title: "Kosmetische Paraffinbehandlung",
     description: "Wohltuende Wärmebehandlung für gepflegte, geschmeidige Haut. Das Paraffinbad spendet intensive Feuchtigkeit und macht Hände oder Füße wunderbar weich. Ideal bei trockener oder beanspruchter Haut – für ein spürbar zartes Hautgefühl.",
-    price: "Hände: 19 € | Füße: 19 € | Kombi: 35 €",
-    duration: "ca. 20 Min.",
-    icon: "💅",
+    price: "ab 19 €",
+    duration: "30 Min.",
+    icon: "🔥",
     note: "Nur kosmetische Pflegebehandlung – keine medizinische Anwendung",
+    priceOptions: [
+      { label: "Hände", price: "19 €" },
+      { label: "Füße", price: "19 €" },
+      { label: "Kombi", price: "35 €" }
+    ],
+    benefits: [
+      "Intensive Feuchtigkeitspflege",
+      "Wunderbar weiche Haut",
+      "Ideal bei trockener Haut"
+    ],
   },
 ] as const;
 

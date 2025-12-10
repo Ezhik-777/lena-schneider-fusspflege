@@ -16,7 +16,7 @@ export default function Contact() {
             </span>
           </div>
           <h2 id="contact-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mt-6 mb-4 animate-slide-up">
-            Besuchen Sie uns in <span className="text-primary-600">Sachsenheim</span>
+            Besuchen Sie uns in <span className="text-primary-600">Erligheim</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto animate-slide-up">
             Wir freuen uns auf Ihren Besuch in unserem gemütlichen Salon!

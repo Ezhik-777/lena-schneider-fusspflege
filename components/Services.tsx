@@ -30,19 +30,6 @@ type Service = SimpleService | PriceOptionsService;
 export default function Services() {
   const services: Service[] = [
     {
-      icon: Leaf,
-      title: 'Präventive Kosmetische Fußpflege',
-      description: 'Sanfte, kosmetische Behandlung zur Verbesserung des Haut- und Nagelbildes. Unterstützt die natürliche Regeneration und sorgt für hygienisch gepflegte Füße.',
-      duration: '20 Min.',
-      price: '60 €',
-      features: [
-        'Verbesserung des Haut- und Nagelbildes',
-        'Natürliche Regeneration',
-        'Hygienisch gepflegte Füße',
-        'Präventive Pflege für gesunde, schöne Nägel',
-      ],
-    },
-    {
       icon: Sparkles,
       title: 'Smart Pediküre',
       description: 'Moderne Form der Fußpflege: Hornhaut wird sanft entfernt, die Nägel werden geformt und die Haut mit Pflegeöl gepflegt. Das sorgt für glatte, gepflegte Füße und ein langanhaltendes Frischegefühl.',
@@ -61,12 +48,12 @@ export default function Services() {
       description: 'Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.',
       duration: '45 Min.',
       price: '49 €',
+      note: 'Aufpreis für Shellac: +11€',
       features: [
         'Nägel schneiden/kürzen',
         'Nagelhautentfernung',
         'Hornhautentfernung',
         'Pflege der Nägel und Füße',
-        'Aufpreis für Shellac: +9€',
       ],
     },
     {
@@ -94,9 +81,9 @@ export default function Services() {
     },
     {
       icon: Droplet,
-      title: 'Shellac nur entfernen',
+      title: 'Fremdmodellage entfernen',
       description: 'Professionelle und schonende Entfernung von Shellac-Lack.',
-      duration: '15-20 Min.',
+      duration: '10-15 Min.',
       price: '15 €',
       features: [
         'Schonende Entfernung',
@@ -106,22 +93,22 @@ export default function Services() {
     },
     {
       icon: WandSparkles,
-      title: 'Nagelmodellage mit Gel',
-      description: 'Professionelle Gel-Nagelmodellage für gepflegte und schöne Hände.',
-      duration: '120 Min.',
-      price: '45 €',
+      title: 'Natürliche Maniküre ohne Verlängerung',
+      description: 'Naturnagel-Maniküre für gepflegte und schöne Hände.',
+      duration: '40 Min.',
+      price: '30 €',
+      note: 'Aufpreis für Shellac 11 €',
       features: [
-        'Professionelle Gel-Modellage',
-        'Langanhaltende Ergebnisse',
-        'Natürlicher Look',
-        'Verschiedene Designs möglich',
+        'Nägel werden gekürzt, gefeilt und in Form gebracht',
+        'Nagelhaut wird sanft entfernt',
+        'Poliert und geölt',
       ],
     },
     {
       icon: Flame,
       title: 'Kosmetische Paraffinbehandlung',
       description: 'Wohltuende Wärmebehandlung für gepflegte, geschmeidige Haut. Das Paraffinbad spendet intensive Feuchtigkeit und macht Hände oder Füße wunderbar weich. Ideal bei trockener oder beanspruchter Haut – für ein spürbar zartes Hautgefühl.',
-      duration: '20 Min.',
+      duration: '30 Min.',
       price: 'ab 19',
       priceDetails: true,
       note: 'Nur kosmetische Pflegebehandlung – keine medizinische Anwendung',
@@ -149,7 +136,7 @@ export default function Services() {
             </span>
           </div>
           <h2 id="services-heading" className="text-[1.75rem] sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-4 px-2 leading-tight">
-            Professionelle Fußpflegedienstleistungen
+            Professionelle Kosmetische Fußpflegedienstleistungen
           </h2>
           <p className="text-[1.0625rem] sm:text-lg text-gray-700 px-2 leading-relaxed font-medium">
             Von professioneller Pflege bis zur entspannenden Massage -

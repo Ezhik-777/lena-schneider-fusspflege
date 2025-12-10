@@ -178,10 +178,6 @@ Von professioneller Pflege bis zur entspannenden Massage - wir bieten alles für
 #### 🎉 Neukunden-Rabatt
 **10% Rabatt** auf Ihre erste Behandlung
 
-#### 💅✨ Modelle gesucht
-Ich suche Modelle für eine Nagelmodellage mit Gel!
-Der Preis beträgt nur **45 €** und zusätzlich gibt es **15% Rabatt**
-
 ---
 
 ## Contact Section (Контакты)

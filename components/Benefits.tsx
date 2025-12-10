@@ -91,7 +91,7 @@ export default function Benefits() {
         {/* Bottom CTA Banner */}
         <div className="mt-12 sm:mt-16 bg-gradient-to-r from-primary-600 to-accent-600 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 text-center shadow-xl">
           <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 px-4">
-            Besuchen Sie uns in Sachsenheim!
+            Besuchen Sie uns in Erligheim!
           </h3>
           <p className="text-primary-50 text-sm sm:text-base md:text-lg mb-5 sm:mb-6 max-w-2xl mx-auto px-4">
             Buchen Sie jetzt Ihren Termin und genießen Sie professionelle

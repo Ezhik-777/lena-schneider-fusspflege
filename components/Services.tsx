@@ -236,22 +236,6 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Models Wanted Banner */}
-        <div className="mt-6 sm:mt-6 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl sm:rounded-2xl p-6 sm:p-6 md:p-8 border-2 border-pink-200">
-          <div className="text-center max-w-2xl mx-auto">
-            <div className="text-4xl sm:text-4xl mb-4 sm:mb-4">💅✨</div>
-            <h3 className="text-[1.375rem] sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-4 leading-tight">
-              Ich suche Modelle für eine Nagelmodellage mit Gel!
-            </h3>
-            <p className="text-[1.125rem] sm:text-xl text-gray-700 mb-2 sm:mb-2 font-semibold">
-              Der Preis beträgt nur <span className="text-pink-600 font-bold">45 €</span>
-            </p>
-            <p className="text-[1.125rem] sm:text-xl text-gray-700 font-semibold">
-              und zusätzlich gibt es <span className="text-pink-600 font-bold">15 % Rabatt</span>
-            </p>
-          </div>
-        </div>
-
         {/* CTA */}
         <div className="text-center mt-10 sm:mt-10 md:mt-12">
           <p className="text-[1rem] sm:text-base text-gray-700 mb-5 sm:mb-6 px-4 font-medium leading-relaxed">

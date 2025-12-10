@@ -24,10 +24,10 @@ export default function ServiceArea() {
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-              Besuchen Sie uns <span className="text-primary-600">in Sachsenheim</span>
+              Besuchen Sie uns <span className="text-primary-600">in Erligheim</span>
             </h2>
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-              Unser gemütlicher Salon befindet sich in Sachsenheim.
+              Unser gemütlicher Salon befindet sich in Erligheim.
               Kommen Sie vorbei und genießen Sie professionelle Fußpflege in
               entspannter Atmosphäre.
             </p>

@@ -164,17 +164,16 @@ export async function getAvailableSlots(date: string, duration: 1 | 2 = 1): Prom
 
   if (duration === 2) {
     // For 2-hour services (e.g. Nagelmodellage): slots with 1-hour step
-    // 9-11, 10-12, 11-13, 12-14, 13-15, 14-16
+    // 9-11, 10-12, 11-13, 12-14, 13-15
     allSlots = [
       '09:00 - 11:00',
       '10:00 - 12:00',
       '11:00 - 13:00',
       '12:00 - 14:00',
       '13:00 - 15:00',
-      '14:00 - 16:00',
     ];
   } else {
-    // For other services (1 hour): 9-10, 10-11, ..., 15-16
+    // For other services (1 hour): 9-10, 10-11, ..., 14-15
     allSlots = [
       '09:00 - 10:00',
       '10:00 - 11:00',
@@ -182,7 +181,6 @@ export async function getAvailableSlots(date: string, duration: 1 | 2 = 1): Prom
       '12:00 - 13:00',
       '13:00 - 14:00',
       '14:00 - 15:00',
-      '15:00 - 16:00',
     ];
   }
 

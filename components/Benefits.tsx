@@ -53,7 +53,7 @@ export default function Benefits() {
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
-            Warum Fußpflege Sachsenheim die <span className="text-primary-600">richtige Wahl</span> ist
+            Warum Fußpflege Erligheim die <span className="text-primary-600">richtige Wahl</span> ist
           </h2>
           <p className="text-base sm:text-lg text-gray-600 px-4">
             Genießen Sie professionelle Fußpflege in angenehmer Salon-Atmosphäre -

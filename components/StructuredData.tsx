@@ -75,7 +75,7 @@ export default function StructuredData() {
       },
       {
         "@type": "City",
-        "name": "Sachsenheim"
+        "name": "Erligheim"
       }
     ],
     "hasOfferCatalog": {

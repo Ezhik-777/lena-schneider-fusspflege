@@ -3,8 +3,8 @@
 ## Angaben gemäß § 5 TMG
 
 **Elena Schneider**
-Brunnenstraße 25
-74343 Sachsenheim
+Löchgauer str. 17
+74391 Erligheim
 Deutschland
 
 ## Kontakt

@@ -387,12 +387,12 @@ export default function BookingForm() {
                         if (!value) return 'Bitte wählen Sie ein Datum aus';
 
                         const selectedDate = new Date(value);
-                        const minDate = new Date('2026-01-05');
+                        const minDate = new Date('2026-01-07');
                         minDate.setHours(0, 0, 0, 0);
 
-                        // Check if date is before January 5, 2026
+                        // Check if date is before January 7, 2026
                         if (selectedDate < minDate) {
-                          return 'Termine sind ab dem 5. Januar 2026 verfügbar';
+                          return 'Termine sind ab dem 7. Januar 2026 verfügbar';
                         }
 
                         // Check if it's Sunday
@@ -414,7 +414,7 @@ export default function BookingForm() {
                     })}
                     type="date"
                     id="wunschtermin"
-                    min="2026-01-05"
+                    min="2026-01-07"
                     disabled={isSubmitting}
                     aria-invalid={!!errors.wunschtermin}
                     aria-describedby={errors.wunschtermin ? 'wunschtermin-error' : undefined}

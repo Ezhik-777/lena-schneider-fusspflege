@@ -118,8 +118,8 @@ export default function DatenschutzPage() {
               <div className="bg-gray-50 p-4 rounded-lg my-4">
                 <p className="font-semibold">Fußpflege Lena Schneider</p>
                 <p>Inhaberin: Elena Schneider</p>
-                <p>Brunnenstraße 25</p>
-                <p>74343 Sachsenheim</p>
+                <p>Löchgauer str. 17</p>
+                <p>74391 Erligheim</p>
                 <p className="mt-2">
                   Telefon: +49 176 34237368<br />
                   E-Mail: info@fusspflege-lena-schneider.de

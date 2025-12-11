@@ -204,26 +204,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate date is not before January 5, 2026
+    // Validate date is not before January 7, 2026
     if (sanitizedData.wunschtermin) {
       const selectedDate = new Date(sanitizedData.wunschtermin);
-      const minDate = new Date('2026-01-05');
+      const minDate = new Date('2026-01-07');
       minDate.setHours(0, 0, 0, 0);
 
       if (selectedDate < minDate) {
         return NextResponse.json(
-          { message: 'Termine sind ab dem 5. Januar 2026 verfügbar' },
+          { message: 'Termine sind ab dem 7. Januar 2026 verfügbar' },
           { status: 400 }
         );
       }
 
-      // Limit to 1 year from January 5, 2026
-      const maxDate = new Date('2027-01-05');
+      // Limit to 1 year from January 7, 2026
+      const maxDate = new Date('2027-01-07');
       maxDate.setHours(0, 0, 0, 0);
 
       if (selectedDate > maxDate) {
         return NextResponse.json(
-          { message: 'Wunschtermin darf nicht mehr als 1 Jahr im Voraus liegen (bis 5. Januar 2027)' },
+          { message: 'Wunschtermin darf nicht mehr als 1 Jahr im Voraus liegen (bis 7. Januar 2027)' },
           { status: 400 }
         );
       }

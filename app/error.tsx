@@ -102,7 +102,7 @@ export default function Error({
 
             {/* Bottom Text */}
             <p className="text-center text-gray-500 text-sm mt-6">
-              Fußpflege Lena Schneider • Sachsenheim
+              Fußpflege Lena Schneider • Erligheim
             </p>
           </div>
         </div>

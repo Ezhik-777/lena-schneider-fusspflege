@@ -3,7 +3,7 @@
 ## Hero Section (Главный экран)
 
 ### Заголовок
-Professionelle Fußpflege **in Sachsenheim**
+Professionelle Fußpflege **in Erligheim**
 
 ### Подзаголовок
 Kosmetische Fußpflege und Behandlung in angenehmem Ambiente. Professionell, hygienisch, entspannend.
@@ -26,10 +26,10 @@ Kosmetische Fußpflege und Behandlung in angenehmem Ambiente. Professionell, hyg
 ## About Section (О нас)
 
 ### Заголовок
-Willkommen bei **Fußpflege Sachsenheim**
+Willkommen bei **Fußpflege Erligheim**
 
 ### Текст
-Herzlich willkommen in meinem Salon in Sachsenheim! Ich bin Lena und mit mehreren professionellen Zertifizierungen biete ich Ihnen qualifizierte Fußpflegedienstleistungen in entspannter Atmosphäre.
+Herzlich willkommen in meinem Salon in Erligheim! Ich bin Lena und mit mehreren professionellen Zertifizierungen biete ich Ihnen qualifizierte Fußpflegedienstleistungen in entspannter Atmosphäre.
 
 Mein Ziel ist es, Ihnen nicht nur gesunde und gepflegte Füße zu schenken, sondern auch eine Auszeit vom Alltag zu bieten. Jede Behandlung wird individuell auf Ihre Bedürfnisse abgestimmt - in einem gemütlichen Ambiente, wo Sie sich wohlfühlen können.
 
@@ -183,8 +183,8 @@ Von professioneller Pflege bis zur entspannenden Massage - wir bieten alles für
 ## Contact Section (Контакты)
 
 ### Адрес
-Brunnenstraße 25
-74343 Sachsenheim
+Löchgauer str. 17
+74391 Erligheim
 Deutschland
 
 ### Контакты
@@ -211,7 +211,7 @@ Nicht rechtzeitig abgesagte Termine werden mit 25€ berechnet.
 ## Footer (Подвал)
 
 ### Описание компании
-Professionelle kosmetische Fußpflege in Sachsenheim. Für gesunde und gepflegte Füße in entspannter Salon-Atmosphäre.
+Professionelle kosmetische Fußpflege in Erligheim. Für gesunde und gepflegte Füße in entspannter Salon-Atmosphäre.
 
 ### Быстрые ссылки
 - Über uns

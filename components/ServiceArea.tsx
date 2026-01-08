@@ -98,7 +98,7 @@ export default function ServiceArea() {
                       <p className="text-xs text-gray-600">
                         <strong>Mögliche Zeiten:</strong>
                       </p>
-                      <p className="text-xs text-gray-600">Mo - Fr: 09:00 - 16:00 Uhr</p>
+                      <p className="text-xs text-gray-600">Mo - Fr: 09:00 - 15:00 Uhr</p>
                       <p className="text-xs text-gray-600">Sa: Nach Vereinbarung</p>
                       <p className="text-xs text-gray-600 italic mt-1 sm:mt-2">
                         * Termine außerhalb dieser Zeiten nach Absprache möglich

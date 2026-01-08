@@ -44,10 +44,10 @@ export default function Services() {
     },
     {
       icon: Footprints,
-      title: 'Klassische Fachfußpflege mit Peeling',
+      title: 'Klassische Fußpflege',
       description: 'Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.',
       duration: '45 Min.',
-      price: '49 €',
+      price: '37 €',
       note: 'Aufpreis für Shellac: +11€',
       features: [
         'Nägel schneiden/kürzen',
@@ -58,7 +58,7 @@ export default function Services() {
     },
     {
       icon: Waves,
-      title: 'Fußreflexzonenmassage',
+      title: 'Wellness-Fußreflexzonenmassage',
       description: 'Entspannende Massage für Stressabbau.',
       duration: '30 Min.',
       price: '35 €',

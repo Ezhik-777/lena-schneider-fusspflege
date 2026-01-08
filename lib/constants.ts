@@ -31,7 +31,7 @@ export const BUSINESS_INFO = {
   },
 
   hours: {
-    weekdays: "Mo - Fr: 09:00 - 16:00 Uhr",
+    weekdays: "Mo - Fr: 09:00 - 15:00 Uhr",
     saturday: "Sa: Nach Vereinbarung",
     sunday: "So: Geschlossen",
     note: "Termine nach Vereinbarung auch außerhalb der Öffnungszeiten möglich",
@@ -46,7 +46,7 @@ export const BUSINESS_INFO = {
   seo: {
     domain: "https://fusspflege-lena-schneider.de",
     title: "Fußpflege bei Ella Schön | Kosmetische Fußpflege & Pediküre in Erligheim",
-    description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fachfußpflege ✓ Fußreflexzonenmassage ✓ Termine nach Vereinbarung",
+    description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fußpflege ✓ Wellness-Fußreflexzonenmassage ✓ Termine nach Vereinbarung",
   },
 
   legal: {
@@ -75,9 +75,9 @@ export const SERVICES = [
   },
   {
     id: "klassische-fußpflege",
-    title: "Klassische Fachfußpflege mit Peeling",
+    title: "Klassische Fußpflege",
     description: "Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.",
-    price: "49 €",
+    price: "37 €",
     duration: "45 Min.",
     icon: "🦶",
     note: "Aufpreis für Shellac: +11€",
@@ -90,7 +90,7 @@ export const SERVICES = [
   },
   {
     id: "massage",
-    title: "Fußreflexzonenmassage",
+    title: "Wellness-Fußreflexzonenmassage",
     description: "Entspannende Massage für Stressabbau.",
     price: "35 €",
     duration: "30 Min.",
@@ -163,7 +163,7 @@ export const SERVICES = [
 export const OPENING_HOURS = [
   {
     days: "Montag - Freitag",
-    hours: "09:00 - 16:00 Uhr",
+    hours: "09:00 - 15:00 Uhr",
   },
   {
     days: "Samstag",

@@ -113,10 +113,10 @@ export default function Footer() {
                 Smart Pediküre
               </li>
               <li className="hover:text-primary-400 transition-colors">
-                Klassische Fachfußpflege mit Peeling
+                Klassische Fußpflege
               </li>
               <li className="hover:text-primary-400 transition-colors">
-                Fußreflexzonenmassage
+                Wellness-Fußreflexzonenmassage
               </li>
               <li className="hover:text-primary-400 transition-colors">
                 Kosmetische Nagelkorrektur

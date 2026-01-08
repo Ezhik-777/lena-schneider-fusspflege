@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     default: "Fußpflege Erligheim bei Ella Schön | Lena Schneider | Kosmetische Fußpflege & Pediküre",
     template: "%s | Fußpflege Lena Schneider Erligheim"
   },
-  description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fachfußpflege ✓ Fußreflexzonenmassage ✓ Termine nach Vereinbarung ☎ +49 176 34237368 ✓ Löchgauer str. 17",
+  description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fußpflege ✓ Wellness-Fußreflexzonenmassage ✓ Termine nach Vereinbarung ☎ +49 176 34237368 ✓ Löchgauer str. 17",
   keywords: [
     // Primäre Keywords
     "Fußpflege Erligheim",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     // Service Keywords
     "Smart Pediküre Erligheim",
     "Klassische Fußpflege Erligheim",
-    "Fußreflexzonenmassage Erligheim",
+    "Wellness-Fußreflexzonenmassage Erligheim",
     "Nagelmodellage Erligheim",
     "Paraffinbehandlung Erligheim",
     "Shellac Erligheim",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     url: "https://fusspflege-lena-schneider.de",
     siteName: "Fußpflege Lena Schneider Erligheim bei Ella Schön",
     title: "Fußpflege Erligheim | Lena Schneider | Kosmetische Fußpflege & Pediküre bei Ella Schön",
-    description: "⭐ Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fachfußpflege ✓ Fußreflexzonenmassage ✓ Termine nach Vereinbarung ☎ +49 176 34237368",
+    description: "⭐ Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fußpflege ✓ Wellness-Fußreflexzonenmassage ✓ Termine nach Vereinbarung ☎ +49 176 34237368",
     images: [
       {
         url: "/og-image.jpg",

@@ -159,7 +159,7 @@ export async function isDateBlocked(date: string): Promise<boolean> {
 // Get available time slots for a date
 // duration: 1 (hour) or 2 (hours) - default 1
 export async function getAvailableSlots(date: string, duration: 1 | 2 = 1): Promise<string[]> {
-  // All time slots from 9:00 to 16:00
+  // All time slots from 9:00 to 15:00
   let allSlots: string[];
 
   if (duration === 2) {

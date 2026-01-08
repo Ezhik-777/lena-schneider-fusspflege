@@ -6,7 +6,7 @@ export default function StructuredData() {
     "@id": "https://fusspflege-lena-schneider.de/#business",
     "name": "Fußpflege Lena Schneider",
     "alternateName": "Fußpflege Erligheim bei Ella Schön",
-    "description": "Professionelle kosmetische Fußpflege und Pediküre in Erligheim bei Ella Schön. Smart Pediküre, Klassische Fachfußpflege, Fußreflexzonenmassage. Termine nach Vereinbarung.",
+    "description": "Professionelle kosmetische Fußpflege und Pediküre in Erligheim bei Ella Schön. Smart Pediküre, Klassische Fußpflege, Wellness-Fußreflexzonenmassage. Termine nach Vereinbarung.",
     "url": "https://fusspflege-lena-schneider.de",
     "telephone": "+4917634237368",
     "email": "info@fusspflege-lena-schneider.de",
@@ -31,17 +31,17 @@ export default function StructuredData() {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         "opens": "09:00",
-        "closes": "18:00",
-        "validFrom": "2025-01-01",
-        "validThrough": "2025-12-31"
+        "closes": "15:00",
+        "validFrom": "2026-01-01",
+        "validThrough": "2026-12-31"
       },
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": "Saturday",
         "opens": "09:00",
-        "closes": "14:00",
-        "validFrom": "2025-01-01",
-        "validThrough": "2025-12-31"
+        "closes": "15:00",
+        "validFrom": "2026-01-01",
+        "validThrough": "2026-12-31"
       }
     ],
     "image": [
@@ -112,12 +112,12 @@ export default function StructuredData() {
         },
         {
           "@type": "Offer",
-          "price": "49",
+          "price": "37",
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
           "itemOffered": {
             "@type": "Service",
-            "name": "Klassische Fachfußpflege mit Peeling",
+            "name": "Klassische Fußpflege",
             "description": "Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße",
             "provider": {
               "@id": "https://fusspflege-lena-schneider.de/#business"
@@ -131,7 +131,7 @@ export default function StructuredData() {
           "availability": "https://schema.org/InStock",
           "itemOffered": {
             "@type": "Service",
-            "name": "Fußreflexzonenmassage",
+            "name": "Wellness-Fußreflexzonenmassage",
             "description": "Entspannende Fußmassage zur Aktivierung der Reflexzonen und Selbstheilungskräfte",
             "provider": {
               "@id": "https://fusspflege-lena-schneider.de/#business"
@@ -182,7 +182,7 @@ export default function StructuredData() {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         "opens": "09:00",
-        "closes": "18:00"
+        "closes": "15:00"
       }
     },
     "address": {
@@ -255,7 +255,7 @@ export default function StructuredData() {
         "name": "Was kostet eine Fußpflege in Erligheim?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Die Preise beginnen bei 15€ für Fremdmodellage entfernen. Eine klassische Fachfußpflege mit Peeling kostet 49€, Smart Pediküre 55€, Kosmetische Nagelkorrektur 29€, Natürliche Maniküre 30€, Fußreflexzonenmassage 35€ und Paraffinbehandlung ab 19€."
+          "text": "Die Preise beginnen bei 15€ für Fremdmodellage entfernen. Eine klassische Fußpflege kostet 37€, Smart Pediküre 55€, Kosmetische Nagelkorrektur 29€, Natürliche Maniküre 30€, Wellness-Fußreflexzonenmassage 35€ und Paraffinbehandlung ab 19€."
         }
       },
       {
@@ -271,7 +271,7 @@ export default function StructuredData() {
         "name": "Welche Leistungen bieten Sie an?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Wir bieten klassische Fachfußpflege, Smart Pediküre, Kosmetische Nagelkorrektur, Fußreflexzonenmassage, Natürliche Maniküre und Paraffinbehandlung. Alle Behandlungen werden professionell und mit sterilen Instrumenten durchgeführt."
+          "text": "Wir bieten klassische Fußpflege, Smart Pediküre, Kosmetische Nagelkorrektur, Wellness-Fußreflexzonenmassage, Natürliche Maniküre und Paraffinbehandlung. Alle Behandlungen werden professionell und mit sterilen Instrumenten durchgeführt."
         }
       },
       {

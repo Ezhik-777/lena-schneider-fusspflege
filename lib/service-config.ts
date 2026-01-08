@@ -9,8 +9,8 @@ export const SERVICES: ServiceConfig[] = [
   // 1 hour services (60 minutes)
   { name: 'Präventive Kosmetische Fußpflege', duration: 1 },
   { name: 'Smart Pediküre', duration: 1 },
-  { name: 'Klassische Fachfußpflege mit Peeling', duration: 1 },
-  { name: 'Fußreflexzonenmassage', duration: 1 },
+  { name: 'Klassische Fußpflege', duration: 1 },
+  { name: 'Wellness-Fußreflexzonenmassage', duration: 1 },
   { name: 'Kosmetische Nagelkorrektur', duration: 1 },
   { name: 'Shellac nur entfernen', duration: 1 },
   { name: 'Kosmetische Paraffinbehandlung', duration: 1 },

@@ -122,8 +122,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "google-site-verification-code", // TODO: In Google Search Console generieren und hier einfügen
-    yandex: "yandex-verification-code", // Optional
+    // Google Search Console: verified via DNS
   },
   other: {
     'apple-mobile-web-app-title': 'Fußpflege Erligheim',

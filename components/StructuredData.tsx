@@ -59,11 +59,43 @@ export default function StructuredData() {
       },
       {
         "@type": "City",
-        "name": "Ludwigsburg"
+        "name": "Bönnigheim"
+      },
+      {
+        "@type": "City",
+        "name": "Besigheim"
+      },
+      {
+        "@type": "City",
+        "name": "Sachsenheim"
       },
       {
         "@type": "City",
         "name": "Bietigheim-Bissingen"
+      },
+      {
+        "@type": "City",
+        "name": "Freudental"
+      },
+      {
+        "@type": "City",
+        "name": "Löchgau"
+      },
+      {
+        "@type": "City",
+        "name": "Kirchheim am Neckar"
+      },
+      {
+        "@type": "City",
+        "name": "Walheim"
+      },
+      {
+        "@type": "City",
+        "name": "Mundelsheim"
+      },
+      {
+        "@type": "City",
+        "name": "Gemmrigheim"
       },
       {
         "@type": "City",
@@ -75,7 +107,11 @@ export default function StructuredData() {
       },
       {
         "@type": "City",
-        "name": "Erligheim"
+        "name": "Ludwigsburg"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Landkreis Ludwigsburg"
       }
     ],
     "hasOfferCatalog": {
@@ -247,7 +283,7 @@ export default function StructuredData() {
         "name": "Wo befindet sich die Fußpflege in Erligheim?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Unsere Fußpflege befindet sich in Erligheim bei Ella Schön, Löchgauer str. 17, 74391 Erligheim. Wir sind gut erreichbar für Kunden aus Erligheim, Ludwigsburg, Bietigheim-Bissingen und Umgebung."
+          "text": "Unsere Fußpflege befindet sich in Erligheim bei Ella Schön, Löchgauer str. 17, 74391 Erligheim. Wir sind gut erreichbar für Kunden aus Bönnigheim, Besigheim, Sachsenheim, Bietigheim-Bissingen, Freudental, Löchgau und Umgebung."
         }
       },
       {
@@ -279,7 +315,7 @@ export default function StructuredData() {
         "name": "Wie lange dauert eine Behandlung?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Eine klassische Fußpflege dauert ca. 45 Minuten, Smart Pediküre ca. 50 Minuten, Fußreflexzonenmassage ca. 30 Minuten, Natürliche Maniküre ca. 40 Minuten und Paraffinbehandlung ca. 30 Minuten."
+          "text": "Eine klassische Fußpflege dauert ca. 45 Minuten, Smart Pediküre ca. 50 Minuten, Wellness-Fußreflexzonenmassage ca. 30 Minuten, Natürliche Maniküre ca. 40 Minuten und Paraffinbehandlung ca. 30 Minuten."
         }
       },
       {
@@ -287,7 +323,47 @@ export default function StructuredData() {
         "name": "Ist Parken in der Nähe möglich?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, in Erligheim bei Ella Schön stehen Parkmöglichkeiten zur Verfügung. Der Salon ist gut mit dem Auto erreichbar und zentral gelegen."
+          "text": "Ja, in Erligheim bei Ella Schön stehen kostenlose Parkmöglichkeiten direkt vor dem Salon zur Verfügung. Der Salon ist gut mit dem Auto erreichbar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was ist der Unterschied zwischen Smart Pediküre und klassischer Fußpflege?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Die Smart Pediküre (55€, 50 Min.) ist eine moderne, umfassende Behandlung mit sanfter Hornhautentfernung, Nagelformung und Pflegeöl für langanhaltende Ergebnisse. Die klassische Fußpflege (37€, 45 Min.) konzentriert sich auf die grundlegende Nagel- und Hautpflege."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kann ich auch aus Bönnigheim oder Bietigheim-Bissingen kommen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja, unser Salon in Erligheim ist ideal erreichbar für Kunden aus Bönnigheim (5 Min.), Bietigheim-Bissingen (10 Min.), Besigheim (8 Min.), Sachsenheim (7 Min.) und allen umliegenden Orten im Landkreis Ludwigsburg."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bieten Sie auch Behandlungen bei eingewachsenen Nägeln an?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja, wir bieten kosmetische Nagelkorrektur (29€ pro Nagel) für eingewachsene Zehennägel. Die Behandlung ist sanft, kaum sichtbar und lindert Beschwerden. Bei medizinischen Problemen empfehlen wir eine ärztliche Beratung."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Welche Zahlungsmethoden akzeptieren Sie?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wir akzeptieren Barzahlung und EC-Karte. Kreditkarten werden derzeit nicht akzeptiert."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was passiert bei Terminabsage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bitte sagen Sie Termine mindestens 24 Stunden vorher ab. Nicht rechtzeitig abgesagte Termine werden mit 25€ berechnet. Sie können per Telefon (+49 176 34237368) oder E-Mail absagen."
         }
       }
     ]

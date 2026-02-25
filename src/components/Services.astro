@@ -2,10 +2,13 @@
 import { SERVICES } from '@/lib/constants';
 ---
 
-<section id="services" class="bg-cream py-16 md:py-24">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="services" class="bg-cream relative py-16 md:py-24">
+  <!-- Wave divider at top -->
+  <div class="absolute top-0 left-0 right-0 h-16 bg-cream" style="clip-path: ellipse(60% 100% at 50% 100%); margin-top: -60px; z-index: 2;"></div>
+
+  <div class="container">
     <!-- Section Header -->
-    <div class="text-center mb-12 md:mb-16">
+    <div class="text-center mb-12 md:mb-16 reveal">
       <span class="inline-block bg-sage-50 text-sage-dark font-body font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4">
         Unsere Leistungen
       </span>
@@ -18,11 +21,11 @@ import { SERVICES } from '@/lib/constants';
     </div>
 
     <!-- Services Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-children">
       {SERVICES.map((service) => (
-        <article class="bg-warm-white rounded-organic-sm border border-transparent hover:border-gold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg flex flex-col">
+        <article class="card-hover bg-warm-white rounded-organic-sm border border-gold-light/20 hover:border-gold flex flex-col">
           {/* Card Header */}
-          <div class="bg-sage-50/50 p-6 text-center">
+          <div class="bg-sage-50/50 p-6 text-center rounded-t-organic-sm">
             <div class="w-14 h-14 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-3">
               <span class="text-2xl" role="img" aria-hidden="true">{service.icon}</span>
             </div>
@@ -90,17 +93,17 @@ import { SERVICES } from '@/lib/constants';
     </div>
 
     <!-- New Customer Discount Banner -->
-    <div class="bg-gradient-to-br from-terracotta-50 to-cream border-2 border-gold-light rounded-organic p-8 text-center mt-10">
+    <div class="reveal bg-gradient-to-br from-terracotta-50 to-cream border-2 border-gold-light rounded-organic p-8 text-center mt-12">
       <h3 class="font-display text-olive text-xl md:text-2xl mb-2">Neukunden-Rabatt</h3>
       <p class="text-terracotta font-display text-3xl mb-1">10% Rabatt</p>
       <p class="font-body text-text-muted text-base">auf Ihre erste Behandlung</p>
     </div>
 
     <!-- Bottom CTA -->
-    <div class="text-center mt-10">
+    <div class="text-center mt-10 reveal">
       <button
         onclick="document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })"
-        class="inline-block bg-terracotta hover:bg-terracotta-dark text-white rounded-organic-sm px-8 py-3.5 font-body font-bold text-base transition-colors duration-200 cursor-pointer"
+        class="btn-primary inline-block bg-terracotta hover:bg-terracotta-dark text-white rounded-organic-sm px-8 py-3.5 font-body font-bold text-base cursor-pointer"
       >
         Jetzt Termin vereinbaren
       </button>

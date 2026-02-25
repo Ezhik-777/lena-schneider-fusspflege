@@ -6,60 +6,49 @@
   id="hero"
   class="bg-cream grain relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-28"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  <!-- Decorative botanical SVG top-right -->
+  <svg class="absolute top-12 right-0 w-64 h-64 text-sage/[0.06] hidden lg:block" viewBox="0 0 200 200" fill="currentColor" aria-hidden="true">
+    <circle cx="160" cy="40" r="80" />
+    <circle cx="120" cy="120" r="50" />
+  </svg>
+
+  <!-- Decorative dots pattern left -->
+  <div class="absolute top-1/2 -left-4 -translate-y-1/2 hidden lg:grid grid-cols-3 gap-3 opacity-[0.07]" aria-hidden="true">
+    {Array.from({ length: 15 }).map(() => (
+      <div class="w-2 h-2 rounded-full bg-olive"></div>
+    ))}
+  </div>
+
+  <div class="container relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center">
       <!-- Text Column -->
       <div class="order-2 md:order-1">
-        <h1 class="font-display text-olive text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
+        <h1 class="reveal font-display text-olive text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
           Professionelle Fusspflege
           <span class="text-sage block mt-1">in Erligheim bei Ella Sch&ouml;n</span>
         </h1>
 
-        <p class="font-body text-text-muted text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+        <p class="reveal reveal-delay-1 font-body text-text-muted text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
           Geniessen Sie professionelle kosmetische Fusspflege in einer angenehmen und
           entspannten Atmosph&auml;re. Ihr Wohlbefinden liegt uns am Herzen.
         </p>
 
         <!-- Highlights List -->
-        <ul class="space-y-3 mb-10">
+        <ul class="reveal reveal-delay-2 space-y-3 mb-10">
           <li class="flex items-start gap-3">
-            <svg
-              class="w-6 h-6 text-sage flex-shrink-0 mt-0.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg class="w-6 h-6 text-sage flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 6L9 17l-5-5" />
             </svg>
             <span class="font-body text-olive text-base">Professionelle Kosmetische Fusspflege</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg
-              class="w-6 h-6 text-sage flex-shrink-0 mt-0.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg class="w-6 h-6 text-sage flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 6L9 17l-5-5" />
             </svg>
             <span class="font-body text-olive text-base">Angenehme Salon-Atmosph&auml;re</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg
-              class="w-6 h-6 text-sage flex-shrink-0 mt-0.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg class="w-6 h-6 text-sage flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 6L9 17l-5-5" />
             </svg>
             <span class="font-body text-olive text-base">Flexible Terminvereinbarung</span>
@@ -67,89 +56,57 @@
         </ul>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-wrap gap-4 mb-8">
+        <div class="reveal reveal-delay-3 flex flex-wrap gap-4 mb-8">
           <a
             href="#booking"
-            class="inline-flex items-center gap-2 bg-terracotta hover:bg-terracotta-dark text-white px-8 py-4 rounded-organic-sm font-body font-bold text-base transition-colors duration-200"
+            class="btn-primary inline-flex items-center gap-2 bg-terracotta hover:bg-terracotta-dark text-white px-8 py-4 rounded-organic-sm font-body font-bold text-base"
           >
             <span>Termin buchen</span>
-            <svg
-              class="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14" />
               <path d="M12 5l7 7-7 7" />
             </svg>
           </a>
           <a
             href="tel:+4917634237368"
-            class="inline-flex items-center gap-2 border-2 border-sage text-olive px-8 py-4 rounded-organic-sm font-body font-bold text-base hover:bg-sage/10 transition-colors duration-200"
+            class="btn-outline inline-flex items-center gap-2 border-2 border-sage text-olive px-8 py-4 rounded-organic-sm font-body font-bold text-base hover:bg-sage/10"
           >
-            <svg
-              class="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
             <span>Anrufen</span>
           </a>
         </div>
 
-        <!-- Trust Badges -->
-        <div class="flex flex-wrap gap-3">
-          <span class="inline-flex items-center gap-2 bg-sage-50 rounded-full px-4 py-2 font-body text-sm text-olive">
-            <svg
-              class="w-4 h-4 text-sage"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+        <!-- Trust Badges - improved visibility -->
+        <div class="reveal reveal-delay-4 flex flex-wrap gap-3">
+          <span class="inline-flex items-center gap-2 bg-sage/10 border border-sage/20 rounded-full px-5 py-2.5 font-body text-sm text-olive font-medium">
+            <svg class="w-4 h-4 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
             Zertifiziert
           </span>
-          <span class="inline-flex items-center gap-2 bg-sage-50 rounded-full px-4 py-2 font-body text-sm text-olive">
-            <svg
-              class="w-4 h-4 text-sage"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+          <span class="inline-flex items-center gap-2 bg-sage/10 border border-sage/20 rounded-full px-5 py-2.5 font-body text-sm text-olive font-medium">
+            <svg class="w-4 h-4 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="8" r="7" />
               <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
             </svg>
             Qualifiziert
           </span>
+          <span class="inline-flex items-center gap-2 bg-terracotta/10 border border-terracotta/20 rounded-full px-5 py-2.5 font-body text-sm text-terracotta font-medium">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+            </svg>
+            10% Neukunden-Rabatt
+          </span>
         </div>
       </div>
 
       <!-- Image Column -->
-      <div class="order-1 md:order-2 relative flex justify-center">
+      <div class="order-1 md:order-2 relative flex justify-center reveal-scale">
         <!-- Decorative blurred circles -->
-        <div
-          class="absolute -top-10 -right-10 w-64 h-64 bg-sage/20 rounded-full blur-3xl"
-          aria-hidden="true"
-        ></div>
-        <div
-          class="absolute -bottom-10 -left-10 w-48 h-48 bg-gold-light/30 rounded-full blur-3xl"
-          aria-hidden="true"
-        ></div>
+        <div class="absolute -top-10 -right-10 w-72 h-72 bg-sage/15 rounded-full blur-3xl animate-pulse" style="animation-duration: 6s" aria-hidden="true"></div>
+        <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-gold-light/25 rounded-full blur-3xl animate-pulse" style="animation-duration: 8s" aria-hidden="true"></div>
 
         <!-- Hero Image -->
         <div class="relative">
@@ -159,19 +116,13 @@
             loading="eager"
             width="560"
             height="640"
-            class="hero-image relative z-10 w-full max-w-md lg:max-w-lg object-cover border-4 border-gold-light shadow-xl"
+            class="hero-image relative z-10 w-full max-w-md lg:max-w-lg object-cover border-4 border-gold-light shadow-2xl"
           />
 
-          <!-- Floating Card -->
-          <div
-            class="hidden lg:flex absolute -bottom-6 -left-8 z-20 items-center gap-3 bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg px-5 py-4 border border-gold-light/20"
-          >
-            <div class="flex items-center justify-center w-10 h-10 bg-gold-light/20 rounded-full">
-              <svg
-                class="w-5 h-5 text-gold"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
+          <!-- Floating Card - enhanced -->
+          <div class="hidden lg:flex absolute -bottom-6 -left-8 z-20 items-center gap-3 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl px-6 py-5 border border-gold-light/30 animate-float">
+            <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-gold-light to-gold rounded-full shadow-inner">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
             </div>
@@ -179,6 +130,14 @@
               <p class="font-body font-bold text-olive text-sm">100% Zufriedenheit</p>
               <p class="font-body text-text-muted text-xs">Unsere Kunden lieben uns</p>
             </div>
+          </div>
+
+          <!-- Second floating badge top-right -->
+          <div class="hidden lg:flex absolute -top-4 -right-6 z-20 items-center gap-2 bg-sage/90 backdrop-blur-sm text-white rounded-full shadow-lg px-4 py-2.5 animate-float-delayed">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span class="font-body font-semibold text-xs">Termine frei</span>
           </div>
         </div>
       </div>

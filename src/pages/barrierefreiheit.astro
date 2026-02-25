@@ -1,0 +1,423 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout title="Barrierefreiheitserklärung | Fusspflege Lena Schneider" noindex={true}>
+  <Header />
+  <main id="main-content" class="pt-28 pb-16">
+    <div class="container max-w-4xl">
+      <a href="/" class="inline-flex items-center text-sage hover:text-sage-dark font-body text-sm mb-8 transition-colors">
+        &larr; Zurück zur Startseite
+      </a>
+      <h1 class="font-display text-olive text-4xl mb-6">
+        Erklärung zur Barrierefreiheit
+      </h1>
+
+      <p class="text-sm font-body text-text-muted mb-8">
+        Stand: Februar 2026
+      </p>
+
+      <div class="space-y-10">
+        <!-- Einleitung -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">Einleitung</h2>
+          <p class="font-body text-text-muted leading-relaxed mb-4">
+            Fußpflege Lena Schneider ist bemüht, die eigene Website im Einklang mit dem
+            Barrierefreiheitsstärkungsgesetz (BFSG) und der europäischen Richtlinie (EU) 2019/882
+            (European Accessibility Act) barrierefrei zugänglich zu machen.
+          </p>
+          <p class="font-body text-text-muted leading-relaxed">
+            Diese Erklärung zur Barrierefreiheit gilt für die Website
+            <strong class="text-sage">fusspflege-lena-schneider.de</strong>.
+          </p>
+        </section>
+
+        <!-- Stand der Vereinbarkeit -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">
+            Stand der Vereinbarkeit mit den Anforderungen
+          </h2>
+
+          <div class="bg-sage-50 border-l-4 border-sage p-6 mb-6 rounded-r-lg">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-sage flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-bold text-olive mb-2">
+                  Teilweise konform
+                </h3>
+                <p class="font-body text-text-muted leading-relaxed">
+                  Diese Website ist mit den Anforderungen der EN 301 549 V3.2.1 (2021-03)
+                  teilweise vereinbar. Die nachstehend aufgeführten Anforderungen werden
+                  noch nicht oder nur teilweise erfüllt.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Umgesetzte Maßnahmen -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">
+            Umgesetzte Barrierefreiheitsmaßnahmen
+          </h2>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Semantisches HTML</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Verwendung von HTML5-Strukturelementen (header, main, nav, section, footer) für bessere Navigation mit Screenreadern.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">ARIA-Labels und Landmarks</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Umfassende ARIA-Beschriftungen für interaktive Elemente und Navigationsbereiche.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Tastaturnavigation</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Alle interaktiven Elemente sind per Tastatur erreichbar und bedienbar.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Focus-Indikatoren</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Deutlich sichtbare Fokus-Indikatoren bei Tastaturnavigation (2px Ring in Primärfarbe).</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Farbkontraste</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Mindestens WCAG 2.1 Level AA konform (Kontrastverhältnis 4.5:1 für normalen Text, 3:1 für großen Text).</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Responsive Design</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Optimiert für alle Bildschirmgrößen und Geräte inkl. Zoom bis 200%.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Formular-Accessibility</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Labels für alle Formularfelder, Fehlermeldungen mit ARIA-Beschreibungen.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Touch-Targets</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Mindestgröße von 44x44 Pixeln für alle interaktiven Elemente (mobil).</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-sage-50/50 rounded-lg">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-semibold text-olive mb-1">Skip-Links</h3>
+                <p class="font-body text-text-muted text-sm leading-relaxed">Sprungmarken zum Überspringen von Navigationsbereichen.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bekannte Einschränkungen -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">
+            Bekannte Einschränkungen und Ausnahmen
+          </h2>
+
+          <div class="bg-gold/10 border-l-4 border-gold p-6 rounded-r-lg">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-gold flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              <div>
+                <h3 class="font-body font-bold text-olive mb-2">
+                  In Bearbeitung
+                </h3>
+                <ul class="list-disc pl-6 space-y-2 text-text-muted font-body leading-relaxed">
+                  <li>Vollständige Screenreader-Kompatibilität wird kontinuierlich verbessert</li>
+                  <li>Einige Bilder verfügen noch über keine ausführlichen Alternativtexte</li>
+                  <li>Google Maps Integration hat eingeschränkte Accessibility-Unterstützung</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Erstellung und Prüfung -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">
+            Erstellung dieser Erklärung und Prüfung
+          </h2>
+          <p class="font-body text-text-muted leading-relaxed mb-4">
+            Diese Erklärung wurde im <strong>Februar 2026</strong> erstellt.
+          </p>
+          <p class="font-body text-text-muted leading-relaxed mb-4">
+            Die Einschätzung basiert auf einer Selbstbewertung durch Fußpflege Lena Schneider.
+          </p>
+          <p class="font-body text-text-muted leading-relaxed mb-2">
+            <strong>Getestete Kombinationen:</strong>
+          </p>
+          <ul class="list-disc pl-6 space-y-2 text-text-muted font-body leading-relaxed mb-4">
+            <li>Chrome/Edge auf Windows mit NVDA Screenreader</li>
+            <li>Safari auf macOS mit VoiceOver</li>
+            <li>Firefox mit Tastaturnavigation</li>
+            <li>Mobile Browser (iOS Safari, Android Chrome)</li>
+          </ul>
+        </section>
+
+        <!-- Barrieren melden -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">
+            Barrieren melden: Wir sind für Sie da!
+          </h2>
+
+          <div class="bg-sage-50 border-l-4 border-sage rounded-r-lg p-6 mb-6">
+            <p class="font-body text-text-muted leading-relaxed mb-4">
+              <strong class="text-olive">Ihre Meinung ist uns wichtig!</strong> Wir möchten, dass
+              unsere Website für alle Besucher zugänglich ist. Sollten Sie auf Barrieren oder Schwierigkeiten
+              bei der Nutzung unserer Website stoßen, freuen wir uns über Ihr Feedback.
+            </p>
+            <p class="font-body text-text-muted leading-relaxed mb-4">
+              Bitte kontaktieren Sie uns direkt -- wir nehmen Ihre Anliegen ernst und sind stets bemüht,
+              Probleme schnell und unkompliziert zu lösen. Gemeinsam finden wir eine Lösung!
+            </p>
+            <div class="font-body text-text-muted leading-relaxed">
+              <p>Schnelle Reaktion innerhalb von 2 Werktagen</p>
+              <p>Persönlicher Ansprechpartner</p>
+              <p>Konstruktive Lösungen im Dialog</p>
+            </div>
+          </div>
+
+          <div class="bg-cream border-2 border-sage/20 rounded-lg p-6 space-y-5">
+            <h3 class="font-body font-bold text-lg text-olive mb-4">So erreichen Sie uns:</h3>
+
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <div>
+                <h4 class="font-body font-semibold text-olive mb-1">E-Mail (bevorzugt)</h4>
+                <a
+                  href="mailto:info@fusspflege-lena-schneider.de?subject=Barrierefreiheit%20-%20Feedback&body=Hallo%20Team%20Fu%C3%9Fpflege%20Lena%20Schneider,%0D%0A%0D%0AIch%20m%C3%B6chte%20Sie%20auf%20folgende%20Barriere%20aufmerksam%20machen:%0D%0A%0D%0A[Bitte%20beschreiben%20Sie%20hier%20das%20Problem]%0D%0A%0D%0AVielen%20Dank!"
+                  class="text-sage hover:text-sage-dark underline"
+                >
+                  info@fusspflege-lena-schneider.de
+                </a>
+                <p class="text-sm font-body text-text-muted mt-1">
+                  Betreff: &bdquo;Barrierefreiheit - Feedback&ldquo;
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-sage flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <div>
+                <h4 class="font-body font-semibold text-olive mb-1">Telefon</h4>
+                <a
+                  href="tel:+4917634237368"
+                  class="text-sage hover:text-sage-dark underline text-lg font-semibold font-body"
+                >
+                  +49 176 34237368
+                </a>
+                <p class="text-sm font-body text-text-muted mt-1">
+                  Mo-Fr: 9:00-18:00 Uhr, Sa: 9:00-14:00 Uhr
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-sage-50 border border-sage/20 rounded-lg p-5">
+            <p class="font-body text-text-muted text-sm leading-relaxed">
+              <strong>Unser Versprechen:</strong> Wir behandeln jedes Feedback vertraulich und
+              respektvoll. Ihr Hinweis hilft uns, unsere Website für alle zu verbessern.
+              Sie erhalten innerhalb von <strong>2 Werktagen</strong> eine erste Rückmeldung von uns.
+            </p>
+          </div>
+        </section>
+
+        <!-- Schlichtungsverfahren -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">
+            Schlichtungsverfahren -- wenn der direkte Weg nicht funktioniert
+          </h2>
+
+          <div class="bg-gold/10 border-l-4 border-gold rounded-r-lg p-6 mb-4">
+            <p class="font-body text-olive leading-relaxed mb-3">
+              <strong>Unser Ziel ist immer eine einvernehmliche Lösung!</strong>
+            </p>
+            <p class="font-body text-text-muted leading-relaxed mb-3">
+              Wir sind davon überzeugt, dass wir gemeinsam im persönlichen Gespräch die beste
+              Lösung für Sie finden können. Barrierefreiheit ist uns wichtig, und wir setzen
+              alles daran, unsere Website kontinuierlich zu verbessern.
+            </p>
+            <p class="font-body text-text-muted leading-relaxed">
+              Sollten Sie dennoch mit unserer Antwort nicht zufrieden sein oder keine
+              zufriedenstellende Lösung erreichen, steht Ihnen selbstverständlich der Weg
+              zur offiziellen Schlichtungsstelle offen:
+            </p>
+          </div>
+
+          <div class="bg-cream border border-sage/20 rounded-lg p-6">
+            <h3 class="font-body font-bold text-olive mb-3">
+              Schlichtungsstelle nach § 16 BGG
+            </h3>
+            <p class="font-body text-text-muted leading-relaxed mb-4 text-sm">
+              Diese Stelle ist zuständig, wenn keine Einigung zwischen Ihnen und uns
+              zustande kommt:
+            </p>
+            <div class="bg-white rounded-lg p-5 border border-sage/20">
+              <p class="font-body text-olive leading-relaxed mb-2 font-semibold">
+                Bundesfachstelle Barrierefreiheit
+              </p>
+              <p class="font-body text-text-muted text-sm leading-relaxed mb-1">
+                bei der Bundesanstalt für Arbeitsschutz und Arbeitsmedizin
+              </p>
+              <p class="font-body text-text-muted text-sm leading-relaxed mb-3">
+                Nöldnerstraße 40-42<br />
+                10317 Berlin
+              </p>
+              <div class="space-y-1 text-sm font-body">
+                <p class="text-text-muted">
+                  <strong>E-Mail:</strong>{' '}
+                  <a
+                    href="mailto:info@bundesfachstelle-barrierefreiheit.de"
+                    class="text-sage hover:text-sage-dark underline"
+                  >
+                    info@bundesfachstelle-barrierefreiheit.de
+                  </a>
+                </p>
+                <p class="text-text-muted">
+                  <strong>Website:</strong>{' '}
+                  <a
+                    href="https://www.bundesfachstelle-barrierefreiheit.de"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sage hover:text-sage-dark underline"
+                  >
+                    www.bundesfachstelle-barrierefreiheit.de
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-sage-50 border border-sage/20 rounded-lg p-5">
+            <p class="font-body text-text-muted text-sm leading-relaxed">
+              <strong>Hinweis:</strong> Die Schlichtungsstelle ist ein kostenfreies und
+              unabhängiges Angebot. Sie kann bei Konflikten vermitteln und zu einer
+              außergerichtlichen Einigung beitragen. Wir sind jederzeit offen für einen
+              konstruktiven Dialog!
+            </p>
+          </div>
+        </section>
+
+        <!-- Engagement -->
+        <section>
+          <h2 class="font-display text-olive text-2xl mb-4">
+            Unser Engagement für Barrierefreiheit
+          </h2>
+
+          <div class="bg-sage-50 rounded-lg p-6 mb-6 border-l-4 border-sage">
+            <p class="font-body text-text-muted leading-relaxed mb-4 font-medium">
+              Barrierefreiheit ist für uns kein Pflichtprogramm, sondern eine Herzensangelegenheit!
+              Wir möchten, dass jeder Mensch unsere Dienstleistungen problemlos finden und buchen kann.
+            </p>
+            <p class="font-body text-text-muted leading-relaxed">
+              Deshalb arbeiten wir kontinuierlich daran, unsere Website zugänglicher zu machen.
+              Wir prüfen regelmäßig die Einhaltung der Standards und nehmen Verbesserungen vor,
+              um allen Nutzerinnen und Nutzern den bestmöglichen Zugang zu ermöglichen.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-cream border-2 border-sage/20 rounded-lg p-5">
+              <h3 class="font-body font-bold text-olive mb-2">Partnerschaftlicher Ansatz</h3>
+              <p class="font-body text-text-muted text-sm leading-relaxed">
+                Wir sehen Barrierefreiheit als gemeinsame Aufgabe. Ihr Feedback hilft uns,
+                besser zu werden. Gemeinsam schaffen wir Lösungen, die funktionieren.
+              </p>
+            </div>
+
+            <div class="bg-cream border-2 border-sage/20 rounded-lg p-5">
+              <h3 class="font-body font-bold text-olive mb-2">Kontinuierliche Verbesserung</h3>
+              <p class="font-body text-text-muted text-sm leading-relaxed">
+                Barrierefreiheit ist kein Endzustand. Wir lernen ständig dazu und
+                passen unsere Website an neue Erkenntnisse und Technologien an.
+              </p>
+            </div>
+
+            <div class="bg-cream border-2 border-sage/20 rounded-lg p-5">
+              <h3 class="font-body font-bold text-olive mb-2">Schnelle Umsetzung</h3>
+              <p class="font-body text-text-muted text-sm leading-relaxed">
+                Wenn Sie auf ein Problem stoßen, reagieren wir schnell. Viele
+                Verbesserungen können wir innerhalb weniger Tage umsetzen.
+              </p>
+            </div>
+
+            <div class="bg-cream border-2 border-sage/20 rounded-lg p-5">
+              <h3 class="font-body font-bold text-olive mb-2">Offener Dialog</h3>
+              <p class="font-body text-text-muted text-sm leading-relaxed">
+                Wir sind jederzeit gesprächsbereit und freuen uns über jeden
+                Hinweis. Nur so können wir besser werden!
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-sage-50 border border-sage/20 rounded-lg p-6">
+            <p class="font-body text-text-muted leading-relaxed text-center">
+              <strong class="text-olive text-lg">Unser Versprechen an Sie:</strong><br />
+              <span class="mt-2 inline-block">
+                Wir gehen jeden konstruktiven Hinweis ernsthaft an und suchen gemeinsam mit Ihnen
+                nach praktikablen Lösungen. Barrierefreiheit verbessern wir nicht nur auf dem Papier,
+                sondern dort, wo es zählt -- in der täglichen Nutzung unserer Website.
+              </span>
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

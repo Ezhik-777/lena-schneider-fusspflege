@@ -1,0 +1,27 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout title="Seite nicht gefunden | Fusspflege Lena Schneider">
+  <Header />
+  <main id="main-content" class="pt-28 pb-20">
+    <div class="container text-center max-w-2xl">
+      <p class="font-display text-terracotta text-8xl md:text-9xl mb-6">404</p>
+      <h1 class="font-display text-olive text-3xl mb-4">Seite nicht gefunden</h1>
+      <p class="text-text-muted font-body text-lg mb-10">
+        Die gesuchte Seite existiert leider nicht oder wurde verschoben.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="bg-terracotta hover:bg-terracotta-dark text-white px-8 py-4 rounded-organic-sm font-body font-bold transition-all">
+          Zur Startseite
+        </a>
+        <a href="/#services" class="border-2 border-sage text-olive hover:bg-sage-50 px-8 py-4 rounded-organic-sm font-body font-bold transition-all">
+          Unsere Leistungen
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

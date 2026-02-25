@@ -21,9 +21,8 @@ Crawl-delay: 0
 
 # Blockiere sensible Bereiche
 Disallow: /api/
-Disallow: /_next/
+Disallow: /_astro/
 Disallow: /admin/
 
 # Sitemap Locations
-Sitemap: https://fusspflege-lena-schneider.de/sitemap.xml
-Sitemap: https://www.fusspflege-lena-schneider.de/sitemap.xml
+Sitemap: https://fusspflege-lena-schneider.de/sitemap-index.xml

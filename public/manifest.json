@@ -4,8 +4,8 @@
   "description": "Professionelle kosmetische Fußpflege in Erligheim. Smart Pediküre, Klassische Fußpflege, Wellness-Fußreflexzonenmassage.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "background_color": "#FDF6EC",
+  "theme_color": "#8B9E7E",
   "orientation": "portrait-primary",
   "icons": [
     {

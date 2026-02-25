@@ -1,5 +1,15 @@
 ---
 import { SERVICES } from '@/lib/constants';
+
+const serviceIcons: Record<string, string> = {
+  "smart-pediküre": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M12 2L9.5 8.5 3 10l5 4.5L6.5 21 12 17.5 17.5 21 16 14.5 21 10l-6.5-1.5z"/></svg>`,
+  "klassische-fußpflege": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M7 21c0 0 1-3 1-6s-1-5-1-7c0-3 2-6 5-6s5 3 5 6c0 2-1 4-1 7s1 6 1 6"/><path d="M12 2v0"/><circle cx="9.5" cy="16" r="0.5" fill="currentColor"/><circle cx="14.5" cy="16" r="0.5" fill="currentColor"/><circle cx="10" cy="13" r="0.5" fill="currentColor"/><circle cx="14" cy="13" r="0.5" fill="currentColor"/><circle cx="12" cy="10" r="0.5" fill="currentColor"/></svg>`,
+  "massage": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M2 12c2-2 4-3 6-3s4 2 6 2 4-2 6-2"/><path d="M2 17c2-2 4-3 6-3s4 2 6 2 4-2 6-2"/><path d="M2 7c2-2 4-3 6-3s4 2 6 2 4-2 6-2"/></svg>`,
+  "nagelkorrektur": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.12 8.12L17 17"/><path d="M16 2l6 6"/><path d="M2 16l6 6"/></svg>`,
+  "fremdmodellage-entfernen": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M12 2v6"/><path d="M8 4.5c0 0 1 2.5 4 2.5s4-2.5 4-2.5"/><path d="M12 8c-4 0-6 4-6 7 0 4 2.5 7 6 7s6-3 6-7c0-3-2-7-6-7z"/></svg>`,
+  "natuerliche-manikuere": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 17"/></svg>`,
+  "paraffinbehandlung": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14 0-5.5 2.5-7 0 1.5.5 2 1.5 3C15 6.5 16 8 16 10.5a4.5 4.5 0 0 1-7 3.74"/><path d="M3 19h18"/><path d="M5 19v2h14v-2"/></svg>`,
+};
 ---
 
 <section id="services" class="bg-cream relative py-16 md:py-24">
@@ -27,7 +37,7 @@ import { SERVICES } from '@/lib/constants';
           {/* Card Header */}
           <div class="bg-sage-50/50 p-6 text-center rounded-t-organic-sm">
             <div class="w-14 h-14 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <span class="text-2xl" role="img" aria-hidden="true">{service.icon}</span>
+              <Fragment set:html={serviceIcons[service.id] || ''} />
             </div>
             <h3 class="font-display text-olive text-xl">{service.title}</h3>
           </div>

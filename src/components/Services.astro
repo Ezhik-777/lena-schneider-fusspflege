@@ -1,0 +1,109 @@
+---
+import { SERVICES } from '@/lib/constants';
+---
+
+<section id="services" class="bg-cream py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-12 md:mb-16">
+      <span class="inline-block bg-sage-50 text-sage-dark font-body font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4">
+        Unsere Leistungen
+      </span>
+      <h2 class="font-display text-olive text-3xl md:text-4xl mb-4">
+        Professionelle Fußpflege &amp; Wellness
+      </h2>
+      <p class="font-body text-text-muted max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+        Entdecken Sie unser vielfältiges Angebot an Pflege- und Wellness-Behandlungen für Ihre Füße und Hände.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {SERVICES.map((service) => (
+        <article class="bg-warm-white rounded-organic-sm border border-transparent hover:border-gold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg flex flex-col">
+          {/* Card Header */}
+          <div class="bg-sage-50/50 p-6 text-center">
+            <div class="w-14 h-14 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <span class="text-2xl" role="img" aria-hidden="true">{service.icon}</span>
+            </div>
+            <h3 class="font-display text-olive text-xl">{service.title}</h3>
+          </div>
+
+          {/* Card Body */}
+          <div class="p-6 flex flex-col flex-grow">
+            <p class="text-text-muted text-sm leading-relaxed">{service.description}</p>
+
+            {service.note && (
+              <p class="text-text-muted/70 text-xs italic mt-2">{service.note}</p>
+            )}
+
+            {/* Benefits List */}
+            <ul class="mt-4 space-y-2">
+              {service.benefits.map((benefit) => (
+                <li class="flex items-start text-sm text-text-dark">
+                  <span class="text-sage font-bold mr-2">✓</span>
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Divider */}
+            <div class="border-t border-gold-light/30 pt-4 mt-auto">
+              {service.priceOptions ? (
+                <div>
+                  {/* Duration */}
+                  <div class="flex items-center gap-1.5 text-text-muted text-sm mb-3">
+                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="6" x2="12" y2="12" />
+                      <line x1="12" y1="12" x2="16" y2="14" />
+                    </svg>
+                    <span class="font-body">{service.duration}</span>
+                  </div>
+                  {/* Price Options */}
+                  <div class="space-y-2">
+                    {service.priceOptions.map((option) => (
+                      <div class="bg-sage-50 rounded-lg px-3 py-2 flex justify-between">
+                        <span class="font-body text-sm text-text-dark">{option.label}</span>
+                        <span class="font-body text-terracotta font-bold text-sm">{option.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5 text-text-muted text-sm">
+                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="6" x2="12" y2="12" />
+                      <line x1="12" y1="12" x2="16" y2="14" />
+                    </svg>
+                    <span class="font-body">{service.duration}</span>
+                  </div>
+                  <span class="text-terracotta font-bold text-lg font-body">{service.price}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- New Customer Discount Banner -->
+    <div class="bg-gradient-to-br from-terracotta-50 to-cream border-2 border-gold-light rounded-organic p-8 text-center mt-10">
+      <h3 class="font-display text-olive text-xl md:text-2xl mb-2">Neukunden-Rabatt</h3>
+      <p class="text-terracotta font-display text-3xl mb-1">10% Rabatt</p>
+      <p class="font-body text-text-muted text-base">auf Ihre erste Behandlung</p>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-10">
+      <button
+        onclick="document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })"
+        class="inline-block bg-terracotta hover:bg-terracotta-dark text-white rounded-organic-sm px-8 py-3.5 font-body font-bold text-base transition-colors duration-200 cursor-pointer"
+      >
+        Jetzt Termin vereinbaren
+      </button>
+    </div>
+  </div>
+</section>

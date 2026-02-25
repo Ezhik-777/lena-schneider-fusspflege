@@ -1,0 +1,136 @@
+---
+import { BUSINESS_INFO } from '@/lib/constants';
+---
+
+<footer class="bg-olive">
+  <!-- Top decorative border -->
+  <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+  <!-- Main content -->
+  <div class="container py-16">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-cream/80">
+      <!-- Column 1: About -->
+      <div>
+        <h3 class="font-display text-cream text-xl mb-4">Fusspflege Lena Schneider</h3>
+        <p class="text-sm leading-relaxed">
+          Professionelle kosmetische Fusspflege in Erligheim. Wir bieten Ihnen individuelle
+          Behandlungen für gepflegte und gesunde Füsse in einer entspannten Atmosphäre.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick links -->
+      <div>
+        <h4 class="text-cream font-body font-bold text-lg mb-4">Schnellzugriff</h4>
+        <nav aria-label="Footer-Navigation">
+          <a href="#services" class="hover:text-gold transition-colors text-sm block py-1">Leistungen</a>
+          <a href="#about" class="hover:text-gold transition-colors text-sm block py-1">Über uns</a>
+          <a href="#contact" class="hover:text-gold transition-colors text-sm block py-1">Kontakt</a>
+          <a href="#booking" class="hover:text-gold transition-colors text-sm block py-1">Termin buchen</a>
+        </nav>
+      </div>
+
+      <!-- Column 3: Services -->
+      <div>
+        <h4 class="text-cream font-body font-bold text-lg mb-4">Unsere Leistungen</h4>
+        <ul class="space-y-1">
+          <li class="text-sm">Smart Pedikure</li>
+          <li class="text-sm">Klassische Fusspflege</li>
+          <li class="text-sm">Wellness-Fussreflexzonenmassage</li>
+          <li class="text-sm">Kosmetische Nagelkorrektur</li>
+          <li class="text-sm">Fremdmodellage entfernen</li>
+          <li class="text-sm">Naturliche Manikure</li>
+          <li class="text-sm">Paraffinbehandlung</li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Contact -->
+      <div>
+        <h4 class="text-cream font-body font-bold text-lg mb-4">Kontakt</h4>
+        <div class="space-y-3">
+          <a href={BUSINESS_INFO.contact.phoneHref} class="flex items-center gap-2 hover:text-gold transition-colors text-sm">
+            <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            {BUSINESS_INFO.contact.phoneFormatted}
+          </a>
+          <a href={BUSINESS_INFO.contact.emailHref} class="flex items-center gap-2 hover:text-gold transition-colors text-sm">
+            <svg class="w-4 h-4 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            {BUSINESS_INFO.contact.email}
+          </a>
+          <div class="flex items-start gap-2 text-sm">
+            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>
+              {BUSINESS_INFO.address.street}<br />
+              {BUSINESS_INFO.address.postalCode} {BUSINESS_INFO.address.city}
+            </span>
+          </div>
+        </div>
+        <p class="text-gold font-semibold text-xs mt-6 pt-4 border-t border-olive-light">
+          Nicht rechtzeitig abgesagte Termine werden mit 25 Euro berechnet.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="container border-t border-olive-light py-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-cream/50 text-sm">
+        &copy; {new Date().getFullYear()} Fusspflege Lena Schneider. Alle Rechte vorbehalten.
+      </p>
+      <nav class="flex flex-wrap items-center gap-4" aria-label="Rechtliche Links">
+        <a href="/impressum" class="text-cream/50 hover:text-gold transition-colors text-sm">Impressum</a>
+        <a href="/datenschutz" class="text-cream/50 hover:text-gold transition-colors text-sm">Datenschutz</a>
+        <a href="/barrierefreiheit" class="text-cream/50 hover:text-gold transition-colors text-sm">Barrierefreiheit</a>
+        <button
+          id="cookie-settings-btn"
+          class="text-cream/50 hover:text-gold transition-colors text-sm cursor-pointer bg-transparent border-none"
+        >
+          Cookie-Einstellungen
+        </button>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top button -->
+<button
+  id="back-to-top"
+  class="fixed bottom-6 right-6 bg-terracotta hover:bg-terracotta-dark text-white w-11 h-11 rounded-full shadow-lg hidden items-center justify-center transition-all z-40"
+  aria-label="Zurück nach oben"
+>
+  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+  </svg>
+</button>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    if (btn) {
+      if (window.scrollY < 300) {
+        btn.classList.add('hidden');
+        btn.classList.remove('flex');
+      } else {
+        btn.classList.remove('hidden');
+        btn.classList.add('flex');
+      }
+    }
+  });
+  if (btn) {
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  const cookieBtn = document.getElementById('cookie-settings-btn');
+  if (cookieBtn) {
+    cookieBtn.addEventListener('click', () => {
+      localStorage.removeItem('cookieConsent');
+      window.location.reload();
+    });
+  }
+</script>

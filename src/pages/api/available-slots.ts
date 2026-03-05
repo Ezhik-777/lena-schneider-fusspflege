@@ -1,29 +1,10 @@
 import type { APIRoute } from 'astro';
 import { getAvailableSlots } from '@/lib/db';
 import { getServiceDuration } from '@/lib/service-config';
+import { ALLOWED_ORIGINS, getCorsHeaders, createOptionsHandler } from '@/lib/api-helpers';
 
-// CORS allowed origins
-const ALLOWED_ORIGINS = [
-  'https://fusspflege-lena-schneider.de',
-  'https://www.fusspflege-lena-schneider.de',
-  'http://localhost:3000',
-  'http://localhost:3001'
-];
-
-/**
- * GET /api/available-slots
- * Get available booking slots for a specific date
- *
- * Query params:
- * - date: YYYY-MM-DD (required)
- * - service: Service name (optional, defaults to 1 hour duration)
- *
- * Returns:
- * - List of available time slots for the specified date and service
- */
 export const GET: APIRoute = async ({ request, url }) => {
   try {
-    // Check origin for CORS protection
     const origin = request.headers.get('origin');
 
     if (origin && !ALLOWED_ORIGINS.includes(origin)) {
@@ -33,11 +14,9 @@ export const GET: APIRoute = async ({ request, url }) => {
       );
     }
 
-    // Get query parameters
-    const date = url.searchParams.get('date'); // YYYY-MM-DD
-    const service = url.searchParams.get('service'); // Service name
+    const date = url.searchParams.get('date');
+    const service = url.searchParams.get('service');
 
-    // Validate required parameters
     if (!date) {
       return new Response(
         JSON.stringify({ message: 'Datum ist erforderlich (date parameter)' }),
@@ -45,7 +24,6 @@ export const GET: APIRoute = async ({ request, url }) => {
       );
     }
 
-    // Validate date format (YYYY-MM-DD)
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(date)) {
       return new Response(
@@ -54,7 +32,6 @@ export const GET: APIRoute = async ({ request, url }) => {
       );
     }
 
-    // Validate date is in the future
     const selectedDate = new Date(date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -66,7 +43,6 @@ export const GET: APIRoute = async ({ request, url }) => {
       );
     }
 
-    // Limit to 1 year in the future
     const oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
 
@@ -77,30 +53,12 @@ export const GET: APIRoute = async ({ request, url }) => {
       );
     }
 
-    // Determine service duration
-    let duration: 1 | 2 = 1; // default to 1 hour
+    let duration: 1 | 2 = 1;
     if (service) {
       duration = getServiceDuration(service);
     }
 
-    // Get available slots from database
-    // This checks confirmed bookings and blocked dates
     const availableSlots = await getAvailableSlots(date, duration);
-
-    if (import.meta.env.DEV) {
-      console.log(`Available slots for ${date} (${duration}h service): ${availableSlots.length} slots`);
-    }
-
-    // Success response with CORS headers
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-
-    if (origin && ALLOWED_ORIGINS.includes(origin)) {
-      headers['Access-Control-Allow-Origin'] = origin;
-      headers['Access-Control-Allow-Methods'] = 'GET';
-      headers['Access-Control-Allow-Headers'] = 'Content-Type';
-    }
 
     return new Response(
       JSON.stringify({
@@ -110,46 +68,16 @@ export const GET: APIRoute = async ({ request, url }) => {
         availableSlots,
         count: availableSlots.length,
       }),
-      { status: 200, headers }
+      { status: 200, headers: getCorsHeaders(request, 'GET') }
     );
   } catch (error) {
     console.error('Available slots error:', error instanceof Error ? error.message : 'Unknown error');
 
-    // Get origin from request for CORS headers
-    const origin = request.headers.get('origin');
-
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-
-    if (origin && ALLOWED_ORIGINS.includes(origin)) {
-      headers['Access-Control-Allow-Origin'] = origin;
-      headers['Access-Control-Allow-Methods'] = 'GET';
-      headers['Access-Control-Allow-Headers'] = 'Content-Type';
-    }
-
     return new Response(
       JSON.stringify({ message: 'Fehler beim Abrufen der verfügbaren Zeitslots' }),
-      { status: 500, headers }
+      { status: 500, headers: getCorsHeaders(request, 'GET') }
     );
   }
 };
 
-// Handle OPTIONS preflight requests
-export const OPTIONS: APIRoute = async ({ request }) => {
-  const origin = request.headers.get('origin');
-
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
-    return new Response(null, {
-      status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Max-Age': '86400',
-      },
-    });
-  }
-
-  return new Response(null, { status: 403 });
-};
+export const OPTIONS: APIRoute = createOptionsHandler('GET');

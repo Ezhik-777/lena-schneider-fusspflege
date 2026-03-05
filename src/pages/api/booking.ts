@@ -4,82 +4,17 @@ import { containsSQLInjection, containsXSS, isLikelySpam } from '@/lib/security'
 import { Resend } from 'resend';
 import { getBookingConfirmationEmail } from '@/lib/email-templates';
 import { createBooking } from '@/lib/db';
-
-// Rate limiting: Simple in-memory store (for production, use Redis or similar)
-const submissionTracker = new Map<string, { count: number; timestamp: number }>();
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
-const MAX_SUBMISSIONS_PER_HOUR = 5; // Production: reasonable limit for booking requests
-
-// Helper function to sanitize string inputs (XSS prevention)
-// allowApostrophe: allow single quotes for names like O'Connor, D'Angelo
-function sanitizeString(input: string, allowApostrophe: boolean = false): string {
-  const dangerousCharsRegex = allowApostrophe
-    ? /[<>"`]/g  // Allow single quotes and SPACES for names
-    : /[<>"'`]/g; // Remove dangerous chars but KEEP SPACES
-
-  return input
-    .trim()
-    .slice(0, 500) // Limit length to prevent abuse
-    .replace(dangerousCharsRegex, '')
-    .replace(/javascript:/gi, '') // Remove javascript: protocol
-    .replace(/on\w+=/gi, '') // Remove event handlers
-    .replace(/<script/gi, ''); // Remove script tags
-}
-
-// Validate email format
-function isValidEmail(email: string): boolean {
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-  return emailRegex.test(email) && email.length <= 254;
-}
-
-// Validate phone number (flexible international format)
-function isValidPhone(phone: string): boolean {
-  // Remove all formatting characters (spaces, dashes, parentheses, slashes)
-  const cleanPhone = phone.replace(/[\s\-\/()]/g, '');
-
-  // Check if it contains only numbers and optionally starts with +
-  if (!/^\+?[0-9]+$/.test(cleanPhone)) {
-    return false;
-  }
-
-  // Get just the digits (without +)
-  const digits = cleanPhone.replace(/^\+/, '');
-
-  // Check minimum and maximum length
-  return digits.length >= 6 && digits.length <= 15;
-}
-
-// Rate limiting check
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const userSubmissions = submissionTracker.get(ip);
-
-  // Clean up old entries (older than rate limit window)
-  if (userSubmissions && now - userSubmissions.timestamp > RATE_LIMIT_WINDOW) {
-    submissionTracker.delete(ip);
-    return true;
-  }
-
-  if (!userSubmissions) {
-    submissionTracker.set(ip, { count: 1, timestamp: now });
-    return true;
-  }
-
-  if (userSubmissions.count >= MAX_SUBMISSIONS_PER_HOUR) {
-    return false;
-  }
-
-  userSubmissions.count++;
-  return true;
-}
-
-// Allowed origins for CORS
-const ALLOWED_ORIGINS = [
-  'https://fusspflege-lena-schneider.de',
-  'https://www.fusspflege-lena-schneider.de',
-  'http://localhost:3000',
-  'http://localhost:3001'
-];
+import {
+  ALLOWED_ORIGINS,
+  sanitizeString,
+  isValidEmail,
+  isValidPhone,
+  checkBookingRateLimit,
+  getClientIp,
+  getCorsHeaders,
+  createOptionsHandler,
+  sendTelegramMessage,
+} from '@/lib/api-helpers';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -88,12 +23,10 @@ export const POST: APIRoute = async ({ request }) => {
       validateEnv();
     }
 
-    // Get client IP for rate limiting
-    const forwarded = request.headers.get('x-forwarded-for');
-    const ip = forwarded?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+    const ip = getClientIp(request);
 
     // Rate limiting
-    if (!checkRateLimit(ip)) {
+    if (!checkBookingRateLimit(ip)) {
       return new Response(
         JSON.stringify({ message: 'Zu viele Anfragen. Bitte versuchen Sie es später erneut.' }),
         { status: 429, headers: { 'Content-Type': 'application/json' } }
@@ -139,7 +72,6 @@ export const POST: APIRoute = async ({ request }) => {
       data.nachricht,
     ].filter(Boolean).join(' ');
 
-    // Check for SQL injection attempts
     if (containsSQLInjection(allTextFields)) {
       console.warn('SQL injection attempt detected from IP:', ip);
       return new Response(
@@ -148,7 +80,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Check for XSS attempts
     if (containsXSS(allTextFields)) {
       console.warn('XSS attempt detected from IP:', ip);
       return new Response(
@@ -157,7 +88,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Check for spam in message field
     if (data.nachricht && isLikelySpam(data.nachricht)) {
       console.warn('Spam detected from IP:', ip);
       return new Response(
@@ -168,17 +98,17 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Validate and sanitize inputs
     const sanitizedData = {
-      vorname: sanitizeString(data.vorname || '', true), // Allow apostrophes in names
-      nachname: sanitizeString(data.nachname || '', true), // Allow apostrophes in names
+      vorname: sanitizeString(data.vorname || '', { allowApostrophe: true }),
+      nachname: sanitizeString(data.nachname || '', { allowApostrophe: true }),
       telefon: sanitizeString(data.telefon || ''),
       email: sanitizeString(data.email || ''),
       leistung: sanitizeString(data.leistung || ''),
       wunschtermin: data.wunschtermin || '',
       wunschuhrzeit: sanitizeString(data.wunschuhrzeit || ''),
-      nachricht: sanitizeString(data.nachricht || '', true), // Allow apostrophes in messages
+      nachricht: sanitizeString(data.nachricht || '', { allowApostrophe: true }),
     };
 
-    // Validate required fields (Vorname, Telefon, and Email are required)
+    // Validate required fields
     if (!sanitizedData.vorname || !sanitizedData.telefon || !sanitizedData.email) {
       return new Response(
         JSON.stringify({ message: 'Pflichtfelder fehlen: Vorname, Telefonnummer und E-Mail-Adresse sind erforderlich' }),
@@ -186,7 +116,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validate email format (now required)
     if (!isValidEmail(sanitizedData.email)) {
       return new Response(
         JSON.stringify({ message: 'Ungültige E-Mail-Adresse' }),
@@ -194,7 +123,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validate phone if provided
     if (sanitizedData.telefon && !isValidPhone(sanitizedData.telefon)) {
       return new Response(
         JSON.stringify({
@@ -205,7 +133,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validate date is not before January 7, 2026
+    // Validate date
     if (sanitizedData.wunschtermin) {
       const selectedDate = new Date(sanitizedData.wunschtermin);
       const minDate = new Date('2026-01-07');
@@ -218,7 +146,6 @@ export const POST: APIRoute = async ({ request }) => {
         );
       }
 
-      // Limit to 1 year from January 7, 2026
       const maxDate = new Date('2027-01-07');
       maxDate.setHours(0, 0, 0, 0);
 
@@ -230,30 +157,13 @@ export const POST: APIRoute = async ({ request }) => {
       }
     }
 
-    // Telegram bot configuration
-    const TELEGRAM_DISABLED = false; // Enabled for testing
-    const TELEGRAM_BOT_TOKEN = import.meta.env.TELEGRAM_BOT_TOKEN;
-    const TELEGRAM_CHAT_ID = import.meta.env.TELEGRAM_CHAT_ID;
-
-    if (TELEGRAM_DISABLED) {
-      console.log('Telegram notifications disabled for testing');
-    } else if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-      console.warn('Telegram credentials not found - notifications will not be sent');
-    }
-
-    // Format date helper
     const formatDate = (dateString: string) => {
       if (!dateString) return 'Nicht angegeben';
       try {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('de-DE', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric'
+        return new Date(dateString).toLocaleDateString('de-DE', {
+          day: '2-digit', month: 'long', year: 'numeric',
         });
-      } catch {
-        return 'Ungültiges Datum';
-      }
+      } catch { return 'Ungültiges Datum'; }
     };
 
     const submittedAt = new Date();
@@ -274,7 +184,7 @@ export const POST: APIRoute = async ({ request }) => {
           nachricht: sanitizedData.nachricht,
         });
 
-        const { data: emailData, error: emailError } = await resend.emails.send({
+        const { error: emailError } = await resend.emails.send({
           from: 'Lena Schneider Fußpflege <info@fusspflege-lena-schneider.de>',
           to: [sanitizedData.email],
           subject: 'Terminanfrage erhalten - Warten auf Bestätigung',
@@ -283,20 +193,9 @@ export const POST: APIRoute = async ({ request }) => {
 
         if (emailError) {
           console.error('Error sending confirmation email:', emailError);
-        } else {
-          console.log('Confirmation email sent successfully. ID:', emailData?.id);
         }
       } catch (emailError) {
-        // Log email error but don't fail the request
         console.error('Email send error (non-critical):', emailError instanceof Error ? emailError.message : 'Unknown error');
-      }
-    } else {
-      if (import.meta.env.DEV) {
-        if (!RESEND_API_KEY) {
-          console.log('Resend API key not configured, skipping email');
-        } else if (!sanitizedData.email) {
-          console.log('No email provided by customer, skipping confirmation email');
-        }
       }
     }
 
@@ -316,16 +215,13 @@ export const POST: APIRoute = async ({ request }) => {
       });
 
       bookingId = booking.id;
-      console.log('Booking saved to database with ID:', booking.id);
     } catch (dbError) {
       console.error('Database error:', dbError instanceof Error ? dbError.message : 'Unknown error');
-      // Don't fail the request if DB save fails - customer already got email
     }
 
-    // Send notification to Telegram bot (even if DB failed)
-    if (!TELEGRAM_DISABLED && TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-      try {
-        const message = `
+    // Send notification to Telegram
+    try {
+      const message = `
 🆕 <b>Neue Buchungsanfrage${bookingId ? ` #${bookingId}` : ''}</b>
 
 👤 <b>Kunde:</b> ${sanitizedData.vorname} ${sanitizedData.nachname}
@@ -342,98 +238,32 @@ ${sanitizedData.nachricht || 'Keine Nachricht'}
 ⏰ <b>Eingegangen:</b> ${submittedAt.toLocaleString('de-DE')}
 `.trim();
 
-        const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        const requestBody: any = {
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message,
-          parse_mode: 'HTML',
-        };
+      const replyMarkup = bookingId
+        ? {
+            inline_keyboard: [[
+              { text: '✅ Bestätigen', callback_data: `confirm_${bookingId}` },
+              { text: '❌ Ablehnen', callback_data: `reject_${bookingId}` },
+            ]],
+          }
+        : undefined;
 
-        // Only add buttons if we have bookingId
-        if (bookingId) {
-          requestBody.reply_markup = {
-            inline_keyboard: [
-              [
-                { text: '✅ Bestätigen', callback_data: `confirm_${bookingId}` },
-                { text: '❌ Ablehnen', callback_data: `reject_${bookingId}` },
-              ],
-            ],
-          };
-        }
-
-        const telegramResponse = await fetch(telegramUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        });
-
-        if (!telegramResponse.ok) {
-          const errorData = await telegramResponse.json();
-          console.error('Telegram notification error:', errorData);
-        } else {
-          console.log('Telegram notification sent' + (bookingId ? ' with inline buttons' : ''));
-        }
-      } catch (telegramError) {
-        console.error('Telegram notification failed:', telegramError instanceof Error ? telegramError.message : 'Unknown error');
-      }
-    }
-
-    // Success response with CORS headers
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-
-    if (origin && ALLOWED_ORIGINS.includes(origin)) {
-      headers['Access-Control-Allow-Origin'] = origin;
-      headers['Access-Control-Allow-Methods'] = 'POST';
-      headers['Access-Control-Allow-Headers'] = 'Content-Type';
+      await sendTelegramMessage(message, { replyMarkup });
+    } catch (telegramError) {
+      console.error('Telegram notification failed:', telegramError instanceof Error ? telegramError.message : 'Unknown error');
     }
 
     return new Response(
       JSON.stringify({ message: 'Terminanfrage erfolgreich gesendet' }),
-      { status: 200, headers }
+      { status: 200, headers: getCorsHeaders(request, 'POST') }
     );
   } catch (error) {
-    // Generic error message - don't expose internal details
     console.error('Booking error:', error instanceof Error ? error.message : 'Unknown error');
-
-    // Get origin from request for CORS headers
-    const origin = request.headers.get('origin');
-
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-
-    if (origin && ALLOWED_ORIGINS.includes(origin)) {
-      headers['Access-Control-Allow-Origin'] = origin;
-      headers['Access-Control-Allow-Methods'] = 'POST';
-      headers['Access-Control-Allow-Headers'] = 'Content-Type';
-    }
 
     return new Response(
       JSON.stringify({ message: 'Fehler beim Senden der Anfrage. Bitte versuchen Sie es erneut oder rufen Sie uns direkt an.' }),
-      { status: 500, headers }
+      { status: 500, headers: getCorsHeaders(request, 'POST') }
     );
   }
 };
 
-// Handle OPTIONS preflight requests
-export const OPTIONS: APIRoute = async ({ request }) => {
-  const origin = request.headers.get('origin');
-
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
-    return new Response(null, {
-      status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Max-Age': '86400',
-      },
-    });
-  }
-
-  return new Response(null, { status: 403 });
-};
+export const OPTIONS: APIRoute = createOptionsHandler('POST');

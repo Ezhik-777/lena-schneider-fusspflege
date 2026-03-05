@@ -391,10 +391,10 @@ export default function BookingForm() {
                           return 'Termine sind ab dem 7. Januar 2026 verfügbar';
                         }
 
-                        // Check if it's Sunday
-                        if (selectedDate.getDay() === 0) {
-                          return 'Sonntags haben wir geschlossen';
-                        }
+                        // Check if it's Saturday or Sunday
+                        const day = selectedDate.getDay();
+                        if (day === 0) return 'Sonntags haben wir geschlossen';
+                        if (day === 6) return 'Samstags haben wir geschlossen';
 
                         // Check if it's a holiday
                         if (isNonWorkingDay(value)) {

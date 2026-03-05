@@ -36,3 +36,10 @@ CREATE TABLE IF NOT EXISTS settings (
 CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status);
 CREATE INDEX IF NOT EXISTS idx_bookings_wunschtermin ON bookings(wunschtermin);
 CREATE INDEX IF NOT EXISTS idx_blocked_dates_date ON blocked_dates(date);
+
+-- Migration: alternative booking proposal columns
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS alternative_date DATE;
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS alternative_time VARCHAR(50);
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS alternative_token VARCHAR(100);
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS alternative_accepted_at TIMESTAMP;
+CREATE INDEX IF NOT EXISTS idx_bookings_alt_token ON bookings(alternative_token);

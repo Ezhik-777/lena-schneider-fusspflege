@@ -800,6 +800,126 @@ export function getBookingStatusEmail(data: {
   `;
 }
 
+export function getAlternativeProposalEmail(data: {
+  vorname: string;
+  nachname: string;
+  leistung: string;
+  originalDate: string;
+  originalTime: string;
+  alternativeDate: string;
+  alternativeTime: string;
+  acceptUrl: string;
+}): string {
+  const formatDate = (dateStr: string) =>
+    new Date(dateStr).toLocaleDateString('de-DE', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+    });
+
+  return `
+    <!DOCTYPE html>
+    <html lang="de">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Alternativer Terminvorschlag</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f3f4f6; }
+          .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+          .header { background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); color: white; padding: 40px 30px; text-align: center; }
+          .header h1 { margin: 0; font-size: 26px; font-weight: 600; }
+          .header p { margin: 10px 0 0 0; opacity: 0.95; font-size: 15px; }
+          .content { padding: 40px 30px; }
+          .detail-row { padding: 12px 0; border-bottom: 1px solid #e5e7eb; }
+          .detail-row:last-child { border-bottom: none; }
+          .label { font-weight: 600; color: #374151; display: block; margin-bottom: 4px; }
+          .value { color: #1f2937; font-size: 16px; }
+          .signature { margin: 30px 0 20px 0; font-size: 16px; }
+          .footer { background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb; }
+          .contact-info { color: #6b7280; font-size: 14px; line-height: 1.8; }
+          .contact-info a { color: #2563eb; text-decoration: none; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>🗓 Alternativer Terminvorschlag</h1>
+            <p>Lena Schneider Fußpflege</p>
+          </div>
+
+          <div class="content">
+            <p style="font-size: 16px;">Liebe/r ${data.vorname} ${data.nachname},</p>
+
+            <p style="font-size: 15px; color: #374151; line-height: 1.7;">
+              leider konnte ich Ihren gewünschten Termin nicht bestätigen.
+              Ich freue mich jedoch, Ihnen einen <strong>alternativen Termin</strong> anbieten zu können:
+            </p>
+
+            <!-- Original request (crossed out) -->
+            <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:10px; padding:16px; margin:20px 0;">
+              <p style="margin:0 0 6px 0; font-size:13px; color:#991b1b; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">❌ Ihr Wunschtermin (nicht verfügbar)</p>
+              <p style="margin:0; color:#7f1d1d; font-size:15px; text-decoration:line-through;">
+                ${formatDate(data.originalDate)} &middot; ${data.originalTime}
+              </p>
+            </div>
+
+            <!-- Alternative proposal -->
+            <div style="background:linear-gradient(135deg,#ecfdf5,#d1fae5); border:2px solid #10b981; border-radius:12px; padding:24px; margin:20px 0; text-align:center;">
+              <p style="margin:0 0 8px 0; font-size:13px; color:#065f46; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">✅ Vorgeschlagener Alternativtermin</p>
+              <p style="margin:0; color:#064e3b; font-size:22px; font-weight:700; line-height:1.4;">
+                ${formatDate(data.alternativeDate)}
+              </p>
+              <p style="margin:6px 0 0 0; color:#047857; font-size:20px; font-weight:600;">
+                🕐 ${data.alternativeTime} Uhr
+              </p>
+              <p style="margin:8px 0 0 0; color:#065f46; font-size:14px;">💅 ${data.leistung}</p>
+            </div>
+
+            <p style="font-size:15px; color:#374151; line-height:1.7; margin:24px 0 8px 0;">
+              Wenn Ihnen dieser Termin passt, klicken Sie bitte auf den Button:
+            </p>
+
+            <!-- Accept button -->
+            <div style="text-align:center; margin:28px 0;">
+              <a href="${data.acceptUrl}"
+                style="display:inline-block; background:linear-gradient(135deg,#059669,#10b981); color:white; text-decoration:none; padding:16px 40px; border-radius:12px; font-size:17px; font-weight:700; letter-spacing:0.02em; box-shadow:0 4px 14px rgba(16,185,129,0.35);">
+                ✅ Alternativtermin annehmen
+              </a>
+            </div>
+
+            <p style="font-size:13px; color:#9ca3af; text-align:center; margin:0 0 24px 0;">
+              Dieser Link ist einmalig verwendbar.
+            </p>
+
+            <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:18px; margin:24px 0;">
+              <p style="margin:0 0 8px 0; font-weight:600; color:#1e40af;">📞 Passt der Termin nicht?</p>
+              <p style="margin:0; color:#1e3a8a; font-size:14px; line-height:1.6;">
+                Melden Sie sich gerne bei mir, damit wir gemeinsam einen passenden Termin finden:<br>
+                📞 <a href="tel:+4917634237368" style="color:#2563eb; font-weight:600;">+49 176 34237368</a><br>
+                📧 <a href="mailto:info@fusspflege-lena-schneider.de" style="color:#2563eb; font-weight:600;">info@fusspflege-lena-schneider.de</a>
+              </p>
+            </div>
+
+            <div class="signature">
+              <p>Mit freundlichen Grüßen,<br>
+              <strong>Lena Schneider</strong><br>
+              <span style="color:#6b7280;">Fußpflege Erligheim</span></p>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="contact-info">
+              📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
+              📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
+              🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
+              📍 Erligheim
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+}
+
 export function getContactNotificationEmail(data: ContactData & { ip?: string; submittedAt?: string }): string {
   return `
     <!DOCTYPE html>

@@ -1,122 +1,254 @@
 ---
-import { SERVICES } from '@/lib/constants';
+import { SERVICE_CATEGORIES } from '@/lib/constants';
 
-const serviceIcons: Record<string, string> = {
-  "smart-pediküre": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M12 2L9.5 8.5 3 10l5 4.5L6.5 21 12 17.5 17.5 21 16 14.5 21 10l-6.5-1.5z"/></svg>`,
-  "klassische-fußpflege": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M7 21c0 0 1-3 1-6s-1-5-1-7c0-3 2-6 5-6s5 3 5 6c0 2-1 4-1 7s1 6 1 6"/><path d="M12 2v0"/><circle cx="9.5" cy="16" r="0.5" fill="currentColor"/><circle cx="14.5" cy="16" r="0.5" fill="currentColor"/><circle cx="10" cy="13" r="0.5" fill="currentColor"/><circle cx="14" cy="13" r="0.5" fill="currentColor"/><circle cx="12" cy="10" r="0.5" fill="currentColor"/></svg>`,
-  "massage": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M2 12c2-2 4-3 6-3s4 2 6 2 4-2 6-2"/><path d="M2 17c2-2 4-3 6-3s4 2 6 2 4-2 6-2"/><path d="M2 7c2-2 4-3 6-3s4 2 6 2 4-2 6-2"/></svg>`,
-  "nagelkorrektur": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.12 8.12L17 17"/><path d="M16 2l6 6"/><path d="M2 16l6 6"/></svg>`,
-  "fremdmodellage-entfernen": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M12 2v6"/><path d="M8 4.5c0 0 1 2.5 4 2.5s4-2.5 4-2.5"/><path d="M12 8c-4 0-6 4-6 7 0 4 2.5 7 6 7s6-3 6-7c0-3-2-7-6-7z"/></svg>`,
-  "natuerliche-manikuere": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 17"/></svg>`,
-  "paraffinbehandlung": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-sage-dark"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14 0-5.5 2.5-7 0 1.5.5 2 1.5 3C15 6.5 16 8 16 10.5a4.5 4.5 0 0 1-7 3.74"/><path d="M3 19h18"/><path d="M5 19v2h14v-2"/></svg>`,
+const fp        = SERVICE_CATEGORIES[0];
+const mk        = SERVICE_CATEGORIES[1];
+const klassisch = fp.services[0] as any;
+const smart     = fp.services[1] as any;
+const otherFp   = (fp.services as any[]).slice(2);
+const mkServices = mk.services as any[];
+
+const mkDescriptions: Record<number, string> = {
+  0: "Nägel kürzen, feilen und in Form bringen — für gepflegte, schöne Hände.",
+  1: "Professioneller Neuaufbau mit Gel oder Tips ganz nach Ihren Wünschen.",
+  2: "Schonend auffüllen, Form anpassen — für dauerhaft makellose Nägel.",
+  3: "Natürliche Pflege ohne Gel oder Acryl — für gesunde, glänzende Nägel.",
 };
 ---
 
-<section id="services" class="bg-cream relative py-16 md:py-24">
-  <!-- Wave divider at top -->
-  <div class="absolute top-0 left-0 right-0 h-16 bg-cream" style="clip-path: ellipse(60% 100% at 50% 100%); margin-top: -60px; z-index: 2;"></div>
+<section id="services" class="relative py-20 md:py-28 overflow-hidden bg-olive-dark">
 
-  <div class="container">
-    <!-- Section Header -->
-    <div class="text-center mb-12 md:mb-16 reveal">
-      <span class="inline-block bg-sage-50 text-sage-dark font-body font-semibold text-sm uppercase tracking-wider px-4 py-2 rounded-full mb-4">
+  <!-- Grain texture -->
+  <div class="absolute inset-0 pointer-events-none opacity-[0.035]" aria-hidden="true"
+    style="background-image:url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")">
+  </div>
+
+  <!-- Ambient glows -->
+  <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
+    style="background: radial-gradient(circle, rgba(212,165,116,0.06) 0%, transparent 65%);" aria-hidden="true"></div>
+  <div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full pointer-events-none"
+    style="background: radial-gradient(circle, rgba(139,158,126,0.07) 0%, transparent 65%);" aria-hidden="true"></div>
+
+  <div class="container relative">
+
+    <!-- ══ HEADER ══ -->
+    <div class="text-center mb-10 reveal">
+      <p class="font-body text-gold-light text-xs uppercase tracking-[0.3em] mb-5">Preise &amp; Leistungen</p>
+      <h2 class="font-display text-cream text-4xl sm:text-5xl md:text-[3.5rem] leading-none mb-6">
         Unsere Leistungen
-      </span>
-      <h2 class="font-display text-olive text-3xl md:text-4xl mb-4">
-        Professionelle Fußpflege &amp; Wellness
       </h2>
-      <p class="font-body text-text-muted max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-        Entdecken Sie unser vielfältiges Angebot an Pflege- und Wellness-Behandlungen für Ihre Füße und Hände.
-      </p>
+      <!-- Ornamental divider -->
+      <div class="flex items-center justify-center gap-3">
+        <div class="h-px w-16 bg-gradient-to-r from-transparent to-gold-light/40"></div>
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 text-gold/50 flex-shrink-0">
+          <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+        </svg>
+        <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold-light/40"></div>
+      </div>
     </div>
 
-    <!-- Services Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-children">
-      {SERVICES.map((service) => (
-        <article class="card-hover bg-warm-white rounded-organic-sm border border-gold-light/20 hover:border-gold flex flex-col">
-          {/* Card Header */}
-          <div class="bg-sage-50/50 p-6 text-center rounded-t-organic-sm">
-            <div class="w-14 h-14 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Fragment set:html={serviceIcons[service.id] || ''} />
-            </div>
-            <h3 class="font-display text-olive text-xl">{service.title}</h3>
+    <!-- ══ TOWEL NOTICE ══ -->
+    <div class="reveal flex justify-center mb-12">
+      <div class="flex items-center gap-4 bg-cream/[0.07] border border-gold/20 rounded-2xl px-5 py-4 max-w-sm w-full backdrop-blur-sm">
+        <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-sage/20 border border-sage-light/25 flex items-center justify-center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-sage-light">
+            <path d="M3 7h18v2a9 9 0 01-9 9 9 9 0 01-9-9V7z"/>
+            <path d="M8 7V5a4 4 0 018 0v2"/>
+          </svg>
+        </div>
+        <p class="font-body text-cream/70 text-sm leading-snug">
+          Bitte bringen Sie zur Fußpflege
+          <strong class="text-cream font-semibold"> 1 Handtuch</strong> mit. Vielen Dank!
+        </p>
+      </div>
+    </div>
+
+    <!-- ══ TWO-COLUMN LAYOUT ══ -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+      <!-- ─── FUSSFLEGE COLUMN ─── -->
+      <div class="reveal">
+        <!-- Category heading -->
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-10 h-10 rounded-full border border-gold/25 flex items-center justify-center flex-shrink-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gold-light">
+              <path d="M7 21c0 0 1-3 1-6s-1-5-1-7c0-3 2-6 5-6s5 3 5 6c0 2-1 4-1 7s1 6 1 6"/>
+              <circle cx="9.5" cy="16" r="0.5" fill="currentColor"/>
+              <circle cx="14.5" cy="16" r="0.5" fill="currentColor"/>
+              <circle cx="10"   cy="13" r="0.5" fill="currentColor"/>
+              <circle cx="14"   cy="13" r="0.5" fill="currentColor"/>
+              <circle cx="12"   cy="10" r="0.5" fill="currentColor"/>
+            </svg>
           </div>
+          <h3 class="font-display text-cream text-2xl sm:text-3xl">Fußpflege Preise</h3>
+        </div>
 
-          {/* Card Body */}
-          <div class="p-6 flex flex-col flex-grow">
-            <p class="text-text-muted text-sm leading-relaxed">{service.description}</p>
-
-            {service.note && (
-              <p class="text-text-muted/70 text-xs italic mt-2">{service.note}</p>
-            )}
-
-            {/* Benefits List */}
-            <ul class="mt-4 space-y-2">
-              {service.benefits.map((benefit) => (
-                <li class="flex items-start text-sm text-text-dark">
-                  <span class="text-sage font-bold mr-2">✓</span>
-                  <span>{benefit}</span>
-                </li>
+        <!-- Klassische Fußpflege + add-ons -->
+        <div class="border-b border-cream/10">
+          <div class="flex items-baseline justify-between py-4">
+            <span class="font-display text-cream text-xl sm:text-2xl">{klassisch.title}</span>
+            <span class="font-body font-semibold text-gold text-lg whitespace-nowrap ml-4">{klassisch.price}</span>
+          </div>
+          {klassisch.addons && (
+            <div class="pb-4 space-y-2.5">
+              {klassisch.addons.map((addon: any) => (
+                <div class="flex items-center justify-between pl-5">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-1 h-1 rounded-full bg-gold/30 flex-shrink-0"></div>
+                    <span class="font-body text-sm text-cream/70">{addon.label}</span>
+                  </div>
+                  <span class="font-body text-sm font-semibold text-gold-light whitespace-nowrap ml-4">{addon.price}</span>
+                </div>
               ))}
-            </ul>
+            </div>
+          )}
+        </div>
 
-            {/* Divider */}
-            <div class="border-t border-gold-light/30 pt-4 mt-auto">
-              {service.priceOptions ? (
-                <div>
-                  {/* Duration */}
-                  <div class="flex items-center gap-1.5 text-text-muted text-sm mb-3">
-                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" y1="6" x2="12" y2="12" />
-                      <line x1="12" y1="12" x2="16" y2="14" />
-                    </svg>
-                    <span class="font-body">{service.duration}</span>
-                  </div>
-                  {/* Price Options */}
-                  <div class="space-y-2">
-                    {service.priceOptions.map((option) => (
-                      <div class="bg-sage-50 rounded-lg px-3 py-2 flex justify-between">
-                        <span class="font-body text-sm text-text-dark">{option.label}</span>
-                        <span class="font-body text-terracotta font-bold text-sm">{option.price}</span>
-                      </div>
-                    ))}
-                  </div>
+        <!-- Smart Pediküre — featured row -->
+        <div class="relative my-1 rounded-xl border border-gold/30 overflow-hidden"
+          style="background: linear-gradient(135deg, rgba(212,165,116,0.08) 0%, rgba(212,165,116,0.03) 100%);">
+          <!-- Gold left accent bar -->
+          <div class="absolute left-0 top-0 bottom-0 w-[3px]"
+            style="background: linear-gradient(to bottom, transparent, #D4A574, transparent);"></div>
+          <div class="px-5 py-5">
+            <div class="flex items-start gap-4 justify-between">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-gold flex-shrink-0">
+                    <path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                  </svg>
+                  <span class="font-body text-gold text-xs uppercase tracking-[0.2em] font-semibold">Empfohlen</span>
                 </div>
-              ) : (
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-1.5 text-text-muted text-sm">
-                    <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" y1="6" x2="12" y2="12" />
-                      <line x1="12" y1="12" x2="16" y2="14" />
-                    </svg>
-                    <span class="font-body">{service.duration}</span>
-                  </div>
-                  <span class="text-terracotta font-bold text-lg font-body">{service.price}</span>
-                </div>
-              )}
+                <h4 class="font-display text-cream text-xl sm:text-2xl mb-1.5">{smart.title}</h4>
+                <p class="font-body text-cream/75 text-sm leading-relaxed">{smart.description}</p>
+              </div>
+              <span class="font-display text-gold text-2xl sm:text-3xl whitespace-nowrap flex-shrink-0">{smart.price}</span>
             </div>
           </div>
-        </article>
-      ))}
+        </div>
+
+        <!-- Other Fußpflege services -->
+        <div>
+          {otherFp.map((service: any) => (
+            <div class="flex items-start justify-between py-4 border-b border-cream/10 last:border-0 gap-4 group cursor-default">
+              <div class="flex-1 min-w-0">
+                <span class="font-body text-cream/80 font-medium text-[0.9375rem] group-hover:text-cream transition-colors duration-200">
+                  {service.title}
+                </span>
+                {service.description && (
+                  <p class="font-body text-cream/65 text-xs mt-0.5 leading-snug">{service.description}</p>
+                )}
+                {service.note && (
+                  <p class="font-body text-cream/55 text-xs italic mt-0.5">{service.note}</p>
+                )}
+              </div>
+              <span class="font-body font-semibold text-gold whitespace-nowrap text-[0.9375rem]">{service.price}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- ─── MANIKÜRE COLUMN ─── -->
+      <div class="reveal">
+        <!-- Category heading -->
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-10 h-10 rounded-full border border-gold/25 flex items-center justify-center flex-shrink-0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gold-light">
+              <path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/>
+              <path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/>
+              <path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/>
+              <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 17"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-cream text-2xl sm:text-3xl">Maniküre Preise</h3>
+        </div>
+
+        <!-- 2×2 premium cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {mkServices.map((service, i) => (
+            <div class={`relative rounded-2xl border flex flex-col min-h-[200px] group
+              transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_8px_32px_rgba(0,0,0,0.25)]
+              ${service.highlight
+                ? 'border-gold/35 bg-gradient-to-br from-[rgba(212,165,116,0.1)] to-[rgba(212,165,116,0.04)]'
+                : 'border-cream/10 bg-cream/[0.03] hover:bg-cream/[0.06]'}`
+            }>
+
+              <!-- Corner ornaments -->
+              <div class="absolute top-3.5 right-3.5 w-5 h-5 border-t border-r border-gold-light/20 rounded-tr-md pointer-events-none"></div>
+              <div class="absolute bottom-3.5 left-3.5 w-5 h-5 border-b border-l border-gold-light/20 rounded-bl-md pointer-events-none"></div>
+
+              <div class="p-6 flex flex-col flex-grow">
+                <!-- Badge -->
+                {service.highlight && (
+                  <span class="self-start font-body text-[0.65rem] text-gold uppercase tracking-[0.2em] font-bold mb-3 bg-gold/10 border border-gold/20 px-2.5 py-1 rounded-full">
+                    Beliebt
+                  </span>
+                )}
+
+                <!-- Service name -->
+                <h4 class={`font-display text-cream leading-snug mb-2 flex-grow
+                  ${service.highlight ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'}`}>
+                  {service.title}
+                </h4>
+
+                <!-- Description -->
+                <p class="font-body text-cream/75 text-sm leading-relaxed mb-5">
+                  {mkDescriptions[i]}
+                </p>
+
+                <!-- Price row -->
+                <div class="mt-auto pt-4 border-t border-cream/10 flex items-center justify-between">
+                  <span class={`font-display leading-none
+                    ${service.highlight ? 'text-gold text-3xl' : 'text-gold text-2xl'}`}>
+                    {service.price}
+                  </span>
+                  <!-- Small decorative arrow -->
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    class="w-4 h-4 text-gold/25 group-hover:text-gold/50 group-hover:translate-x-0.5 transition-all duration-200">
+                    <path d="M4 10h12M12 6l4 4-4 4"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
 
-    <!-- New Customer Discount Banner -->
-    <div class="reveal bg-gradient-to-br from-terracotta-50 to-cream border-2 border-gold-light rounded-organic p-8 text-center mt-12">
-      <h3 class="font-display text-olive text-xl md:text-2xl mb-2">Neukunden-Rabatt</h3>
-      <p class="text-terracotta font-display text-3xl mb-1">10% Rabatt</p>
-      <p class="font-body text-text-muted text-base">auf Ihre erste Behandlung</p>
+    <!-- ══ GUTSCHEINE BANNER ══ -->
+    <div class="reveal mt-16">
+      <div class="relative rounded-2xl border border-gold/20 overflow-hidden px-6 sm:px-10 py-8 text-center"
+        style="background: linear-gradient(135deg, rgba(212,165,116,0.07) 0%, rgba(58,67,50,0) 50%, rgba(212,165,116,0.05) 100%);">
+        <!-- Radial glow -->
+        <div class="absolute inset-0 pointer-events-none"
+          style="background: radial-gradient(ellipse at 50% 120%, rgba(212,165,116,0.1) 0%, transparent 60%);" aria-hidden="true"></div>
+
+        <div class="relative flex flex-col items-center gap-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+            stroke-linecap="round" stroke-linejoin="round" class="w-9 h-9 text-gold">
+            <path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/>
+            <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+            <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+          </svg>
+          <p class="font-display text-cream text-2xl sm:text-3xl">Gutscheine sind auch Erhältlich</p>
+          <p class="font-body text-cream/70 text-sm">Das perfekte Geschenk für liebe Menschen — einfach nachfragen!</p>
+        </div>
+      </div>
     </div>
 
-    <!-- Bottom CTA -->
-    <div class="text-center mt-10 reveal">
+    <!-- ══ CTA ══ -->
+    <div class="text-center mt-8 reveal">
       <button
         onclick="document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })"
-        class="btn-primary inline-block bg-terracotta hover:bg-terracotta-dark text-white rounded-organic-sm px-8 py-3.5 font-body font-bold text-base cursor-pointer"
+        class="btn-primary inline-block bg-terracotta hover:bg-terracotta-dark text-white rounded-organic-sm px-9 py-4 font-body font-bold text-base cursor-pointer shadow-lg shadow-terracotta/20"
       >
         Jetzt Termin vereinbaren
       </button>
     </div>
+
   </div>
 </section>

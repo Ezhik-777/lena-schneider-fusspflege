@@ -10,12 +10,16 @@ export interface Booking {
   wunschtermin: string; // YYYY-MM-DD
   wunschuhrzeit: string;
   nachricht?: string;
-  status: 'pending' | 'confirmed' | 'rejected' | 'cancelled';
+  status: 'pending' | 'confirmed' | 'rejected' | 'cancelled' | 'awaiting_alternative' | 'alternative_proposed';
   ip?: string;
   created_at: Date;
   updated_at: Date;
   confirmed_at?: Date;
   rejected_at?: Date;
+  alternative_date?: string;
+  alternative_time?: string;
+  alternative_token?: string;
+  alternative_accepted_at?: Date;
 }
 
 export interface BlockedDate {
@@ -184,6 +188,12 @@ export async function getAvailableSlots(date: string, duration: 1 | 2 = 1): Prom
     ];
   }
 
+  // Check if date is Saturday (6) or Sunday (0) — closed
+  const dayOfWeek = new Date(date + 'T12:00:00').getDay();
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    return [];
+  }
+
   // Check if date is blocked
   const blocked = await isDateBlocked(date);
   if (blocked) {
@@ -216,4 +226,64 @@ export async function getAvailableSlots(date: string, duration: 1 | 2 = 1): Prom
   return allSlots.filter(slot => {
     return !confirmedBookings.some(booking => slotsOverlap(slot, booking.wunschuhrzeit));
   });
+}
+
+// Set booking to awaiting_alternative state (owner clicked "propose alternative")
+export async function setBookingAwaitingAlternative(id: number): Promise<void> {
+  await sql`
+    UPDATE bookings
+    SET status = 'awaiting_alternative', updated_at = CURRENT_TIMESTAMP
+    WHERE id = ${id}
+  `;
+}
+
+// Save alternative proposal and token, mark as alternative_proposed
+export async function setAlternativeProposal(
+  id: number,
+  alternativeDate: string,
+  alternativeTime: string,
+  token: string
+): Promise<void> {
+  await sql`
+    UPDATE bookings
+    SET status = 'alternative_proposed',
+        alternative_date = ${alternativeDate},
+        alternative_time = ${alternativeTime},
+        alternative_token = ${token},
+        updated_at = CURRENT_TIMESTAMP
+    WHERE id = ${id}
+  `;
+}
+
+// Get booking by alternative token
+export async function getBookingByAlternativeToken(token: string): Promise<Booking | null> {
+  const result = await sql`
+    SELECT * FROM bookings WHERE alternative_token = ${token} LIMIT 1
+  `;
+  return (result.rows[0] as Booking) || null;
+}
+
+// Customer accepted the alternative — confirm the booking with new date/time
+export async function acceptAlternative(id: number): Promise<void> {
+  await sql`
+    UPDATE bookings
+    SET status = 'confirmed',
+        wunschtermin = alternative_date,
+        wunschuhrzeit = alternative_time,
+        alternative_accepted_at = CURRENT_TIMESTAMP,
+        confirmed_at = CURRENT_TIMESTAMP,
+        updated_at = CURRENT_TIMESTAMP
+    WHERE id = ${id}
+  `;
+}
+
+// Get any booking currently awaiting alternative date input from owner
+export async function getAwaitingAlternativeBooking(): Promise<Booking | null> {
+  const result = await sql`
+    SELECT * FROM bookings
+    WHERE status = 'awaiting_alternative'
+    ORDER BY updated_at DESC
+    LIMIT 1
+  `;
+  return (result.rows[0] as Booking) || null;
 }

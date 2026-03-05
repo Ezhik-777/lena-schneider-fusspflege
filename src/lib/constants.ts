@@ -32,9 +32,9 @@ export const BUSINESS_INFO = {
 
   hours: {
     weekdays: "Mo - Fr: 09:00 - 15:00 Uhr",
-    saturday: "Sa: Nach Vereinbarung",
+    saturday: "Sa: Geschlossen",
     sunday: "So: Geschlossen",
-    note: "Termine nach Vereinbarung auch außerhalb der Öffnungszeiten möglich",
+    note: "Termine nur Mo–Fr nach Vereinbarung",
   },
 
   social: {
@@ -57,15 +57,14 @@ export const BUSINESS_INFO = {
   },
 } as const;
 
-// Service-Kategorien
+// Service-Kategorien (für Buchungsformular)
 export const SERVICES = [
   {
     id: "smart-pediküre",
     title: "Smart Pediküre",
-    description: "Moderne Form der Fußpflege: Hornhaut wird sanft entfernt, die Nägel werden geformt und die Haut mit Pflegeöl gepflegt. Das sorgt für glatte, gepflegte Füße und ein langanhaltendes Frischegefühl.",
-    price: "55 €",
+    description: "Moderne Form der Fußpflege: Hornhaut wird sanft entfernt, die Nägel werden geformt und die Haut mit Pflegeöl gepflegt.",
+    price: "60 €",
     duration: "50 Min.",
-    icon: "✨",
     benefits: [
       "Sanfte Hornhautentfernung",
       "Nägel formen",
@@ -79,8 +78,6 @@ export const SERVICES = [
     description: "Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.",
     price: "37 €",
     duration: "45 Min.",
-    icon: "🦶",
-    note: "Aufpreis für Shellac: +11€",
     benefits: [
       "Nägel schneiden/kürzen",
       "Nagelhautentfernung",
@@ -89,13 +86,16 @@ export const SERVICES = [
     ],
   },
   {
-    id: "massage",
-    title: "Wellness-Fußreflexzonenmassage",
-    description: "Entspannende Massage für Stressabbau.",
-    price: "35 €",
-    duration: "30 Min.",
-    icon: "🌊",
-    benefits: ["Stressabbau und Entspannung"],
+    id: "verwöhnpaket",
+    title: "Verwöhnpaket",
+    description: "Das rundum-sorglos-Paket für gepflegte Füße.",
+    price: "59 €",
+    duration: "60 Min.",
+    benefits: [
+      "Klassische Fußpflege",
+      "Peeling",
+      "Entspannende Massage"
+    ],
   },
   {
     id: "nagelkorrektur",
@@ -103,8 +103,7 @@ export const SERVICES = [
     description: "Sanfte kosmetische Methode zur Nagelkorrektur.",
     price: "29 €",
     duration: "10 Min.",
-    icon: "✂️",
-    note: "Ohne Fußpflege",
+    note: "Pro Nagel, ohne Fußpflege",
     benefits: [
       "Sanfte kosmetische Methode",
       "Kaum sichtbar",
@@ -112,40 +111,20 @@ export const SERVICES = [
     ],
   },
   {
-    id: "fremdmodellage-entfernen",
-    title: "Fremdmodellage entfernen",
-    description: "Professionelle und schonende Entfernung von Shellac-Lack.",
-    price: "15 €",
-    duration: "10-15 Min.",
-    icon: "💧",
-    benefits: [
-      "Schonende Entfernung",
-      "Schnell und effektiv",
-      "Ohne Beschädigung der Nägel"
-    ],
-  },
-  {
-    id: "natuerliche-manikuere",
-    title: "Natürliche Maniküre ohne Verlängerung",
-    description: "Naturnagel-Maniküre für gepflegte und schöne Hände.",
-    price: "30 €",
-    duration: "40 Min.",
-    icon: "💅",
-    note: "Aufpreis für Shellac 11 €",
-    benefits: [
-      "Nägel werden gekürzt, gefeilt und in Form gebracht",
-      "Nagelhaut wird sanft entfernt",
-      "Poliert und geölt"
-    ],
+    id: "massage",
+    title: "Wellness-Fußreflexzonenmassage",
+    description: "Entspannende Massage für Stressabbau und Wohlbefinden.",
+    price: "35 €",
+    duration: "30 Min.",
+    benefits: ["Stressabbau und Entspannung"],
   },
   {
     id: "paraffinbehandlung",
     title: "Kosmetische Paraffinbehandlung",
-    description: "Wohltuende Wärmebehandlung für gepflegte, geschmeidige Haut. Das Paraffinbad spendet intensive Feuchtigkeit und macht Hände oder Füße wunderbar weich. Ideal bei trockener oder beanspruchter Haut – für ein spürbar zartes Hautgefühl.",
+    description: "Wohltuende Wärmebehandlung für gepflegte, geschmeidige Haut.",
     price: "ab 19 €",
     duration: "30 Min.",
-    icon: "🔥",
-    note: "Nur kosmetische Pflegebehandlung – keine medizinische Anwendung",
+    note: "Hände 19 € · Füße 19 € · Kombi 35 €",
     priceOptions: [
       { label: "Hände", price: "19 €" },
       { label: "Füße", price: "19 €" },
@@ -157,7 +136,129 @@ export const SERVICES = [
       "Ideal bei trockener Haut"
     ],
   },
+  {
+    id: "manikuere",
+    title: "Maniküre",
+    description: "Nägel kürzen, feilen.",
+    price: "25,50 €",
+    duration: "30 Min.",
+    benefits: [
+      "Nägel kürzen",
+      "Feilen und formen"
+    ],
+  },
+  {
+    id: "neumodellage",
+    title: "Neumodellage / Gel / Tips",
+    description: "Professionelle Neumodellage mit Gel oder Tips.",
+    price: "55 €",
+    duration: "90 Min.",
+    benefits: [
+      "Neuaufbau",
+      "Gel oder Tips",
+      "Formgebung nach Wunsch"
+    ],
+  },
+  {
+    id: "auffuellen",
+    title: "Auffüllen",
+    description: "Professionelles Auffüllen der Nägel.",
+    price: "45 €",
+    duration: "60 Min.",
+    benefits: [
+      "Nachfüllen",
+      "Form anpassen"
+    ],
+  },
+  {
+    id: "japanische-manikuere",
+    title: "Japanische Maniküre",
+    description: "Natürliche Pflege für gesunde, glänzende Nägel ohne Gel oder Acryl.",
+    price: "50 €",
+    duration: "45 Min.",
+    benefits: [
+      "Ohne Gel oder Acryl",
+      "Natürliche Pflege",
+      "Gesunde, glänzende Nägel"
+    ],
+  },
 ] as const;
+
+// Display-Kategorien für die Services-Sektion
+export const SERVICE_CATEGORIES = [
+  {
+    id: "fusspflege",
+    title: "Fußpflege Preise",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white flex-shrink-0"><path d="M7 21c0 0 1-3 1-6s-1-5-1-7c0-3 2-6 5-6s5 3 5 6c0 2-1 4-1 7s1 6 1 6"/><circle cx="9.5" cy="16" r="0.5" fill="currentColor"/><circle cx="14.5" cy="16" r="0.5" fill="currentColor"/><circle cx="10" cy="13" r="0.5" fill="currentColor"/><circle cx="14" cy="13" r="0.5" fill="currentColor"/><circle cx="12" cy="10" r="0.5" fill="currentColor"/></svg>`,
+    services: [
+      {
+        title: "Klassische Fußpflege",
+        price: "37,00 €",
+        description: "Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.",
+        addons: [
+          { label: "Nagellack", price: "+8,00 €" },
+          { label: "Fußnagelmodellage mit UV Farbgel", price: "+18,00 €" },
+          { label: "Fußnagelmodellage mit French", price: "+20,00 €" },
+          { label: "Nagellackentfernung", price: "+9,00 €" },
+          { label: "Fremdmodellage entfernen", price: "+12,00 €" },
+          { label: "Intensive Hornhautentfernen", price: "+15,00 €" },
+        ]
+      },
+      {
+        title: "Smart Pediküre",
+        price: "60,00 €",
+        description: "Moderne Form der Fußpflege: Hornhaut wird sanft entfernt, die Nägel werden geformt und die Haut mit Pflegeöl gepflegt. Das sorgt für glatte, gepflegte Füße und ein langanhaltendes Frischegefühl.",
+        highlight: true,
+      },
+      {
+        title: "Kosmetische Nagelkorrektur",
+        price: "29,00 €",
+        note: "Kaum sichtbare, sanfte Methode. Pro Nagel (ohne Fußpflege)",
+      },
+      {
+        title: "Verwöhnpaket",
+        price: "59,00 €",
+        description: "inkl. Fußpflege, Peeling, Massage",
+      },
+      {
+        title: "Wellness-Fußreflexzonenmassage",
+        price: "35,00 €",
+        description: "Entspannende Massage für Stressabbau und Wohlbefinden.",
+      },
+      {
+        title: "Kosmetische Paraffinbehandlung",
+        price: "ab 19,00 €",
+        note: "Hände 19 € · Füße 19 € · Kombi 35 €",
+      },
+    ]
+  },
+  {
+    id: "manikuere",
+    title: "Maniküre Preise",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white flex-shrink-0"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 17"/></svg>`,
+    services: [
+      {
+        title: "Maniküre",
+        price: "25,50 €",
+        description: "Nägel kürzen, feilen.",
+      },
+      {
+        title: "Neumodellage / Gel / Tips",
+        price: "55,00 €",
+      },
+      {
+        title: "Auffüllen",
+        price: "45,00 €",
+      },
+      {
+        title: "Japanische Maniküre",
+        price: "50,00 €",
+        description: "Natürliche Pflege für gesunde, glänzende Nägel ohne Gel oder Acryl.",
+        highlight: true,
+      },
+    ]
+  }
+];
 
 // Öffnungszeiten strukturiert
 export const OPENING_HOURS = [
@@ -167,7 +268,7 @@ export const OPENING_HOURS = [
   },
   {
     days: "Samstag",
-    hours: "Nach Vereinbarung",
+    hours: "Geschlossen",
   },
   {
     days: "Sonntag",

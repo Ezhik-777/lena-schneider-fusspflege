@@ -46,7 +46,7 @@ export const BUSINESS_INFO = {
   seo: {
     domain: "https://fusspflege-lena-schneider.de",
     title: "Fußpflege bei Ella Schön | Kosmetische Fußpflege & Pediküre in Erligheim",
-    description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fußpflege ✓ Wellness-Fußreflexzonenmassage ✓ Termine nach Vereinbarung",
+    description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fußpflege ✓ Maniküre ✓ Termine nach Vereinbarung",
   },
 
   legal: {
@@ -111,32 +111,6 @@ export const SERVICES = [
     ],
   },
   {
-    id: "massage",
-    title: "Wellness-Fußreflexzonenmassage",
-    description: "Entspannende Massage für Stressabbau und Wohlbefinden.",
-    price: "35 €",
-    duration: "30 Min.",
-    benefits: ["Stressabbau und Entspannung"],
-  },
-  {
-    id: "paraffinbehandlung",
-    title: "Kosmetische Paraffinbehandlung",
-    description: "Wohltuende Wärmebehandlung für gepflegte, geschmeidige Haut.",
-    price: "ab 19 €",
-    duration: "30 Min.",
-    note: "Hände 19 € · Füße 19 € · Kombi 35 €",
-    priceOptions: [
-      { label: "Hände", price: "19 €" },
-      { label: "Füße", price: "19 €" },
-      { label: "Kombi", price: "35 €" }
-    ],
-    benefits: [
-      "Intensive Feuchtigkeitspflege",
-      "Wunderbar weiche Haut",
-      "Ideal bei trockener Haut"
-    ],
-  },
-  {
     id: "manikuere",
     title: "Maniküre",
     description: "Nägel kürzen, feilen.",
@@ -196,9 +170,9 @@ export const SERVICE_CATEGORIES = [
         price: "37,00 €",
         description: "Professionelle kosmetische Fußpflege für gesunde und gepflegte Füße.",
         addons: [
+          { label: "Aufpreis mit Shellac / Farbgel", price: "+18,00 €" },
+          { label: "Aufpreis mit French", price: "+20,00 €" },
           { label: "Nagellack", price: "+8,00 €" },
-          { label: "Fußnagelmodellage mit UV Farbgel", price: "+18,00 €" },
-          { label: "Fußnagelmodellage mit French", price: "+20,00 €" },
           { label: "Nagellackentfernung", price: "+9,00 €" },
           { label: "Fremdmodellage entfernen", price: "+12,00 €" },
           { label: "Intensive Hornhautentfernen", price: "+15,00 €" },
@@ -219,16 +193,6 @@ export const SERVICE_CATEGORIES = [
         title: "Verwöhnpaket",
         price: "59,00 €",
         description: "inkl. Fußpflege, Peeling, Massage",
-      },
-      {
-        title: "Wellness-Fußreflexzonenmassage",
-        price: "35,00 €",
-        description: "Entspannende Massage für Stressabbau und Wohlbefinden.",
-      },
-      {
-        title: "Kosmetische Paraffinbehandlung",
-        price: "ab 19,00 €",
-        note: "Hände 19 € · Füße 19 € · Kombi 35 €",
       },
     ]
   },

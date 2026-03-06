@@ -11,8 +11,6 @@ export const SERVICES: ServiceConfig[] = [
   { name: 'Klassische Fußpflege', duration: 1 },
   { name: 'Verwöhnpaket', duration: 1 },
   { name: 'Kosmetische Nagelkorrektur', duration: 1 },
-  { name: 'Wellness-Fußreflexzonenmassage', duration: 1 },
-  { name: 'Kosmetische Paraffinbehandlung', duration: 1 },
   { name: 'Maniküre', duration: 1 },
   { name: 'Japanische Maniküre', duration: 1 },
 

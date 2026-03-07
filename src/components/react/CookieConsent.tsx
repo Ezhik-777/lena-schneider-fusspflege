@@ -6,6 +6,16 @@ interface CookiePreferences {
   analytics: boolean;
 }
 
+const CONSENT_STORAGE_KEY = 'cookieConsent';
+
+function notifyConsentChange(preferences: CookiePreferences) {
+  window.dispatchEvent(
+    new CustomEvent('cookie-consent-updated', {
+      detail: preferences,
+    }),
+  );
+}
+
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -16,43 +26,28 @@ export default function CookieConsent() {
   });
 
   useEffect(() => {
-    // Check if user has already made a choice
-    const consent = localStorage.getItem('cookieConsent');
+    const consent = localStorage.getItem(CONSENT_STORAGE_KEY);
     if (!consent) {
-      // Show banner after a short delay
       setTimeout(() => setShowBanner(true), 1000);
     } else {
-      // Load saved preferences
       try {
         const saved = JSON.parse(consent);
         setPreferences(saved);
-        // Apply saved preferences (e.g., load analytics scripts)
-        if (saved.analytics) {
-          loadAnalytics();
-        }
+        notifyConsentChange(saved);
       } catch (e) {
         console.error('Error parsing cookie preferences:', e);
+        localStorage.removeItem(CONSENT_STORAGE_KEY);
+        setTimeout(() => setShowBanner(true), 1000);
       }
     }
   }, []);
 
-  const loadAnalytics = () => {
-    // Load Google Analytics or other analytics scripts
-    if (import.meta.env.DEV) {
-      console.log('Analytics enabled');
-    }
-  };
-
   const savePreferences = (prefs: CookiePreferences) => {
-    localStorage.setItem('cookieConsent', JSON.stringify(prefs));
+    localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(prefs));
     setPreferences(prefs);
     setShowBanner(false);
     setShowSettings(false);
-
-    // Apply preferences
-    if (prefs.analytics) {
-      loadAnalytics();
-    }
+    notifyConsentChange(prefs);
   };
 
   const acceptAll = () => {

@@ -1,5 +1,7 @@
 ---
 // About section - merges About + Benefits
+import { Image } from 'astro:assets';
+import nailsImage from '@/assets/nails-work.jpg';
 ---
 
 <section id="about" class="bg-warm-white grain relative py-16 md:py-24">
@@ -13,9 +15,15 @@
           <div class="absolute -z-10 -top-8 -left-8 w-64 h-64 bg-sage-200/40 rounded-full blur-3xl"></div>
           <div class="absolute -z-10 -bottom-8 -right-8 w-48 h-48 bg-gold-light/30 rounded-full blur-3xl"></div>
 
-          <img
-            src="/nails-work.jpg"
+          <Image
+            src={nailsImage}
             alt="Professionelle Fußpflege bei Ella Schön in Erligheim"
+            widths={[320, 480, 640, 800]}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            width={640}
+            height={800}
+            format="webp"
+            quality={80}
             class="aspect-[4/5] object-cover w-full border-4 border-gold-light shadow-xl"
             style="border-radius: 40% 60% 50% 50% / 55% 45% 55% 45%"
             loading="lazy"

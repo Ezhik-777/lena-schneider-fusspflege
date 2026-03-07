@@ -4,12 +4,15 @@
  */
 
 export const BUSINESS_INFO = {
-  name: "Unser Salon bei Ella Schön",
+  name: "Fußpflege Lena Schneider bei Ella Schön",
   location: "Erligheim",
   owner: "Elena Schneider",
+  alternateNames: [
+    "Fußpflege Erligheim bei Ella Schön",
+    "Unser Salon bei Ella Schön",
+  ],
 
   contact: {
-    phone: "+49 176 34237368",
     phoneFormatted: "+49 176 34237368",
     phoneHref: "tel:+4917634237368",
     email: "info@fusspflege-lena-schneider.de",
@@ -17,12 +20,12 @@ export const BUSINESS_INFO = {
   },
 
   address: {
-    street: "Löchgauer str. 17",
+    street: "Löchgauer Str. 17",
     postalCode: "74391",
     city: "Erligheim",
     region: "Baden-Württemberg",
     country: "Deutschland",
-    fullAddress: "Löchgauer str. 17, 74391 Erligheim",
+    fullAddress: "Löchgauer Str. 17, 74391 Erligheim",
   },
 
   geo: {
@@ -37,16 +40,37 @@ export const BUSINESS_INFO = {
     note: "Termine nur Mo–Fr nach Vereinbarung",
   },
 
+  priceRange: "25-60 EUR",
+  paymentAccepted: ["Cash", "Debit Card"],
+  areaServed: [
+    "Erligheim",
+    "Bönnigheim",
+    "Besigheim",
+    "Sachsenheim",
+    "Bietigheim-Bissingen",
+    "Freudental",
+    "Löchgau",
+    "Kirchheim am Neckar",
+    "Walheim",
+    "Mündelsheim",
+    "Gemmrigheim",
+    "Vaihingen an der Enz",
+    "Markgröningen",
+    "Ludwigsburg",
+    "Landkreis Ludwigsburg",
+  ],
+
   social: {
     facebook: "https://facebook.com/fusspflege.lena.schneider",
     instagram: "https://instagram.com/fusspflege.lena.schneider",
-    linkedin: "https://linkedin.com", // Optional
   },
 
   seo: {
     domain: "https://fusspflege-lena-schneider.de",
     title: "Fußpflege bei Ella Schön | Kosmetische Fußpflege & Pediküre in Erligheim",
-    description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön ✓ Smart Pediküre ✓ Klassische Fußpflege ✓ Maniküre ✓ Termine nach Vereinbarung",
+    description: "Professionelle kosmetische Fußpflege in Erligheim bei Ella Schön. Smart Pediküre, klassische Fußpflege und Maniküre. Termine nach Vereinbarung.",
+    locale: "de_DE",
+    themeColor: "#8B9E7E",
   },
 
   legal: {
@@ -55,6 +79,15 @@ export const BUSINESS_INFO = {
     registrationCourt: null, // Nicht erforderlich für Einzelunternehmer
     registrationNumber: null, // Nicht erforderlich für Einzelunternehmer
   },
+} as const;
+
+export const SITE_ASSETS = {
+  ogImage: "/og-image.jpg",
+  favicon: "/favicon.svg",
+  appleTouchIcon: "/icon-192x192.png",
+  manifest: "/manifest.json",
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
 } as const;
 
 // Service-Kategorien (für Buchungsformular)
@@ -180,7 +213,7 @@ export const SERVICE_CATEGORIES = [
           { label: "Nagellack", price: "+8,00 €" },
           { label: "Nagellackentfernung", price: "+9,00 €" },
           { label: "Fremdmodellage entfernen", price: "+12,00 €" },
-          { label: "Intensive Hornhautentfernen", price: "+15,00 €" },
+          { label: "Intensive Hornhautentfernung", price: "+15,00 €" },
         ]
       },
       {
@@ -237,13 +270,55 @@ export const OPENING_HOURS = [
   {
     days: "Montag - Freitag",
     hours: "09:00 - 15:00 Uhr",
+    schemaDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
   },
   {
     days: "Samstag",
     hours: "Geschlossen",
+    schemaDays: ["Saturday"],
   },
   {
     days: "Sonntag",
     hours: "Geschlossen",
+    schemaDays: ["Sunday"],
+  },
+] as const;
+
+export const FAQ_ITEMS = [
+  {
+    question: "Wo befindet sich die Fußpflege in Erligheim?",
+    answer: `Unser Salon befindet sich in ${BUSINESS_INFO.address.street}, ${BUSINESS_INFO.address.postalCode} ${BUSINESS_INFO.address.city}. Inhaberin ist ${BUSINESS_INFO.owner}.`,
+  },
+  {
+    question: "Was kostet eine Fußpflege in Erligheim?",
+    answer: "Die klassische Fußpflege kostet 37 EUR, die Smart Pediküre 60 EUR und das Verwöhnpaket inklusive Peeling und Massage 59 EUR.",
+  },
+  {
+    question: "Welche Maniküre-Leistungen werden angeboten?",
+    answer: "Wir bieten Maniküre, Neumodellage mit Gel oder Tips, Auffüllen/Refill sowie japanische Maniküre an.",
+  },
+  {
+    question: "Brauche ich einen Termin für die Fußpflege?",
+    answer: `Ja, wir arbeiten ausschließlich nach Terminvereinbarung. Sie können telefonisch (${BUSINESS_INFO.contact.phoneFormatted}), per E-Mail (${BUSINESS_INFO.contact.email}) oder über das Online-Buchungsformular anfragen.`,
+  },
+  {
+    question: "Wann hat die Fußpflege geöffnet?",
+    answer: "Reguläre Termine sind Montag bis Freitag von 09:00 bis 15:00 Uhr möglich. Samstag und Sonntag ist geschlossen.",
+  },
+  {
+    question: "Was ist die Smart Pediküre?",
+    answer: "Die Smart Pediküre ist unsere empfohlene moderne Fußpflege mit sanfter Hornhautentfernung, geformten Nägeln und pflegendem Öl für ein langanhaltend gepflegtes Gefühl.",
+  },
+  {
+    question: "Gibt es Gutscheine?",
+    answer: "Ja, Gutscheine sind erhältlich. Fragen Sie uns einfach direkt an.",
+  },
+  {
+    question: "Was muss ich zur Fußpflege mitbringen?",
+    answer: "Bitte bringen Sie ein kleines Handtuch zur Fußpflege mit.",
+  },
+  {
+    question: "Wie sind die Stornierungsbedingungen?",
+    answer: "Bitte sagen Sie Ihren Termin mindestens 24 Stunden vorher ab. Nicht rechtzeitig abgesagte Termine können mit 25 EUR berechnet werden.",
   },
 ] as const;

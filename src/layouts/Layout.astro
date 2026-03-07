@@ -1,5 +1,12 @@
 ---
 import '@/styles/global.css';
+import {
+  BUSINESS_INFO,
+  FAQ_ITEMS,
+  OPENING_HOURS,
+  SERVICE_CATEGORIES,
+  SITE_ASSETS,
+} from '@/lib/constants';
 
 interface Props {
   title?: string;
@@ -7,14 +14,132 @@ interface Props {
   noindex?: boolean;
 }
 
+type ServiceEntry = {
+  title: string;
+  price?: string;
+  description?: string;
+  note?: string;
+  priceOptions?: Array<{
+    label: string;
+    price: string;
+  }>;
+};
+
 const {
-  title = 'Fusspflege Erligheim bei Ella Schon | Lena Schneider | Kosmetische Fusspflege & Pedikure',
-  description = 'Professionelle kosmetische Fusspflege in Erligheim bei Ella Schon. Smart Pedikure, Klassische Fusspflege, Manikure. Termine nach Vereinbarung. +49 176 34237368',
+  title = BUSINESS_INFO.seo.title,
+  description = BUSINESS_INFO.seo.description,
   noindex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? BUSINESS_INFO.seo.domain);
+const ogImageURL = new URL(SITE_ASSETS.ogImage, BUSINESS_INFO.seo.domain);
 const gaId = import.meta.env.PUBLIC_GA_ID;
+
+const parsePrice = (price: string) => price.replace(/[^\d,]/g, '').replace(',', '.');
+
+const serviceCatalog = SERVICE_CATEGORIES.map((category) => {
+  const services = category.services as ServiceEntry[];
+
+  return {
+    '@type': 'OfferCatalog',
+    name: category.title,
+    itemListElement: services.flatMap((service) => {
+      if (service.priceOptions?.length) {
+        return service.priceOptions.map((option) => ({
+          '@type': 'Offer',
+          price: parsePrice(option.price),
+          priceCurrency: 'EUR',
+          itemOffered: {
+            '@type': 'Service',
+            name: `${service.title} ${option.label}`,
+            description: service.description ?? service.note ?? service.title,
+          },
+        }));
+      }
+
+      if (!service.price) {
+        return [];
+      }
+
+      return [{
+        '@type': 'Offer',
+        price: parsePrice(service.price),
+        priceCurrency: 'EUR',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title,
+          description: service.description ?? service.note ?? service.title,
+        },
+      }];
+    }),
+  };
+});
+
+const openingHoursSpecification = OPENING_HOURS
+  .filter((entry) => entry.hours !== 'Geschlossen')
+  .map((entry) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: entry.schemaDays,
+    opens: '09:00',
+    closes: '15:00',
+  }));
+
+const localBusinessStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BeautySalon',
+  '@id': `${BUSINESS_INFO.seo.domain}/#business`,
+  name: BUSINESS_INFO.name,
+  alternateName: BUSINESS_INFO.alternateNames,
+  description,
+  url: BUSINESS_INFO.seo.domain,
+  telephone: BUSINESS_INFO.contact.phoneHref.replace('tel:', ''),
+  email: BUSINESS_INFO.contact.email,
+  image: ogImageURL.toString(),
+  priceRange: BUSINESS_INFO.priceRange,
+  currenciesAccepted: 'EUR',
+  paymentAccepted: BUSINESS_INFO.paymentAccepted.join(', '),
+  founder: {
+    '@type': 'Person',
+    name: BUSINESS_INFO.owner,
+    jobTitle: 'Kosmetische Fußpflegerin',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: BUSINESS_INFO.address.street,
+    addressLocality: BUSINESS_INFO.address.city,
+    postalCode: BUSINESS_INFO.address.postalCode,
+    addressRegion: BUSINESS_INFO.address.region,
+    addressCountry: 'DE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS_INFO.geo.latitude,
+    longitude: BUSINESS_INFO.geo.longitude,
+  },
+  openingHoursSpecification,
+  areaServed: BUSINESS_INFO.areaServed.map((name) => ({
+    '@type': name.startsWith('Landkreis') ? 'AdministrativeArea' : 'City',
+    name,
+  })),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Fußpflege & Maniküre Leistungen',
+    itemListElement: serviceCatalog,
+  },
+};
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
 ---
 
 <!doctype html>
@@ -25,167 +150,144 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="Fusspflege Erligheim, Kosmetische Fusspflege Erligheim, Fusspflegerin Erligheim, Pedikure Erligheim, Fusspflege bei Ella Schon, Smart Pedikure, Klassische Fusspflege, Nagelmodellage, Japanische Manikure, Maniküre Erligheim, Fusspflege Bonnigheim, Fusspflege Besigheim, Fusspflege Sachsenheim, Fusspflege Bietigheim-Bissingen, Fusspflege Freudental, Fusspflege Lochgau, Fusspflege Kirchheim am Neckar, Fusspflege Walheim, Fusspflege Ludwigsburg Kreis, Hornhautentfernung, Nagelkorrektur, Fusspflege Termin buchen, Professionelle Fusspflege, Fusspflege Preise, Kosmetische Fusspflege Baden-Wurttemberg, Fusspflege 74391, Fusspflege Landkreis Ludwigsburg" />
 
-    <meta name="author" content="Lena Schneider" />
-    <meta name="creator" content="Lena Schneider" />
-    <meta name="publisher" content="Fusspflege Lena Schneider" />
+    <meta name="author" content={BUSINESS_INFO.owner} />
+    <meta name="creator" content={BUSINESS_INFO.owner} />
+    <meta name="publisher" content={BUSINESS_INFO.name} />
     <link rel="canonical" href={canonicalURL} />
 
     {noindex ? (
       <meta name="robots" content="noindex, nofollow" />
     ) : (
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta
+        name="robots"
+        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      />
     )}
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale" content={BUSINESS_INFO.seo.locale} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:site_name" content="Fusspflege Lena Schneider Erligheim bei Ella Schon" />
+    <meta property="og:site_name" content={BUSINESS_INFO.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/og-image.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={ogImageURL.toString()} />
+    <meta property="og:image:width" content={String(SITE_ASSETS.ogImageWidth)} />
+    <meta property="og:image:height" content={String(SITE_ASSETS.ogImageHeight)} />
+    <meta property="og:image:alt" content={title} />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/og-image.jpg" />
+    <meta name="twitter:image" content={ogImageURL.toString()} />
 
-    <!-- Geo & Local SEO -->
     <meta name="geo.region" content="DE-BW" />
-    <meta name="geo.placename" content="Erligheim" />
-    <meta name="geo.position" content="48.9615;9.0667" />
-    <meta name="ICBM" content="48.9615, 9.0667" />
-    <meta name="city" content="Erligheim" />
-    <meta name="state" content="Baden-Wurttemberg" />
+    <meta name="geo.placename" content={BUSINESS_INFO.address.city} />
+    <meta name="geo.position" content={`${BUSINESS_INFO.geo.latitude};${BUSINESS_INFO.geo.longitude}`} />
+    <meta name="ICBM" content={`${BUSINESS_INFO.geo.latitude}, ${BUSINESS_INFO.geo.longitude}`} />
+    <meta name="city" content={BUSINESS_INFO.address.city} />
+    <meta name="state" content={BUSINESS_INFO.address.region} />
     <meta name="country" content="Germany" />
     <meta name="language" content="German" />
     <meta name="distribution" content="local" />
 
-    <!-- Contact -->
-    <meta name="contact" content="info@fusspflege-lena-schneider.de" />
-    <meta name="telephone" content="+4917634237368" />
-    <meta name="address" content="Lochgauer str. 17, 74391 Erligheim" />
+    <meta name="contact" content={BUSINESS_INFO.contact.email} />
+    <meta name="telephone" content={BUSINESS_INFO.contact.phoneHref.replace('tel:', '')} />
+    <meta name="address" content={BUSINESS_INFO.address.fullAddress} />
 
-    <!-- Mobile -->
     <meta name="format-detection" content="telephone=yes" />
-    <meta name="theme-color" content="#8B9E7E" />
+    <meta name="theme-color" content={BUSINESS_INFO.seo.themeColor} />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Fusspflege Erligheim" />
+    <meta name="apple-mobile-web-app-title" content={BUSINESS_INFO.name} />
 
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/icon-192x192.png" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href={SITE_ASSETS.favicon} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={SITE_ASSETS.appleTouchIcon} />
+    <link rel="manifest" href={SITE_ASSETS.manifest} />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="https://www.google.com" />
     <link rel="dns-prefetch" href="https://maps.googleapis.com" />
     <link rel="preconnect" href="https://api.telegram.org" />
 
-    <!-- Google Analytics -->
     {gaId && (
-      <>
-        <script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} async></script>
-        <script is:inline define:vars={{ gaId }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', gaId);
-        </script>
-      </>
+      <script is:inline define:vars={{ gaId }}>
+        (() => {
+          const consentKey = 'cookieConsent';
+          const disableKey = `ga-disable-${gaId}`;
+
+          const hasAnalyticsConsent = () => {
+            try {
+              const rawValue = window.localStorage.getItem(consentKey);
+              if (!rawValue) return false;
+              const preferences = JSON.parse(rawValue);
+              return Boolean(preferences?.analytics);
+            } catch {
+              return false;
+            }
+          };
+
+          const updateConsent = (granted) => {
+            window[disableKey] = !granted;
+            if (window.gtag) {
+              window.gtag('consent', 'update', {
+                analytics_storage: granted ? 'granted' : 'denied',
+              });
+            }
+          };
+
+          const loadAnalytics = () => {
+            if (window.__gaInitialized) {
+              updateConsent(true);
+              return;
+            }
+
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function () {
+              window.dataLayer.push(arguments);
+            };
+            window.gtag('consent', 'default', { analytics_storage: 'denied' });
+
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+            document.head.appendChild(script);
+
+            window.gtag('js', new Date());
+            window.gtag('config', gaId, { anonymize_ip: true });
+            window.__gaInitialized = true;
+            updateConsent(true);
+          };
+
+          const syncAnalytics = () => {
+            if (hasAnalyticsConsent()) {
+              loadAnalytics();
+            } else {
+              updateConsent(false);
+            }
+          };
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', syncAnalytics, { once: true });
+          } else {
+            syncAnalytics();
+          }
+
+          window.addEventListener('cookie-consent-updated', syncAnalytics);
+        })();
+      </script>
     )}
 
-    <!-- Structured Data: LocalBusiness -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BeautySalon",
-      "@id": "https://fusspflege-lena-schneider.de/#business",
-      "name": "Fusspflege Lena Schneider",
-      "alternateName": ["Fusspflege Erligheim bei Ella Schoen", "Unser Salon bei Ella Schoen"],
-      "description": "Professionelle kosmetische Fusspflege, Pedikuere und Manikuere in Erligheim bei Ella Schoen. Inhaberin Elena Schneider bietet mehrfach zertifizierte Behandlungen in gemuetlicher Salon-Atmosphaere.",
-      "url": "https://fusspflege-lena-schneider.de",
-      "telephone": "+4917634237368",
-      "email": "info@fusspflege-lena-schneider.de",
-      "image": "https://fusspflege-lena-schneider.de/nails-work.jpg",
-      "priceRange": "25-60 EUR",
-      "currenciesAccepted": "EUR",
-      "paymentAccepted": "Cash, Debit Card",
-      "founder": {
-        "@type": "Person",
-        "name": "Elena Schneider",
-        "jobTitle": "Kosmetische Fusspflegerin"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Loechgauer Str. 17",
-        "addressLocality": "Erligheim",
-        "postalCode": "74391",
-        "addressRegion": "Baden-Wuerttemberg",
-        "addressCountry": "DE"
-      },
-      "geo": { "@type": "GeoCoordinates", "latitude": 48.9615, "longitude": 9.0667 },
-      "openingHoursSpecification": [
-        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "15:00" }
-      ],
-      "areaServed": [
-        {"@type":"City","name":"Erligheim"},{"@type":"City","name":"Boennigheim"},{"@type":"City","name":"Besigheim"},
-        {"@type":"City","name":"Sachsenheim"},{"@type":"City","name":"Bietigheim-Bissingen"},{"@type":"City","name":"Freudental"},
-        {"@type":"City","name":"Loechgau"},{"@type":"City","name":"Kirchheim am Neckar"},{"@type":"City","name":"Walheim"},
-        {"@type":"City","name":"Muendelsheim"},{"@type":"City","name":"Gemmrigheim"},{"@type":"City","name":"Vaihingen an der Enz"},
-        {"@type":"City","name":"Markgroeningen"},{"@type":"City","name":"Ludwigsburg"},
-        {"@type":"AdministrativeArea","name":"Landkreis Ludwigsburg"}
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Fusspflege & Manikuere Leistungen",
-        "itemListElement": [
-          {"@type":"OfferCatalog","name":"Fusspflege","itemListElement":[
-            {"@type":"Offer","price":"37.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Klassische Fusspflege","description":"Professionelle kosmetische Fusspflege: Naegel schneiden, Nagelhautentfernung, Hornhautentfernung. Ca. 45 Min."}},
-            {"@type":"Offer","price":"60.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Smart Pedikuere","description":"Moderne Fusspflege: sanfte Hornhautentfernung, Naegel formen, Hautpflege mit Pflegeoel. Ca. 50 Min."}},
-            {"@type":"Offer","price":"59.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Verwoehnpaket","description":"Rundum-Sorglos-Paket inkl. Fusspflege, Peeling und entspannende Massage. Ca. 60 Min."}},
-            {"@type":"Offer","price":"29.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Kosmetische Nagelkorrektur","description":"Kaum sichtbare, sanfte kosmetische Methode. Pro Nagel (ohne Fusspflege). Ca. 10 Min."}}
-          ]},
-          {"@type":"OfferCatalog","name":"Manikuere","itemListElement":[
-            {"@type":"Offer","price":"25.50","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Manikuere","description":"Naegel kuerzen, feilen und in Form bringen. Ca. 30 Min."}},
-            {"@type":"Offer","price":"55.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Neumodellage / Gel / Tips","description":"Professioneller Neuaufbau mit Gel oder Tips. Ca. 90 Min."}},
-            {"@type":"Offer","price":"45.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Auffuellen / Refill bis 4 Wochen","description":"Professionelles Auffuellen der Naegel. Ca. 60 Min."}},
-            {"@type":"Offer","price":"55.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Auffuellen / Refill ab 5 Wochen","description":"Professionelles Auffuellen der Naegel. Ca. 60 Min."}},
-            {"@type":"Offer","price":"50.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Japanische Manikuere","description":"Natuerliche Pflege fuer gesunde, glaenzende Naegel ohne Gel oder Acryl. Ca. 45 Min."}}
-          ]}
-        ]
-      }
-    })} />
-
-    <!-- Structured Data: FAQ -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {"@type":"Question","name":"Wo befindet sich die Fusspflege in Erligheim?","acceptedAnswer":{"@type":"Answer","text":"Unser Salon befindet sich bei Ella Schoen in Erligheim, Loechgauer Str. 17, 74391 Erligheim (Landkreis Ludwigsburg, Baden-Wuerttemberg). Inhaberin ist Elena Schneider."}},
-        {"@type":"Question","name":"Was kostet eine Fusspflege in Erligheim?","acceptedAnswer":{"@type":"Answer","text":"Klassische Fusspflege kostet 37 EUR (ca. 45 Min.), die Smart Pedikuere 60 EUR (ca. 50 Min.) und das Verwoehnpaket inkl. Peeling und Massage 59 EUR (ca. 60 Min.). Zusatzoptionen wie Shellac (+18 EUR) oder Nagellack (+8 EUR) sind moeglich."}},
-        {"@type":"Question","name":"Welche Manikuere-Leistungen werden angeboten?","acceptedAnswer":{"@type":"Answer","text":"Wir bieten Manikuere (25,50 EUR), Neumodellage mit Gel/Tips (55 EUR), Auffuellen/Refill (45-55 EUR je nach Zeitraum) und Japanische Manikuere (50 EUR) an."}},
-        {"@type":"Question","name":"Brauche ich einen Termin fuer die Fusspflege?","acceptedAnswer":{"@type":"Answer","text":"Ja, wir arbeiten ausschliesslich nach Terminvereinbarung. Sie koennen telefonisch (+49 176 34237368), per E-Mail (info@fusspflege-lena-schneider.de) oder ueber unser Online-Buchungsformular auf der Website einen Termin buchen."}},
-        {"@type":"Question","name":"Wann hat die Fusspflege in Erligheim geoeffnet?","acceptedAnswer":{"@type":"Answer","text":"Unsere Oeffnungszeiten sind Montag bis Freitag von 09:00 bis 15:00 Uhr. Samstag und Sonntag ist geschlossen. Termine ausserhalb der regulaeren Zeiten sind nach Absprache moeglich."}},
-        {"@type":"Question","name":"Was ist die Smart Pedikuere?","acceptedAnswer":{"@type":"Answer","text":"Die Smart Pedikuere ist unsere empfohlene moderne Form der Fusspflege. Hornhaut wird sanft entfernt, die Naegel werden geformt und die Haut mit Pflegeoel gepflegt. Das sorgt fuer glatte, gepflegte Fuesse und ein langanhaltendes Frischegefuehl. Preis: 60 EUR, Dauer: ca. 50 Min."}},
-        {"@type":"Question","name":"Gibt es Gutscheine fuer Fusspflege?","acceptedAnswer":{"@type":"Answer","text":"Ja, Gutscheine sind erhaeltlich! Das perfekte Geschenk fuer liebe Menschen. Fragen Sie einfach bei uns nach."}},
-        {"@type":"Question","name":"Was muss ich zur Fusspflege mitbringen?","acceptedAnswer":{"@type":"Answer","text":"Bitte bringen Sie ein kleines Handtuch zur Fusspflege mit."}},
-        {"@type":"Question","name":"Wie sind die Stornierungsbedingungen?","acceptedAnswer":{"@type":"Answer","text":"Bitte sagen Sie Ihren Termin mindestens 24 Stunden vorher ab. Bei kurzfristiger Absage oder Nichterscheinen kann eine Ausfallgebuehr berechnet werden."}}
-      ]
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessStructuredData)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   </head>
   <body class="font-body bg-cream text-text-dark">
-    <!-- Skip navigation -->
     <div class="sr-only focus-within:not-sr-only focus-within:absolute focus-within:top-4 focus-within:left-4 focus-within:z-[100] focus-within:flex focus-within:gap-2">
       <a href="#main-content" class="px-4 py-2 bg-sage text-white rounded-lg shadow-lg font-semibold">
         Zum Hauptinhalt springen
@@ -200,7 +302,6 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
 
     <slot />
 
-    <!-- Scroll Reveal Observer -->
     <script is:inline>
       (function() {
         const selectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children';

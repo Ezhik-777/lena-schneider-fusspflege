@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { BUSINESS_INFO, SERVICES } from '../../lib/constants';
+import {
+  formatDateForDisplay,
+  formatDateForInput,
+  getBookingDateRange,
+} from '../../lib/booking-dates';
 import { getServiceDuration } from '../../lib/service-config';
 import { isNonWorkingDay, getHolidayName } from '../../lib/german-holidays';
 
@@ -39,6 +44,12 @@ export default function BookingForm() {
     watch,
     formState: { errors },
   } = useForm<BookingFormData>();
+
+  const { minDate, maxDate } = getBookingDateRange();
+  const minBookingDate = formatDateForInput(minDate);
+  const maxBookingDate = formatDateForInput(maxDate);
+  const minBookingDateLabel = formatDateForDisplay(minDate);
+  const maxBookingDateLabel = formatDateForDisplay(maxDate);
 
   const services = [
     ...SERVICES.map(s => s.title),
@@ -123,6 +134,9 @@ export default function BookingForm() {
         setSubmitStatus('success');
         setErrorMessage('');
         reset();
+        setSelectedDate('');
+        setSelectedService('');
+        setAvailableSlots([]);
         // Scroll to success message
         setTimeout(() => {
           const element = document.getElementById('success-message');
@@ -156,8 +170,8 @@ export default function BookingForm() {
   };
 
   return (
-    <section id="booking" className="bg-gradient-to-br from-cream to-warm-white">
-      <div className="container px-5 sm:px-6">
+    <section id="booking" className="bg-gradient-to-br from-cream to-warm-white py-16 md:py-24">
+      <div className="container">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -383,20 +397,19 @@ export default function BookingForm() {
                         if (!value) return 'Bitte wählen Sie ein Datum aus';
 
                         const selectedDate = new Date(value);
-                        const minDate = new Date('2026-01-07');
-                        minDate.setHours(0, 0, 0, 0);
 
-                        // Check if date is before January 7, 2026
                         if (selectedDate < minDate) {
-                          return 'Termine sind ab dem 7. Januar 2026 verfügbar';
+                          return `Termine sind ab dem ${minBookingDateLabel} verfügbar`;
                         }
 
-                        // Check if it's Saturday or Sunday
+                        if (selectedDate > maxDate) {
+                          return `Wunschtermin darf nicht mehr als 1 Jahr im Voraus liegen (bis ${maxBookingDateLabel})`;
+                        }
+
                         const day = selectedDate.getDay();
                         if (day === 0) return 'Sonntags haben wir geschlossen';
                         if (day === 6) return 'Samstags haben wir geschlossen';
 
-                        // Check if it's a holiday
                         if (isNonWorkingDay(value)) {
                           const holidayName = getHolidayName(value);
                           if (holidayName) {
@@ -410,7 +423,8 @@ export default function BookingForm() {
                     })}
                     type="date"
                     id="wunschtermin"
-                    min="2026-01-07"
+                    min={minBookingDate}
+                    max={maxBookingDate}
                     disabled={isSubmitting}
                     aria-invalid={!!errors.wunschtermin}
                     aria-describedby={errors.wunschtermin ? 'wunschtermin-error' : undefined}

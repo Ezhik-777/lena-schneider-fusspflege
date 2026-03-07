@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { validateEnv } from '@/lib/env';
 import { containsSQLInjection, containsXSS, isLikelySpam } from '@/lib/security';
+import { formatDateForDisplay, getBookingDateRange } from '@/lib/booking-dates';
 import { Resend } from 'resend';
 import { getBookingConfirmationEmail } from '@/lib/email-templates';
 import { createBooking } from '@/lib/db';
@@ -136,22 +137,18 @@ export const POST: APIRoute = async ({ request }) => {
     // Validate date
     if (sanitizedData.wunschtermin) {
       const selectedDate = new Date(sanitizedData.wunschtermin);
-      const minDate = new Date('2026-01-07');
-      minDate.setHours(0, 0, 0, 0);
+      const { minDate, maxDate } = getBookingDateRange();
 
       if (selectedDate < minDate) {
         return new Response(
-          JSON.stringify({ message: 'Termine sind ab dem 7. Januar 2026 verfügbar' }),
+          JSON.stringify({ message: `Termine sind ab dem ${formatDateForDisplay(minDate)} verfügbar` }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
         );
       }
 
-      const maxDate = new Date('2027-01-07');
-      maxDate.setHours(0, 0, 0, 0);
-
       if (selectedDate > maxDate) {
         return new Response(
-          JSON.stringify({ message: 'Wunschtermin darf nicht mehr als 1 Jahr im Voraus liegen (bis 7. Januar 2027)' }),
+          JSON.stringify({ message: `Wunschtermin darf nicht mehr als 1 Jahr im Voraus liegen (bis ${formatDateForDisplay(maxDate)})` }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
         );
       }
@@ -160,9 +157,7 @@ export const POST: APIRoute = async ({ request }) => {
     const formatDate = (dateString: string) => {
       if (!dateString) return 'Nicht angegeben';
       try {
-        return new Date(dateString).toLocaleDateString('de-DE', {
-          day: '2-digit', month: 'long', year: 'numeric',
-        });
+        return formatDateForDisplay(new Date(dateString));
       } catch { return 'Ungültiges Datum'; }
     };
 

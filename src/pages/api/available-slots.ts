@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { getBookingDateRange } from '@/lib/booking-dates';
 import { getAvailableSlots } from '@/lib/db';
 import { getServiceDuration } from '@/lib/service-config';
 import { ALLOWED_ORIGINS, getCorsHeaders, createOptionsHandler } from '@/lib/api-helpers';
@@ -33,20 +34,16 @@ export const GET: APIRoute = async ({ request, url }) => {
     }
 
     const selectedDate = new Date(date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const { minDate, maxDate } = getBookingDateRange();
 
-    if (selectedDate < today) {
+    if (selectedDate < minDate) {
       return new Response(
         JSON.stringify({ message: 'Datum darf nicht in der Vergangenheit liegen' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    const oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-
-    if (selectedDate > oneYearFromNow) {
+    if (selectedDate > maxDate) {
       return new Response(
         JSON.stringify({ message: 'Datum darf nicht mehr als 1 Jahr in der Zukunft liegen' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }

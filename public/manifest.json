@@ -1,7 +1,7 @@
 {
-  "name": "Fußpflege Lena Schneider - Kosmetische Fußpflege & Pediküre",
-  "short_name": "Fußpflege Lena Schneider",
-  "description": "Professionelle kosmetische Fußpflege in Erligheim. Smart Pediküre, Klassische Fußpflege, Wellness-Fußreflexzonenmassage.",
+  "name": "Fußpflege Lena Schneider bei Ella Schön",
+  "short_name": "Lena Schneider",
+  "description": "Professionelle kosmetische Fußpflege, Pediküre und Maniküre in Erligheim. Termine nach Vereinbarung.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FDF6EC",
@@ -12,13 +12,13 @@
       "src": "/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
   "categories": ["health", "lifestyle", "beauty"],

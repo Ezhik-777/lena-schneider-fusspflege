@@ -1,5 +1,6 @@
 ---
-
+import { Image } from 'astro:assets';
+import heroImage from '@/assets/hero-gemini.jpeg';
 ---
 
 <section
@@ -104,12 +105,17 @@
 
         <!-- Hero Image -->
         <div class="relative">
-          <img
-            src="/hero-gemini.jpeg"
+          <Image
+            src={heroImage}
             alt="Professionelle Fusspflege im Salon von Lena Schneider in Erligheim"
             loading="eager"
-            width="560"
-            height="640"
+            widths={[320, 480, 560, 720, 960]}
+            sizes="(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw"
+            width={560}
+            height={640}
+            format="webp"
+            quality={80}
+            decoding="async"
             class="hero-image relative z-10 w-full max-w-md lg:max-w-lg object-cover border-4 border-gold-light shadow-2xl"
           />
 

@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://fusspflege-lena-schneider.de',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({ imageService: true }),
   integrations: [
     react(),
     tailwind(),

@@ -134,15 +134,20 @@ export const SERVICES = [
     ],
   },
   {
-    id: "auffuellen",
-    title: "Auffüllen",
+    id: "auffuellen-bis-4",
+    title: "Auffüllen / Refill bis 4 Wochen",
     description: "Professionelles Auffüllen der Nägel.",
     price: "45 €",
     duration: "60 Min.",
-    benefits: [
-      "Nachfüllen",
-      "Form anpassen"
-    ],
+    benefits: ["Nachfüllen", "Form anpassen"],
+  },
+  {
+    id: "auffuellen-ab-5",
+    title: "Auffüllen / Refill ab 5 Wochen",
+    description: "Professionelles Auffüllen der Nägel.",
+    price: "55 €",
+    duration: "60 Min.",
+    benefits: ["Nachfüllen", "Form anpassen"],
   },
   {
     id: "japanische-manikuere",
@@ -212,7 +217,10 @@ export const SERVICE_CATEGORIES = [
       },
       {
         title: "Auffüllen",
-        price: "45,00 €",
+        priceOptions: [
+          { label: "bis 4 Wochen", price: "45,00 €" },
+          { label: "ab 5 Wochen", price: "55,00 €" },
+        ],
       },
       {
         title: "Japanische Maniküre",

@@ -16,7 +16,8 @@ export const SERVICES: ServiceConfig[] = [
 
   // 2 hour services
   { name: 'Neumodellage / Gel / Tips', duration: 2 },
-  { name: 'Auffüllen', duration: 2 },
+  { name: 'Auffüllen / Refill bis 4 Wochen', duration: 2 },
+  { name: 'Auffüllen / Refill ab 5 Wochen', duration: 2 },
   { name: 'Mehrere Leistungen', duration: 2 },
 ];
 

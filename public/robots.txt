@@ -24,5 +24,9 @@ Disallow: /api/
 Disallow: /_astro/
 Disallow: /admin/
 
+# LLM-Informationen
+# https://llmstxt.org/
+LLMs-Txt: https://fusspflege-lena-schneider.de/llms.txt
+
 # Sitemap Locations
 Sitemap: https://fusspflege-lena-schneider.de/sitemap-index.xml

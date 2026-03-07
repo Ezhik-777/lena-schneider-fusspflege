@@ -74,7 +74,13 @@
       "Bash(npx astro:*)",
       "Bash(gh api:*)",
       "Bash(git fetch:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(SSH_AUTH_SOCK=\"$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\" git push:*)",
+      "Bash(SSH_AUTH_SOCK=\"$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\" ssh-add:*)",
+      "Bash(SSH_AUTH_SOCK=\"$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\" ssh:*)",
+      "Bash(npx clear-npx-cache:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs"
     ],
     "deny": [],
     "ask": []

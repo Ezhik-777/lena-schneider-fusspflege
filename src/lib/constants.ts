@@ -61,8 +61,9 @@ export const BUSINESS_INFO = {
   ],
 
   social: {
-    facebook: "https://facebook.com/fusspflege.lena.schneider",
-    instagram: "https://instagram.com/fusspflege.lena.schneider",
+    instagram: "https://www.instagram.com/kosmetikfus",
+    tiktok: "https://www.tiktok.com/@lena.fupflege.erl",
+    googleBusiness: "https://share.google/r9i2S2iSLp7LsbW4g",
   },
 
   seo: {

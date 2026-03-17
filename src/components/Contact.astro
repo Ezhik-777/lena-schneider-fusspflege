@@ -1,6 +1,6 @@
 ---
 import { BUSINESS_INFO, OPENING_HOURS } from '@/lib/constants';
-const googleMapsUrl = `https://maps.google.com/?q=${encodeURIComponent(BUSINESS_INFO.address.fullAddress)}`;
+const googleMapsUrl = BUSINESS_INFO.social.googleBusiness;
 const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(BUSINESS_INFO.address.fullAddress)}&output=embed&z=15`;
 ---
 
@@ -179,6 +179,17 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(BUSINES
             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
           </svg>
           E-Mail schreiben
+        </a>
+        <a
+          href={BUSINESS_INFO.social.googleBusiness}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-outline inline-flex items-center gap-2 border-2 border-gold-light hover:bg-gold-light/20 text-olive rounded-organic-sm px-6 py-3 font-body font-semibold text-sm"
+        >
+          <svg class="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+          Google Bewertungen
         </a>
       </div>
     </div>

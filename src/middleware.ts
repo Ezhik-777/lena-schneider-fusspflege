@@ -10,7 +10,7 @@ export const onRequest = defineMiddleware(async (_context, next) => {
     "img-src 'self' data: https: blob:",
     "font-src 'self' data: https://fonts.gstatic.com",
     "frame-src 'self' https://www.google.com",
-    "connect-src 'self' https://api.telegram.org https://www.google.com https://maps.googleapis.com https://www.google-analytics.com",
+    "connect-src 'self' https://api.telegram.org https://www.google.com https://maps.googleapis.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

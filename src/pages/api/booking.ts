@@ -137,7 +137,14 @@ export const POST: APIRoute = async ({ request }) => {
     // Validate date
     if (sanitizedData.wunschtermin) {
       const selectedDate = new Date(sanitizedData.wunschtermin);
-      const { minDate, maxDate } = getBookingDateRange();
+      const { minDate, maxDate, bookingsClosed } = getBookingDateRange();
+
+      if (bookingsClosed) {
+        return new Response(
+          JSON.stringify({ message: 'Online-Terminbuchung ist derzeit nicht möglich. Bitte kontaktieren Sie uns direkt.' }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
 
       if (selectedDate < minDate) {
         return new Response(
@@ -148,7 +155,7 @@ export const POST: APIRoute = async ({ request }) => {
 
       if (selectedDate > maxDate) {
         return new Response(
-          JSON.stringify({ message: `Wunschtermin darf nicht mehr als 1 Jahr im Voraus liegen (bis ${formatDateForDisplay(maxDate)})` }),
+          JSON.stringify({ message: `Termine können nur bis zum ${formatDateForDisplay(maxDate)} gebucht werden` }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
         );
       }

@@ -45,7 +45,7 @@ export default function BookingForm() {
     formState: { errors },
   } = useForm<BookingFormData>();
 
-  const { minDate, maxDate } = getBookingDateRange();
+  const { minDate, maxDate, bookingsClosed } = getBookingDateRange();
   const minBookingDate = formatDateForInput(minDate);
   const maxBookingDate = formatDateForInput(maxDate);
   const minBookingDateLabel = formatDateForDisplay(minDate);
@@ -188,6 +188,38 @@ export default function BookingForm() {
             </p>
           </div>
 
+          {bookingsClosed && (
+            <div
+              role="status"
+              aria-live="polite"
+              className="bg-amber-bg border-l-4 border-amber-border rounded-organic shadow-lg p-6 sm:p-8 lg:p-10 text-center"
+            >
+              <span className="text-4xl block mb-3" aria-hidden="true">&#128197;</span>
+              <h3 className="font-display text-olive text-xl sm:text-2xl mb-3">
+                Online-Terminbuchung ist derzeit nicht möglich
+              </h3>
+              <p className="text-[1rem] sm:text-base text-text-muted leading-relaxed mb-5">
+                Für eine Terminanfrage kontaktieren Sie uns bitte direkt telefonisch oder per E-Mail.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href={BUSINESS_INFO.contact.phoneHref}
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 transition-all min-h-[56px]"
+                >
+                  {BUSINESS_INFO.contact.phoneFormatted}
+                </a>
+                <a
+                  href={BUSINESS_INFO.contact.emailHref}
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 transition-all min-h-[56px]"
+                >
+                  {BUSINESS_INFO.contact.email}
+                </a>
+              </div>
+            </div>
+          )}
+
+          {!bookingsClosed && (
+          <>
           {/* Success Message */}
           {submitStatus === 'success' && (
             <div
@@ -403,7 +435,7 @@ export default function BookingForm() {
                         }
 
                         if (selectedDate > maxDate) {
-                          return `Wunschtermin darf nicht mehr als 1 Jahr im Voraus liegen (bis ${maxBookingDateLabel})`;
+                          return `Termine können nur bis zum ${maxBookingDateLabel} gebucht werden`;
                         }
 
                         const day = selectedDate.getDay();
@@ -603,6 +635,8 @@ export default function BookingForm() {
               </a>
             </div>
           </div>
+          </>
+          )}
         </div>
       </div>
     </section>

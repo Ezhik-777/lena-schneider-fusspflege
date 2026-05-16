@@ -4,14 +4,26 @@ export function toStartOfDay(date: Date): Date {
   return normalizedDate;
 }
 
+// First date for which bookings are no longer accepted.
+// Anything on/after this date is blocked in the calendar, on the API and in the UI.
+export const BOOKING_CUTOFF_DATE = new Date(2026, 5, 1); // 2026-06-01
+
 export function getBookingDateRange(now = new Date()): {
   minDate: Date;
   maxDate: Date;
+  bookingsClosed: boolean;
 } {
   const minDate = toStartOfDay(now);
-  const maxDate = new Date(minDate);
-  maxDate.setFullYear(maxDate.getFullYear() + 1);
-  return { minDate, maxDate };
+  const yearAhead = new Date(minDate);
+  yearAhead.setFullYear(yearAhead.getFullYear() + 1);
+
+  const lastBookableDay = toStartOfDay(new Date(BOOKING_CUTOFF_DATE));
+  lastBookableDay.setDate(lastBookableDay.getDate() - 1);
+
+  const maxDate = yearAhead < lastBookableDay ? yearAhead : lastBookableDay;
+  const bookingsClosed = maxDate < minDate;
+
+  return { minDate, maxDate, bookingsClosed };
 }
 
 export function formatDateForInput(date: Date): string {

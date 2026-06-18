@@ -92,7 +92,6 @@ const localBusinessStructuredData = {
   alternateName: BUSINESS_INFO.alternateNames,
   description,
   url: BUSINESS_INFO.seo.domain,
-  telephone: BUSINESS_INFO.contact.phoneHref.replace('tel:', ''),
   email: BUSINESS_INFO.contact.email,
   image: ogImageURL.toString(),
   priceRange: BUSINESS_INFO.priceRange,
@@ -198,10 +197,9 @@ const faqStructuredData = {
     <meta name="distribution" content="local" />
 
     <meta name="contact" content={BUSINESS_INFO.contact.email} />
-    <meta name="telephone" content={BUSINESS_INFO.contact.phoneHref.replace('tel:', '')} />
     <meta name="address" content={BUSINESS_INFO.address.fullAddress} />
 
-    <meta name="format-detection" content="telephone=yes" />
+    <meta name="format-detection" content="telephone=no" />
     <meta name="theme-color" content={BUSINESS_INFO.seo.themeColor} />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

@@ -276,12 +276,6 @@ export function getBookingConfirmationEmail(data: BookingData): string {
                 </p>
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 15px;">
                   <tr>
-                    <td style="padding: 6px 0; color: #92400e;">📞</td>
-                    <td style="padding: 6px 0 6px 8px;">
-                      <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
-                    </td>
-                  </tr>
-                  <tr>
                     <td style="padding: 6px 0; color: #92400e;">📧</td>
                     <td style="padding: 6px 0 6px 8px;">
                       <a href="mailto:info@fusspflege-lena-schneider.de" style="color: #2563eb; text-decoration: none; font-weight: 600;">info@fusspflege-lena-schneider.de</a>
@@ -312,15 +306,6 @@ export function getBookingConfirmationEmail(data: BookingData): string {
                   </tr>
                   <tr>
                     <td style="padding: 8px 0; color: #1e3a8a; vertical-align: top;">
-                      <span style="font-size: 18px;">📞</span>
-                    </td>
-                    <td style="padding: 8px 0;">
-                      <strong style="color: #0c4a6e;">Telefon:</strong><br>
-                      <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0; color: #1e3a8a; vertical-align: top;">
                       <span style="font-size: 18px;">📧</span>
                     </td>
                     <td style="padding: 8px 0;">
@@ -346,7 +331,6 @@ export function getBookingConfirmationEmail(data: BookingData): string {
 
             <div class="contact-info">
               📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
-              📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
               🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
               📍 Erligheim
             </div>
@@ -504,9 +488,8 @@ export function getContactConfirmationEmail(data: ContactData): string {
             <div class="next-steps">
               <h3>📞 Wie geht es weiter?</h3>
               <ul>
-                <li><strong>Ich melde mich zeitnah bei Ihnen</strong> per E-Mail oder Telefon</li>
+                <li><strong>Ich melde mich zeitnah bei Ihnen</strong> per E-Mail</li>
                 <li>In der Regel antworte ich <strong>innerhalb von 24 Stunden</strong></li>
-                <li>Bei dringenden Fragen können Sie mich auch gerne <strong>telefonisch</strong> unter +49 176 34237368 erreichen</li>
               </ul>
             </div>
 
@@ -524,7 +507,6 @@ export function getContactConfirmationEmail(data: ContactData): string {
 
             <div class="contact-info">
               📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
-              📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
               🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
               📍 Erligheim
             </div>
@@ -709,9 +691,6 @@ export function getBookingStatusEmail(data: {
                     Bitte sagen Sie <strong style="color: #92400e;">mindestens 24 Stunden vorher</strong> ab:
                   </p>
                   <p style="margin: 8px 0; color: #92400e;">
-                    📞 <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
-                  </p>
-                  <p style="margin: 8px 0; color: #92400e;">
                     📧 <a href="mailto:info@fusspflege-lena-schneider.de" style="color: #2563eb; text-decoration: none; font-weight: 600;">info@fusspflege-lena-schneider.de</a>
                   </p>
                   <p style="color: #78350f; margin: 12px 0 0 0; font-size: 14px;">
@@ -728,10 +707,6 @@ export function getBookingStatusEmail(data: {
                   <p style="margin: 8px 0; color: #374151;">
                     <strong style="color: #0c4a6e;">📍 Adresse:</strong><br>
                     Löchgauer str. 17<br>74391 Erligheim
-                  </p>
-                  <p style="margin: 8px 0;">
-                    <strong style="color: #0c4a6e;">📞 Telefon:</strong><br>
-                    <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
                   </p>
                 </div>
               </div>
@@ -769,9 +744,6 @@ export function getBookingStatusEmail(data: {
                   Bitte kontaktieren Sie mich, um einen alternativen Termin zu vereinbaren:
                 </p>
                 <p style="margin: 8px 0;">
-                  📞 <a href="tel:+4917634237368" style="color: #2563eb; text-decoration: none; font-weight: 600;">+49 176 34237368</a>
-                </p>
-                <p style="margin: 8px 0;">
                   📧 <a href="mailto:info@fusspflege-lena-schneider.de" style="color: #2563eb; text-decoration: none; font-weight: 600;">info@fusspflege-lena-schneider.de</a>
                 </p>
               </div>
@@ -789,7 +761,6 @@ export function getBookingStatusEmail(data: {
           <div class="footer">
             <div class="contact-info">
               📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
-              📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
               🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
               📍 Erligheim
             </div>
@@ -894,7 +865,6 @@ export function getAlternativeProposalEmail(data: {
               <p style="margin:0 0 8px 0; font-weight:600; color:#1e40af;">📞 Passt der Termin nicht?</p>
               <p style="margin:0; color:#1e3a8a; font-size:14px; line-height:1.6;">
                 Melden Sie sich gerne bei mir, damit wir gemeinsam einen passenden Termin finden:<br>
-                📞 <a href="tel:+4917634237368" style="color:#2563eb; font-weight:600;">+49 176 34237368</a><br>
                 📧 <a href="mailto:info@fusspflege-lena-schneider.de" style="color:#2563eb; font-weight:600;">info@fusspflege-lena-schneider.de</a>
               </p>
             </div>
@@ -909,7 +879,6 @@ export function getAlternativeProposalEmail(data: {
           <div class="footer">
             <div class="contact-info">
               📧 <a href="mailto:info@fusspflege-lena-schneider.de">info@fusspflege-lena-schneider.de</a><br>
-              📞 <a href="tel:+4917634237368">+49 176 34237368</a><br>
               🌐 <a href="https://fusspflege-lena-schneider.de">fusspflege-lena-schneider.de</a><br>
               📍 Erligheim
             </div>

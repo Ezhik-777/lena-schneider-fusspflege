@@ -199,15 +199,9 @@ export default function BookingForm() {
                 Online-Terminbuchung ist derzeit nicht möglich
               </h3>
               <p className="text-[1rem] sm:text-base text-text-muted leading-relaxed mb-5">
-                Für eine Terminanfrage kontaktieren Sie uns bitte direkt telefonisch oder per E-Mail.
+                Für eine Terminanfrage kontaktieren Sie uns bitte direkt per E-Mail.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href={BUSINESS_INFO.contact.phoneHref}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 transition-all min-h-[56px]"
-                >
-                  {BUSINESS_INFO.contact.phoneFormatted}
-                </a>
                 <a
                   href={BUSINESS_INFO.contact.emailHref}
                   className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 transition-all min-h-[56px]"
@@ -613,16 +607,6 @@ export default function BookingForm() {
           <div className="mt-10 sm:mt-12 text-center">
             <p className="text-[1rem] sm:text-base text-text-muted mb-4 sm:mb-4 font-medium">Oder kontaktieren Sie uns direkt:</p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 justify-center">
-              <a
-                href={BUSINESS_INFO.contact.phoneHref}
-                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-6 py-4 sm:py-3 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 active:bg-sage-100 transition-all touch-manipulation active:scale-95 text-[1rem] sm:text-base min-h-[56px]"
-                aria-label={`Telefonnummer ${BUSINESS_INFO.contact.phoneFormatted} anrufen`}
-              >
-                <svg className="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                {BUSINESS_INFO.contact.phoneFormatted}
-              </a>
               <a
                 href={BUSINESS_INFO.contact.emailHref}
                 className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-6 py-4 sm:py-3 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 active:bg-sage-100 transition-all touch-manipulation active:scale-95 text-[1rem] sm:text-base min-h-[56px]"

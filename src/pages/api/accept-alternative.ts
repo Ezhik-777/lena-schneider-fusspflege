@@ -50,7 +50,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         'Ungültiger Link',
         `<p>Dieser Link ist ungültig oder abgelaufen.</p>
          <p>Bitte kontaktieren Sie uns direkt:</p>
-         <p><strong>📞 +49 176 34237368</strong></p>`,
+         <p><strong>📧 info@fusspflege-lena-schneider.de</strong></p>`,
         '#dc2626'
       ),
       { status: 400, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
@@ -68,7 +68,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         '⚠️',
         'Technischer Fehler',
         `<p>Ein technischer Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.</p>
-         <p><strong>📞 +49 176 34237368</strong></p>`,
+         <p><strong>📧 info@fusspflege-lena-schneider.de</strong></p>`,
         '#d97706'
       ),
       { status: 500, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
@@ -82,7 +82,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         '🔍',
         'Link nicht gefunden',
         `<p>Dieser Bestätigungslink ist ungültig oder wurde bereits verwendet.</p>
-         <p>Bei Fragen melden Sie sich gerne: <strong>📞 +49 176 34237368</strong></p>`,
+         <p>Bei Fragen melden Sie sich gerne: <strong>📧 info@fusspflege-lena-schneider.de</strong></p>`,
         '#6b7280'
       ),
       { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
@@ -122,7 +122,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         '⏰',
         'Link nicht mehr gültig',
         `<p>Dieser Link ist nicht mehr gültig. Der Termin wurde möglicherweise bereits anderweitig vergeben.</p>
-         <p>Bitte nehmen Sie Kontakt auf: <strong>📞 +49 176 34237368</strong></p>`,
+         <p>Bitte nehmen Sie Kontakt auf: <strong>📧 info@fusspflege-lena-schneider.de</strong></p>`,
         '#6b7280'
       ),
       { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
@@ -140,7 +140,7 @@ export const GET: APIRoute = async ({ url, request }) => {
         '⚠️',
         'Bestätigung fehlgeschlagen',
         `<p>Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns:</p>
-         <p><strong>📞 +49 176 34237368</strong></p>`,
+         <p><strong>📧 info@fusspflege-lena-schneider.de</strong></p>`,
         '#d97706'
       ),
       { status: 500, headers: { 'Content-Type': 'text/html; charset=utf-8' } }

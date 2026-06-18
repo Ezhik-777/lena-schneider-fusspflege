@@ -13,8 +13,6 @@ export const BUSINESS_INFO = {
   ],
 
   contact: {
-    phoneFormatted: "+49 176 34237368",
-    phoneHref: "tel:+4917634237368",
     email: "info@fusspflege-lena-schneider.de",
     emailHref: "mailto:info@fusspflege-lena-schneider.de",
   },
@@ -300,7 +298,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: "Brauche ich einen Termin für die Fußpflege?",
-    answer: `Ja, wir arbeiten ausschließlich nach Terminvereinbarung. Sie können telefonisch (${BUSINESS_INFO.contact.phoneFormatted}), per E-Mail (${BUSINESS_INFO.contact.email}) oder über das Online-Buchungsformular anfragen.`,
+    answer: `Ja, wir arbeiten ausschließlich nach Terminvereinbarung. Sie können uns per E-Mail (${BUSINESS_INFO.contact.email}) oder über das Online-Buchungsformular kontaktieren.`,
   },
   {
     question: "Wann hat die Fußpflege geöffnet?",

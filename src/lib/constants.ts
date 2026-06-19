@@ -298,7 +298,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: "Brauche ich einen Termin für die Fußpflege?",
-    answer: `Ja, wir arbeiten ausschließlich nach Terminvereinbarung. Sie können uns per E-Mail (${BUSINESS_INFO.contact.email}) oder über das Online-Buchungsformular kontaktieren.`,
+    answer: "Ja, wir arbeiten ausschließlich nach Terminvereinbarung. Bitte vereinbaren Sie Ihren Termin vorab.",
   },
   {
     question: "Wann hat die Fußpflege geöffnet?",

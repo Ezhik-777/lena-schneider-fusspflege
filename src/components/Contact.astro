@@ -16,28 +16,12 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(BUSINES
         Besuchen Sie uns in <span class="text-sage">Erligheim</span>
       </h2>
       <p class="font-body text-text-muted max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-        Wir freuen uns auf Ihren Besuch. Rufen Sie uns an, schreiben Sie uns oder nutzen Sie direkt das Buchungsformular weiter unten.
+        Wir freuen uns auf Ihren Besuch in unserem Salon in Erligheim.
       </p>
     </div>
 
     <!-- Contact Info Cards -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12 stagger-children">
-
-      <!-- Email Card -->
-      <a
-        href={BUSINESS_INFO.contact.emailHref}
-        class="bg-warm-white border border-gold-light/30 rounded-organic-sm p-6 card-hover group block"
-      >
-        <div class="w-12 h-12 bg-sage-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sage-100 transition-colors">
-          <svg class="w-5 h-5 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" rx="2" />
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-          </svg>
-        </div>
-        <p class="font-body font-semibold text-olive text-sm mb-1">E-Mail</p>
-        <p class="text-sage font-semibold font-body text-sm break-all">{BUSINESS_INFO.contact.email}</p>
-        <p class="text-text-muted text-xs mt-1 font-body">Wir antworten schnellstm&ouml;glich</p>
-      </a>
+    <div class="grid sm:grid-cols-2 gap-5 mb-12 stagger-children">
 
       <!-- Address Card -->
       <a
@@ -117,7 +101,7 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(BUSINES
         <div>
           <p class="font-body font-semibold text-olive text-sm mb-1">Terminvereinbarung erforderlich</p>
           <p class="text-text-muted text-xs font-body leading-relaxed">
-            Bitte vereinbaren Sie vorab einen Termin per E-Mail oder &uuml;ber unser Online-Formular.
+            Bitte vereinbaren Sie Ihren Termin vorab.
             Termine au&szlig;erhalb der regul&auml;ren &Ouml;ffnungszeiten sind nach Absprache m&ouml;glich.
           </p>
         </div>
@@ -144,18 +128,8 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(BUSINES
 
     <!-- Alternative Contact -->
     <div class="text-center mt-12 reveal">
-      <p class="font-body text-text-muted mb-5">Oder kontaktieren Sie uns direkt:</p>
+      <p class="font-body text-text-muted mb-5">Besuchen Sie uns auch online:</p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a
-          href={BUSINESS_INFO.contact.emailHref}
-          class="btn-outline inline-flex items-center gap-2 border-2 border-sage hover:bg-sage hover:text-white text-sage rounded-organic-sm px-6 py-3 font-body font-semibold text-sm"
-        >
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" rx="2" />
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-          </svg>
-          E-Mail schreiben
-        </a>
         <a
           href={BUSINESS_INFO.social.googleBusiness}
           target="_blank"

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import { BUSINESS_INFO, SERVICES } from '../../lib/constants';
+import { SERVICES } from '../../lib/constants';
 import {
   formatDateForDisplay,
   formatDateForInput,
@@ -198,17 +198,9 @@ export default function BookingForm() {
               <h3 className="font-display text-olive text-xl sm:text-2xl mb-3">
                 Online-Terminbuchung ist derzeit nicht möglich
               </h3>
-              <p className="text-[1rem] sm:text-base text-text-muted leading-relaxed mb-5">
-                Für eine Terminanfrage kontaktieren Sie uns bitte direkt per E-Mail.
+              <p className="text-[1rem] sm:text-base text-text-muted leading-relaxed">
+                Besuchen Sie uns gerne direkt vor Ort in Erligheim.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href={BUSINESS_INFO.contact.emailHref}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 transition-all min-h-[56px]"
-                >
-                  {BUSINESS_INFO.contact.email}
-                </a>
-              </div>
             </div>
           )}
 
@@ -602,23 +594,6 @@ export default function BookingForm() {
               * Pflichtfelder
             </p>
           </form>
-
-          {/* Alternative Contact */}
-          <div className="mt-10 sm:mt-12 text-center">
-            <p className="text-[1rem] sm:text-base text-text-muted mb-4 sm:mb-4 font-medium">Oder kontaktieren Sie uns direkt:</p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 justify-center">
-              <a
-                href={BUSINESS_INFO.contact.emailHref}
-                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-6 py-4 sm:py-3 bg-warm-white border-2 border-sage text-olive rounded-xl font-bold hover:bg-sage-50 active:bg-sage-100 transition-all touch-manipulation active:scale-95 text-[1rem] sm:text-base min-h-[56px]"
-                aria-label={`E-Mail an ${BUSINESS_INFO.contact.email} senden`}
-              >
-                <svg className="w-5 h-5 text-sage" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                {BUSINESS_INFO.contact.email}
-              </a>
-            </div>
-          </div>
           </>
           )}
         </div>

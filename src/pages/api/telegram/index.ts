@@ -417,10 +417,30 @@ function getBot() {
 
 // Webhook handler
 export const POST: APIRoute = async ({ request }) => {
+  // Telegram echoes the secret_token given to setWebhook in this header.
+  const webhookSecret = import.meta.env.TELEGRAM_WEBHOOK_SECRET;
+  if (webhookSecret && request.headers.get('x-telegram-bot-api-secret-token') !== webhookSecret) {
+    return new Response(JSON.stringify({ ok: false }), {
+      status: 403, headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   try {
-    const bot = getBot();
     const body = await request.json();
-    await bot.handleUpdate(body);
+
+    // The webhook URL is public, so a forged update could confirm bookings
+    // (which emails the customer) or block dates. Only act on updates from the
+    // one chat the booking notifications are sent to.
+    const chatId = body?.callback_query?.message?.chat?.id ?? body?.message?.chat?.id;
+    const allowedChatId = import.meta.env.TELEGRAM_CHAT_ID;
+    if (!allowedChatId || String(chatId) !== String(allowedChatId)) {
+      console.warn('Telegram update from unauthorized chat ignored:', chatId);
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200, headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    await getBot().handleUpdate(body);
     return new Response(JSON.stringify({ ok: true }), {
       status: 200, headers: { 'Content-Type': 'application/json' },
     });

@@ -2,6 +2,7 @@
 // Run with: npx tsx scripts/setup-telegram-webhook.ts
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_WEBHOOK_SECRET = process.env.TELEGRAM_WEBHOOK_SECRET;
 const WEBHOOK_URL = process.env.TELEGRAM_WEBHOOK_URL || 'https://fusspflege-lena-schneider.de/api/telegram';
 
 async function setupWebhook() {
@@ -24,6 +25,7 @@ async function setupWebhook() {
       body: JSON.stringify({
         url: WEBHOOK_URL,
         allowed_updates: ['callback_query', 'message'],
+        ...(TELEGRAM_WEBHOOK_SECRET ? { secret_token: TELEGRAM_WEBHOOK_SECRET } : {}),
       }),
     });
 
